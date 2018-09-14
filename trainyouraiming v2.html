@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	  	<link rel="stylesheet" href="css/style.css">
+	</head>	
+  <body id="main-body" class="day-mode">
+	<select id="play-mode" onchange="change_mode();">
+		<option value="0">Day</option>
+		<option value="1">Night</option>
+	</select>
+  	<select id="difficultySelector" onchange="SetDifficultyLevel();" >
+  		<option value="70">Ez</option>
+  		<option value="40">Medium</option>
+  		<option value="20">Hard</option>
+  	</select>
+	<table> 
+		<tr>
+			<td id="left-bar"> 
+				<table  id="main-table">
+					<tr>
+						<td>						
+							Score:
+						</td>
+						<td>
+							<label id="score"></label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Lifes:
+						</td>
+						<td> 
+							<label id="lifes"></label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Total Click Time:
+						</td>
+						<td>
+							<label id="totClickTime"></label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Average Click Time:
+						</td>
+						<td> 
+							<label id="avgClickTime"></label>
+						</td> 
+					</tr>
+				</table>
+			</td>
+			<td id="play-side"> 				    
+				<div><canvas id="playAreaCanvas" width="640" height="480" ></canvas></div>
+				
+				<div  id="resultsCanvas" width="1000" height="50" ></div>
+
+				<button onclick="BoardPreparation()">Reset</button>
+			</td> 
+			<td id="right-bar">
+			</td>
+		</tr> 
+	</table> 
+  </body>
+</html>
+
+<script>
+	var playCanvas = document.getElementById('playAreaCanvas');	
+</script>	
+
+<script src="js/clickableObject.js"></script>
+<script src="js/target.js"></script>
+<script src="js/drawing.js"></script>
+<script src="js/score.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/init.js"></script>
+<script>	
+
+  	function SetDifficultyLevel()
+  	{
+		var sel = document.getElementById('difficultySelector');
+		
+		target.SetRadius( sel.options[sel.selectedIndex].value );
+		objs = [ target ];
+		drawing.UpdateObjectList( objs );
+		BoardPreparation( playCanvas );
+  	}
+
+  	function change_mode(){
+		var selez = document.getElementById('play-mode');
+			
+		if(selez.options[selez.selectedIndex].value == "0")
+			document.getElementById("main-body").className = "day-mode";
+		else
+			document.getElementById("main-body").className = "night-mode";
+	}
+
+	SetDifficultyLevel();
+
+
+playCanvas.addEventListener('click', function(evt)
+{
+	Log("Click");
+	scoring.clicks.clicksAmount++;
+	var mousePos = GetMousePos( playCanvas, evt );Log( mousePos );
+	var clickScore = target.IsHit( mousePos );
+	
+	if( playing )
+	{
+		if( clickScore > 0 )
+		{	
+			Log("Click On Circle");
+			target.targetPosition = { x: ((Math.random() * playCanvas.width) + 1), y: ((Math.random() * playCanvas.height) + 1) };
+
+			actualTime = new Date().getTime();
+			scoring.clicks.lastClickDuration = actualTime - scoring.clicks.lastClickTime;
+			scoring.clicks.lastClickTime = actualTime;
+			if( actualTime < scoring.clicks.bestClickTime ) { scoring.clicks.bestClickTime = actualTime; }
+			scoring.score += (clickScore);
+		}
+		else
+		{
+			Log("Click Outside");
+			scoring.lifes--;
+
+			if ( scoring.lifes <= 0) 
+			{
+				playing = false;
+				drawing.RefreshScreen();
+				DrawMessage2Canvas(playCanvas, 'Game OVER!!', { x : playCanvas.x, y : playCanvas.y, width : (playCanvas.width/2), height : (playCanvas.height/2) }, false);
+				StopGameClock();
+			}
+		}
+	}
+	else
+	{
+		if (lifes<=0)
+		{
+			SetDifficultyLevel();
+		}
+		else
+		{
+			Start(); 
+		}
+	}
+}, false);
+</script>
