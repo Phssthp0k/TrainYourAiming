@@ -34,6 +34,7 @@ class targetClass
 			this.targetCircles[i].position = this.targetPosition;
 			this.targetCircles[i].hitScore = (i + 1);
 			this.targetCircles[i].name = "Circle points: "+this.targetCircles[i].hitScore;
+			this.targetCircles[i].StartAnimation();
 		}
 	};
 
@@ -44,16 +45,6 @@ class targetClass
 		console.log(this.circlesNumber);
 		console.log(this.maxRadius);
 		console.log(this.targetCircles);
-	}
-
-	StartAnimation()
-	{
-		this.targetTimer.Start();
-	}
-
-	Tick()
-	{
-		log("tock");
 	}
 
 	Draw( canvas )

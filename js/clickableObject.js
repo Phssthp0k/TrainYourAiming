@@ -40,6 +40,8 @@ class circle extends clickableObject
 	{
 		super();
 		this.radius = 70;
+
+		this.circleTimer = new GameTimer(500);
 	}
 
 	Draw( canvas, newPosition )
@@ -64,6 +66,16 @@ class circle extends clickableObject
 		COntext.stroke();
 	
 	};
+
+	StartAnimation()
+	{
+		this.circleTimer.Start( () => {this.Animation()} );
+	}
+
+	Animation()
+	{
+		this.color = getRandomColor();
+	}
 
 	Refresh( canvas )
 	{

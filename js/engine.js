@@ -39,18 +39,8 @@ function Start()
 	// drawing.PrintInfos();
 	drawing.StartRefresh();
 	// StartGameClock(drawing.RefreshScreen);
+
 }
-
-
-// var GameClock;
-// var GameClockSpeed = 100;
-// function StartGameClock(GameClockFunc){ GameClock = setInterval(Tick, GameClockSpeed, GameClockFunc);}
-// function StopGameClock()	{ clearInterval(GameClock);	}	
-// function Tick(func)
-// {
-// 	drawing.RefreshScreen();
-// 	// func();
-// }
 
 class GameTimer
 {
@@ -67,8 +57,6 @@ class GameTimer
 
 	Start(param)
 	{
-		log(param);			
-
 		if ( param !== null )
 		{
 			log("in");
@@ -84,73 +72,4 @@ class GameTimer
 	{
 		clearInterval(this._intervalTimer);
 	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class test
-{
-	constructor()
-	{
-		this.fuffa = new GameTimer(500);
-		this._nome= 'nome';
-
-		this.watchFile(() => 
-		{
-	    	pelo( this._nome );
-		});
-	}
-
-	get nome(){return _nome;}
-
-	puppa()
-	{
-		this.fuffa.Start(this.pelo);
-	}
-
-	watchFile(cb)
-	{
-		cb;
-	}
-
-	pelo(cb)
-	{
-		log("noni" + this._name);
-	}  
-}
-
-class main {
-    constructor()
-    {
-	    this.data="quacka";
-		this.fuffa = new GameTimer(500);
-	}
-
-	alertBox(data)
-	{
-		log(data);
-	}
-
-	puppa()
-	{
-		this.fuffa.Start( () => {this.alertBox(this.data)} );
-	}
-
-  watchFile(cb)
-  {
-    cb("changed");
-  }
 }
