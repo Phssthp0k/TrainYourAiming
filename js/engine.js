@@ -20,7 +20,7 @@ function GetMousePos(canvas, evt)
 function BoardPreparation( canvas )
 {
 	Log( "BoardPrep" );	
-	StopGameClock();
+	//StopGameClock();
 	playing = false;
 	Reset();
 	drawing.RefreshScreen();
@@ -37,19 +37,20 @@ function Start()
 	Log( "Start" );
 	playing = true;
 	// drawing.PrintInfos();
-	StartGameClock(drawing.RefreshScreen);
+	drawing.StartRefresh();
+	// StartGameClock(drawing.RefreshScreen);
 }
 
 
-var GameClock;
-var GameClockSpeed = 100;
-function StartGameClock(GameClockFunc){ GameClock = setInterval(Tick, GameClockSpeed, GameClockFunc);}
-function StopGameClock()	{ clearInterval(GameClock);	}	
-function Tick(func)
-{
-	drawing.RefreshScreen();
-	// func();
-}
+// var GameClock;
+// var GameClockSpeed = 100;
+// function StartGameClock(GameClockFunc){ GameClock = setInterval(Tick, GameClockSpeed, GameClockFunc);}
+// function StopGameClock()	{ clearInterval(GameClock);	}	
+// function Tick(func)
+// {
+// 	drawing.RefreshScreen();
+// 	// func();
+// }
 
 class GameTimer
 {
@@ -64,25 +65,41 @@ class GameTimer
 		set timer1 (vara) { return this._intervalTimer=vara;}
 		get name () { return this._name;}
 
+	Start(param)
+	{
+		log(param);			
 
-		Start(param)
+		if ( param !== null )
 		{
-			
-			if ( param !== null )
-			{
-				this._intervalTimer = setInterval(param,  this._intervalTime);
-			}
-			else
-			{
-				log("GameTimer.Tick(): Nothing to execute");
-			}
+			log("in");
+			this._intervalTimer = setInterval(param,  this._intervalTime);	
 		}
+		else
+		{
+			log("GameTimer.Tick(): Nothing to execute");
+		}
+	}
 
-		Stop()
-		{
-			clearInterval(this._intervalTimer);
-		}
+	Stop()
+	{
+		clearInterval(this._intervalTimer);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class test
 {
@@ -93,7 +110,7 @@ class test
 
 		this.watchFile(() => 
 		{
-	    	return _nome;
+	    	pelo( this._nome );
 		});
 	}
 
@@ -104,8 +121,36 @@ class test
 		this.fuffa.Start(this.pelo);
 	}
 
-	pelo()
+	watchFile(cb)
 	{
-		log("noni" + this.watchFile);
+		cb;
+	}
+
+	pelo(cb)
+	{
+		log("noni" + this._name);
 	}  
+}
+
+class main {
+    constructor()
+    {
+	    this.data="quacka";
+		this.fuffa = new GameTimer(500);
+	}
+
+	alertBox(data)
+	{
+		log(data);
+	}
+
+	puppa()
+	{
+		this.fuffa.Start( () => {this.alertBox(this.data)} );
+	}
+
+  watchFile(cb)
+  {
+    cb("changed");
+  }
 }

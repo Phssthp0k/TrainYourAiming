@@ -9,7 +9,7 @@ class drawingClass
 		this.objectsList;
 		this.refreshCount = 0;
 
-		this.drawingTimer = new GameTimer(500);
+		this.drawingTimer = new GameTimer(1);
 	}
 
 	PrintInfos()
@@ -25,15 +25,11 @@ class drawingClass
 	{
 		this.objectsList = oBjectsList;
 	}
-	
-	Tack()
-	{
-		log("abba");
-	}
 
 	StartRefresh()
 	{
-		this.drawingTimer.Start(this.Tack);
+		log("StartRefresh");
+		this.drawingTimer.Start( () => {this.RefreshScreen()} );
 	}
 
 	RefreshScreen()

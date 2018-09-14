@@ -101,7 +101,7 @@
 
 playCanvas.addEventListener('click', function(evt)
 {
-	Log("Click");
+	//Log("Click");
 	scoring.clicks.clicksAmount++;
 	var mousePos = GetMousePos( playCanvas, evt );Log( mousePos );
 	var clickScore = target.IsHit( mousePos );
@@ -110,7 +110,7 @@ playCanvas.addEventListener('click', function(evt)
 	{
 		if( clickScore > 0 )
 		{	
-			Log("Click On Circle");
+			// Log("Click On Circle");
 			target.targetPosition = { x: ((Math.random() * playCanvas.width) + 1), y: ((Math.random() * playCanvas.height) + 1) };
 
 			actualTime = new Date().getTime();
@@ -129,7 +129,7 @@ playCanvas.addEventListener('click', function(evt)
 				playing = false;
 				drawing.RefreshScreen();
 				DrawMessage2Canvas(playCanvas, 'Game OVER!!', { x : playCanvas.x, y : playCanvas.y, width : (playCanvas.width/2), height : (playCanvas.height/2) }, false);
-				StopGameClock();
+				// StopGameClock();
 			}
 		}
 	}
