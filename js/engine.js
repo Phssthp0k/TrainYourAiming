@@ -1,6 +1,5 @@
 var debug = true;
 var playing = false;
-var test = false;
 
 var GameClock;
 function StartGamecloCk(){ GameClock = setInterval(Tick, 1);}
