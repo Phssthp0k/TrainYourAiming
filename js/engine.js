@@ -20,7 +20,6 @@ function GetMousePos(canvas, evt)
 function BoardPreparation( canvas )
 {
 	Log( "BoardPrep" );	
-	//StopGameClock();
 	playing = false;
 	Reset();
 	drawing.RefreshScreen();
@@ -38,7 +37,6 @@ function Start()
 	playing = true;
 	// drawing.PrintInfos();
 	drawing.StartRefresh();
-	// StartGameClock(drawing.RefreshScreen);
 
 }
 

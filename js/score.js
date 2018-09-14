@@ -14,11 +14,6 @@ class scoringProto
 					}; 
 		this.avgClicksPerMinute = 0;
 	}
-	
-	peek()
-	{
-		return 5;
-	}
 };
 
 function ResetScore()

@@ -32,6 +32,11 @@ class drawingClass
 		this.drawingTimer.Start( () => {this.RefreshScreen()} );
 	}
 
+	StopRefresh()
+	{
+		this.drawingTimer.Stop();
+	}
+
 	RefreshScreen()
 	{
 		this.refreshCount ++;
@@ -40,6 +45,7 @@ class drawingClass
 		WriteLifes();
 		WriteClickTime();
 		WriteAvgClickTime();
+		WriteBestClickTime();
 
 		var draw2canvas = this.drawingCanvas;
 		var context = draw2canvas.getContext('2d');
@@ -55,7 +61,8 @@ class drawingClass
 function UpdateScore(){if( scoring.score >= 0 ) { Write2div("score", scoring.score); }}
 function WriteLifes(){if( scoring.lifes >= 0 ) { Write2div("lifes", scoring.lifes); }}
 function WriteClickTime(){Write2div("totClickTime", scoring.clicks.lastClickDuration);}
-function WriteAvgClickTime(){Write2div("avgClickTime", scoring.peek);}
+function WriteAvgClickTime(){Write2div("avgClickTime", scoring.clicks.avgClickDuration);}
+function WriteBestClickTime(){Write2div("bestClickTime", scoring.clicks.bestClickDuration);}
 function Write2div(divID, message)
 {
 	document.getElementById(divID).innerHTML = message;

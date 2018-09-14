@@ -75,6 +75,7 @@ class circle extends clickableObject
 	Animation()
 	{
 		this.color = getRandomColor();
+		this.border.color = getRandomColor();
 	}
 
 	Refresh( canvas )

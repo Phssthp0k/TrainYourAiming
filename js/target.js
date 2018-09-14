@@ -34,7 +34,7 @@ class targetClass
 			this.targetCircles[i].position = this.targetPosition;
 			this.targetCircles[i].hitScore = (i + 1);
 			this.targetCircles[i].name = "Circle points: "+this.targetCircles[i].hitScore;
-			this.targetCircles[i].StartAnimation();
+			// this.targetCircles[i].StartAnimation();
 		}
 	};
 

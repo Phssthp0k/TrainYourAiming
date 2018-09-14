@@ -48,6 +48,14 @@
 						<td> 
 							<label id="avgClickTime"></label>
 						</td> 
+					</tr>					
+					<tr>
+						<td>
+							Best Click Time:
+						</td>
+						<td> 
+							<label id="bestClickTime"></label>
+						</td> 
 					</tr>
 				</table>
 			</td>
@@ -116,7 +124,10 @@ playCanvas.addEventListener('click', function(evt)
 			actualTime = new Date().getTime();
 			scoring.clicks.lastClickDuration = actualTime - scoring.clicks.lastClickTime;
 			scoring.clicks.lastClickTime = actualTime;
-			if( actualTime < scoring.clicks.bestClickTime ) { scoring.clicks.bestClickTime = actualTime; }
+			if( scoring.clicks.lastClickDuration < scoring.clicks.bestClickDuration ) { scoring.clicks.bestClickDuration = scoring.clicks.lastClickDuration; }
+			scoring.clicks.clicksAmount++;
+			scoring.clicks.totalPlayTime+=scoring.clicks.lastClickDuration
+			scoring.clicks.avgClickDuration=scoring.clicks.totalPlayTime/scoring.clicks.clicksAmount;
 			scoring.score += (clickScore);
 		}
 		else
@@ -129,7 +140,7 @@ playCanvas.addEventListener('click', function(evt)
 				playing = false;
 				drawing.RefreshScreen();
 				DrawMessage2Canvas(playCanvas, 'Game OVER!!', { x : playCanvas.x, y : playCanvas.y, width : (playCanvas.width/2), height : (playCanvas.height/2) }, false);
-				// StopGameClock();
+				drawing.StopRefresh();
 			}
 		}
 	}
