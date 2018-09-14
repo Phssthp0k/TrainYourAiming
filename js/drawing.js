@@ -2,11 +2,14 @@ class drawingClass
 {
 	constructor( newDrawingCanvas )
 	{
+		//this.drawingCanvas = (newDrawingCanvas!==null)?newDrawingCanvas:document.getElementById('playCanvas');
 		this.drawingCanvas = newDrawingCanvas;
 		this.canvasCenter = { x: this.drawingCanvas.width / 2, y: this.drawingCanvas.height / 2 };
 		this.updateScreenTimer;
 		this.objectsList;
 		this.refreshCount = 0;
+
+		this.drawingTimer = new GameTimer(500);
 	}
 
 	PrintInfos()
@@ -15,6 +18,7 @@ class drawingClass
 		console.log(this.canvasCenter);
 		console.log(this.updateScreenTimer);
 		console.log(this.objectsList);
+		console.log(this.drawingTimer);
 	}
 
 	UpdateObjectList( oBjectsList )
@@ -22,6 +26,16 @@ class drawingClass
 		this.objectsList = oBjectsList;
 	}
 	
+	Tack()
+	{
+		log("abba");
+	}
+
+	StartRefresh()
+	{
+		this.drawingTimer.Start(this.Tack);
+	}
+
 	RefreshScreen()
 	{
 		this.refreshCount ++;

@@ -7,6 +7,7 @@ class targetClass
 		this.targetPosition = { x : 70, y : 70};
 		this.circlesNumber = 3;
 		this.targetCircles = [];
+		this.targetTimer = new GameTimer(100);
 
 		this.SetCircles(this.circlesNumber);
 	}
@@ -43,6 +44,16 @@ class targetClass
 		console.log(this.circlesNumber);
 		console.log(this.maxRadius);
 		console.log(this.targetCircles);
+	}
+
+	StartAnimation()
+	{
+		this.targetTimer.Start();
+	}
+
+	Tick()
+	{
+		log("tock");
 	}
 
 	Draw( canvas )

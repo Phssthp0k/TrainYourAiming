@@ -1,8 +1,8 @@
-
+'use strict'; // Used for classes
 
 // Var INIT //
 var drawing = new drawingClass( playCanvas );
-// drawing.PrintInfos();
+drawing.PrintInfos();
 
 var target = new targetClass();
 target.name = "mainTarget";
