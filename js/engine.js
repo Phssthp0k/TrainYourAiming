@@ -37,7 +37,7 @@ function Start()
 	Log( "Start" );
 	playing = true;
 	// drawing.PrintInfos();
-	StartGameClock(drawing.Tack);
+	StartGameClock(drawing.RefreshScreen);
 }
 
 
@@ -47,8 +47,8 @@ function StartGameClock(GameClockFunc){ GameClock = setInterval(Tick, GameClockS
 function StopGameClock()	{ clearInterval(GameClock);	}	
 function Tick(func)
 {
-	//drawing.RefreshScreen();
-	func();
+	drawing.RefreshScreen();
+	// func();
 }
 
 class GameTimer
@@ -84,13 +84,20 @@ class GameTimer
 		}
 }
 
-
 class test
 {
 	constructor()
 	{
 		this.fuffa = new GameTimer(500);
+		this._nome= 'nome';
+
+		this.watchFile(() => 
+		{
+	    	return _nome;
+		});
 	}
+
+	get nome(){return _nome;}
 
 	puppa()
 	{
@@ -99,6 +106,6 @@ class test
 
 	pelo()
 	{
-		log("noni");
-	}	
+		log("noni" + this.watchFile);
+	}  
 }
