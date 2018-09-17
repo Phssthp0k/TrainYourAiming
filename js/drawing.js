@@ -1,15 +1,39 @@
+
+
+	function CreateCanvas( elemID )
+	{
+		var canvas2Create = document.createElement("canvas");
+			canvas2Create.id = "playCanvas";
+			
+			document.getElementById(elemID).appendChild(canvas2Create);
+	}
+
 class drawingClass
 {
-	constructor( newDrawingCanvas )
+	constructor( newDrawingCanvasID )
 	{
-		//this.drawingCanvas = (newDrawingCanvas!==null)?newDrawingCanvas:document.getElementById('playCanvas');
-		this.drawingCanvas = newDrawingCanvas;
+		log(typeof newDrawingCanvasID);
+		if( typeof newDrawingCanvasID !== "string"  )
+		{
+			alert( "Canvas ID hasn't been correctly passed" );
+		}
+		this.drawingCanvas = document.getElementById('playAreaCanvas');
 		this.canvasCenter = { x: this.drawingCanvas.width / 2, y: this.drawingCanvas.height / 2 };
 		this.updateScreenTimer;
 		this.objectsList;
 		this.refreshCount = 0;
 
 		this.drawingTimer = new GameTimer(1);
+
+		this.drawingCanvas.addEventListener('click', function(evt)
+		{
+			log("dC click");
+		});
+	}
+	
+	get Canvas()
+	{
+		return this.drawingCanvas;
 	}
 
 	PrintInfos()

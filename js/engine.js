@@ -17,13 +17,13 @@ function GetMousePos(canvas, evt)
 		};
 }
 
-function BoardPreparation( canvas )
+function BoardPreparation( )
 {
 	Log( "BoardPrep" );	
 	playing = false;
 	Reset();
 	drawing.RefreshScreen();
-	DrawStartSign(playCanvas, "Press to START!");
+	DrawStartSign(drawing.Canvas, "Press to START!");
 }
 
 function Reset()

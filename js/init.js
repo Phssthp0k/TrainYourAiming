@@ -1,7 +1,7 @@
 'use strict'; // Used for classes
 
 // Var INIT //
-var drawing = new drawingClass( playCanvas );
+var drawing = new drawingClass( "playAreaCanvas" );
 drawing.PrintInfos();
 
 var target = new targetClass();
@@ -12,4 +12,4 @@ var objs = [ target ];
 drawing.UpdateObjectList( objs );
 
 
-var scoring = scoringProto;
+var scoring = new ScoreClass();

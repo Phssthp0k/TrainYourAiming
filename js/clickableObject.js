@@ -20,18 +20,10 @@ class clickableObject
 		this.hitScore = 1;
 	}
 
-	Draw( canvas, newPosition )
-	{
-		log("notDefined");
-	};
-	Refresh( canvas, newPosition )
-	{
-		log("notDefined");
-	};
-	IsHit( canvas, newPosition )
-	{
-		log("notDefined");
-	};
+	StartAnimation() {log("notDefined");};
+	Draw( canvas, newPosition ){log("notDefined");};
+	Refresh( canvas, newPosition ){log("notDefined");};
+	IsHit( canvas, newPosition ){log("notDefined");};
 }
 
 class circle extends clickableObject

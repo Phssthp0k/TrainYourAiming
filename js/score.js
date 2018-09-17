@@ -1,4 +1,4 @@
-class scoringProto 
+class ScoreClass
 {
 	constructor()
 	{
@@ -10,14 +10,19 @@ class scoringProto
 						bestClickDuration : 1000, 
 						clicksAmount : 0, 
 						totalPlayTime : 0,
-						avgClickDuration : 0
+						avgClickDuration : ( this.totalPlayTime>0 && this.clicksAmount>0) ? (this.totalPlayTime/this.clicksAmount) : 0
 					}; 
 		this.avgClicksPerMinute = 0;
+	}
+
+	Reset()
+	{
+
 	}
 };
 
 function ResetScore()
 {
 	// Log( 'Resetting Score' );
-	scoring = new scoringProto();
+	scoring = new ScoreClass();
 }

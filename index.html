@@ -1,0 +1,26 @@
+<body>
+<div>Train Your Aiming</div>
+	
+	<div id="gamesList">
+	</div>
+
+	<!-- <script src="js/clickableObject.js"></script> -->
+	<!-- <script src="js/target.js"></script> -->
+	<!-- <script src="js/score.js"></script> -->
+	<!-- <script src="js/init.js"></script> -->
+	<script src="js/drawing.js"></script> 
+	<script src="js/engine.js"></script>
+	<script src="js/games.js"></script>
+
+	<div id="gamingArea">
+		<canvas id="playCanvas"></canvas>
+	</div>
+
+	<script>
+		
+		var gamesList = new Games("gamesList");
+		gamesList.AddNewGame( new Game("test") );
+		gamesList.GenerateGamesList();
+		
+	</script>
+</body>	

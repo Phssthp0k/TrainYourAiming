@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-	  	<link rel="stylesheet" href="css/style.css">
+	  	<link rel="stylesheet" href="../css/style.css">
 	</head>	
   <body id="main-body" class="day-mode">
 	<select id="play-mode" onchange="change_mode();">
@@ -72,17 +72,12 @@
 	</table> 
   </body>
 </html>
-
-<script>
-	var playCanvas = document.getElementById('playAreaCanvas');	
-</script>	
-
-<script src="js/clickableObject.js"></script>
-<script src="js/target.js"></script>
-<script src="js/drawing.js"></script>
-<script src="js/score.js"></script>
-<script src="js/engine.js"></script>
-<script src="js/init.js"></script>
+<script src="../js/clickableObject.js"></script>
+<script src="../js/target.js"></script>
+<script src="../js/drawing.js"></script>
+<script src="../js/score.js"></script>
+<script src="../js/engine.js"></script>
+<script src="../js/init.js"></script>
 <script>	
 
   	function SetDifficultyLevel()
@@ -92,7 +87,7 @@
 		target.SetRadius( sel.options[sel.selectedIndex].value );
 		objs = [ target ];
 		drawing.UpdateObjectList( objs );
-		BoardPreparation( playCanvas );
+		BoardPreparation( drawing.Canvas );
   	}
 
   	function change_mode(){
@@ -107,11 +102,11 @@
 	SetDifficultyLevel();
 
 
-playCanvas.addEventListener('click', function(evt)
+drawing.Canvas.addEventListener('click', function(evt)
 {
 	//Log("Click");
 	scoring.clicks.clicksAmount++;
-	var mousePos = GetMousePos( playCanvas, evt );Log( mousePos );
+	var mousePos = GetMousePos( drawing.Canvas, evt );Log( mousePos );
 	var clickScore = target.IsHit( mousePos );
 	
 	if( playing )
@@ -119,7 +114,7 @@ playCanvas.addEventListener('click', function(evt)
 		if( clickScore > 0 )
 		{	
 			// Log("Click On Circle");
-			target.targetPosition = { x: ((Math.random() * playCanvas.width) + 1), y: ((Math.random() * playCanvas.height) + 1) };
+			target.targetPosition = { x: ((Math.random() * drawing.Canvas.width) + 1), y: ((Math.random() * drawing.Canvas.height) + 1) };
 
 			actualTime = new Date().getTime();
 			scoring.clicks.lastClickDuration = actualTime - scoring.clicks.lastClickTime;
@@ -139,7 +134,7 @@ playCanvas.addEventListener('click', function(evt)
 			{
 				playing = false;
 				drawing.RefreshScreen();
-				DrawMessage2Canvas(playCanvas, 'Game OVER!!', { x : playCanvas.x, y : playCanvas.y, width : (playCanvas.width/2), height : (playCanvas.height/2) }, false);
+				DrawMessage2Canvas(drawing.Canvas, 'Game OVER!!', { x : playCanvas.x, y : playCanvas.y, width : (playCanvas.width/2), height : (playCanvas.height/2) }, false);
 				drawing.StopRefresh();
 			}
 		}
