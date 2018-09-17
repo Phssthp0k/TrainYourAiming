@@ -22,17 +22,20 @@ class Games
 		{
 			if( this._gamesList.length > 0 )
 			{
-				this._gamesList.forEach(function(game2Add)
+				for( var i=0; i < this._gamesList.length; i++ )
 				{
+					var game2Add = this._gamesList;
 					var div = document.createElement("div");
 					div.style.width = "100px";
 					div.style.height = "100px";
 					div.style.background = "red";
 					div.style.color = "white";
 					div.innerHTML = game2Add.name;
+					// game's ico
+					// game's description
 
 					this._divContainer.appendChild(div);
-				});
+				}
 			}
 			else
 			{
@@ -65,3 +68,4 @@ class Game
 }
 
 
+class 
