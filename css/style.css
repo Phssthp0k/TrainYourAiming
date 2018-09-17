@@ -1,7 +1,8 @@
+/*------GENERAL--------*/
 html, body
 {
     margin: auto;
-    padding: 20px;
+    /*padding: 20px;*/
 	text-align: center;
 	font-size: 32px;
 }
@@ -29,6 +30,59 @@ button{
 	cursor: pointer;
 }
 
+/*-----Menu------*/
+#menu{
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #F59B00;
+    /*border-radius: 10px;*/
+    
+}
+
+#menu ul{
+    list-style: none;
+}
+
+#menu ul li{
+    color: #ffffff;
+    text-align: center;
+    display: inline-block;
+    margin: 5px auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+}
+
+/*------games------*/
+#gamesList{
+    text-align: center;
+}
+
+.img_cat{
+    position:relative;
+    display: inline-block;
+}
+
+.cat_name{
+    position: absolute;
+    display: none;
+    text-align: center;
+}
+
+#cat1:hover + #cat_1{
+    display: block;
+}
+
+#cat2:hover + #cat_2{
+    display: block;
+}
+
+#cat3:hover + #cat_3{
+    display: block;
+}
+
+/*-----game window------*/
 #scoreCanvas, #lifesCanvas, #clickTimeCanvas, #clickAvgTimeCanvas{
 	border: 1px solid #000000;
 }
