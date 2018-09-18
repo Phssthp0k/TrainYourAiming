@@ -60,7 +60,7 @@ button{
     display: inline-block;
 }
 
-#gameInList{
+.gameInList{
     display: inline-block;
 }
 
