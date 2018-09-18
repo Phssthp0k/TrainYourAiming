@@ -24,7 +24,7 @@ class GamesList_Class
 				{
 					var game2Add = this._gamesList[i];
 					var div = document.createElement("div");
-					div.class = "gameInList";
+					div.className = "gameInList";
 					div.style.width = "100px";
 					div.style.height = "100px";
 					div.style.background = "red";
@@ -33,11 +33,11 @@ class GamesList_Class
 					// game's ico
 					// game's description
 
-					var l =  () => {game2Add.bora()};
+					var l =  () => {game2Add};
 					div.onclick = function()
 					{
 						onClickExtFunction();
-						l();
+						l.bora();
 					}
 
 					this._divContainer.appendChild(div);
