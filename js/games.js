@@ -24,7 +24,7 @@ class GamesList_Class
 				{
 					var game2Add = this._gamesList[i];
 					var div = document.createElement("div");
-					div.id = "gameInList";
+					div.class = "gameInList";
 					div.style.width = "100px";
 					div.style.height = "100px";
 					div.style.background = "red";
@@ -32,11 +32,12 @@ class GamesList_Class
 					div.innerHTML = game2Add.name;
 					// game's ico
 					// game's description
+
+					var l =  () => {game2Add.bora()};
 					div.onclick = function()
 					{
 						onClickExtFunction();
-						log(game2Add.name);
-						game2Add.bora();
+						l();
 					}
 
 					this._divContainer.appendChild(div);
@@ -82,6 +83,7 @@ class QuickAim_Class extends Game_Class
 		this.name = "Quick Aim!";
 		this.bora = function () { log("boree " + this._name);}
 	}
+	OnClick(){log("defi");}
 }
 
 class QuickClick_Class extends Game_Class
