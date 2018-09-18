@@ -24,6 +24,8 @@ class clickableObject
 	Draw( canvas, newPosition ){log("notDefined");};
 	Refresh( canvas, newPosition ){log("notDefined");};
 	IsHit( canvas, newPosition ){log("notDefined");};
+	OnClick( canvas, newPosition ){log("notDefined");};
+
 }
 
 class circle extends clickableObject

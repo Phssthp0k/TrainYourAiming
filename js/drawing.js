@@ -1,13 +1,3 @@
-
-
-	function CreateCanvas( elemID )
-	{
-		var canvas2Create = document.createElement("canvas");
-			canvas2Create.id = "playCanvas";
-			
-			document.getElementById(elemID).appendChild(canvas2Create);
-	}
-
 class drawingClass
 {
 	constructor( newDrawingCanvasID )
@@ -30,7 +20,7 @@ class drawingClass
 			log("dC click");
 		});
 	}
-	
+
 	get Canvas()
 	{
 		return this.drawingCanvas;
@@ -45,22 +35,10 @@ class drawingClass
 		console.log(this.drawingTimer);
 	}
 
-	UpdateObjectList( oBjectsList )
-	{
-		this.objectsList = oBjectsList;
-	}
+	UpdateObjectList( oBjectsList ) {this.objectsList = oBjectsList;}
 
-	StartRefresh()
-	{
-		log("StartRefresh");
-		this.drawingTimer.Start( () => {this.RefreshScreen()} );
-	}
-
-	StopRefresh()
-	{
-		this.drawingTimer.Stop();
-	}
-
+	StartRefresh() {log("StartRefresh"); this.drawingTimer.Start( () => {this.RefreshScreen()} );}
+	StopRefresh() {this.drawingTimer.Stop();}
 	RefreshScreen()
 	{
 		this.refreshCount ++;

@@ -11,6 +11,7 @@
 	<script src="js/games.js"></script>
 
 	<div id="menu"></div>
+
 	<div id="index">
 		<div id="banner">
 		</div>
@@ -25,8 +26,16 @@
 	<div id="footer"></div>
 
 	<script>
-		var gamesList = new Games("gamesList");
-		gamesList.AddNewGame( new Game("test") );
-		gamesList.GenerateGamesList();
+		function ShowGamingArea()
+		{
+			//log("ShowGamingArea");
+		}
+
+		var gamesList = new GamesList_Class("gamesList");
+		var x = new QuickAim_Class();
+		var y =new QuickClick_Class() 
+		gamesList.AddNewGame(  x );
+		gamesList.AddNewGame(  y );
+		gamesList.GenerateGamesList(ShowGamingArea);
 	</script>
 </body>	

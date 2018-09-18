@@ -17,7 +17,7 @@ class ScoreClass
 
 	Reset()
 	{
-
+		log("Not defined yet");
 	}
 };
 

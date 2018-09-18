@@ -1,6 +1,4 @@
-var games = []; // array che contiene l'elenco di giochi attivi
-
-class Games
+class GamesList_Class
 {
 	constructor( divContainerID )
 	{
@@ -16,7 +14,7 @@ class Games
 		this._gamesList[this._gamesList.length] = game;
 	}
 
-	GenerateGamesList()
+	GenerateGamesList( onClickExtFunction )
 	{
 		if( this._gamesList !== null )
 		{
@@ -24,7 +22,7 @@ class Games
 			{
 				for( var i=0; i < this._gamesList.length; i++ )
 				{
-					var game2Add = this._gamesList;
+					var game2Add = this._gamesList[i];
 					var div = document.createElement("div");
 					div.style.width = "100px";
 					div.style.height = "100px";
@@ -33,6 +31,12 @@ class Games
 					div.innerHTML = game2Add.name;
 					// game's ico
 					// game's description
+					div.onclick = function()
+					{
+						onClickExtFunction();
+						log(game2Add.name);
+						game2Add.bora();
+					}
 
 					this._divContainer.appendChild(div);
 				}
@@ -49,23 +53,44 @@ class Games
 	}
 }
 
-class Game
+class Game_Class
 {
-	constructor(gameName)
+	constructor()
 	{
-		this._name = gameName;
+		this._name = "Not Defined";
+		this._description = "";
+		this._ico = "something";
+
+		this.bora = function () { log("boraa");}
 	}
 
-	get name()
-	{
-		return this._name;
-	}
 
-	SetDifficultyLevel()
-	{
-		log("SetDifficultyLevel NOT DEFINED");
-	}
+	get name() {return this._name;}
+	set name(value) {this._name = value;}
+
+	OnClick(){log("notDefined");}
+	SetDifficultyLevel(){log("notDefined");}
 }
 
 
-class 
+class QuickAim_Class extends Game_Class
+{
+	constructor()
+	{
+		super();
+
+		this.name = "Quick Aim!";
+
+		this.bora = function () { log("boree");}
+	}
+}
+
+class QuickClick_Class extends Game_Class
+{
+	constructor()
+	{
+		super();
+
+		this.name = "Quick Click!";
+	}
+}
