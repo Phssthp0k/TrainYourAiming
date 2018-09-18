@@ -24,6 +24,7 @@ class GamesList_Class
 				{
 					var game2Add = this._gamesList[i];
 					var div = document.createElement("div");
+					div.id = "gameInList";
 					div.style.width = "100px";
 					div.style.height = "100px";
 					div.style.background = "red";

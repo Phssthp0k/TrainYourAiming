@@ -84,6 +84,3 @@ class circle extends clickableObject
 		return (( res < this.radius ) ? this.hitScore : 0 );
 	}
 }
-
-
-	 
