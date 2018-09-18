@@ -33,7 +33,10 @@ class GamesList_Class
 					// game's ico
 					// game's description
 
-					div.onclick = () => {this.OnClick( onClickExtFunction, () => {game2Add.OnClick()} )};
+					div.onclick = function()
+					{
+						 onClickExtFunction(() => {game2Add.OnClick()});
+					}
 
 					this._divContainer.appendChild(div);
 				}
@@ -47,13 +50,6 @@ class GamesList_Class
 		{
 			alert("Game's list hasn't been defined yet");
 		}
-	}
-
-	OnClick(extOnClick, gameOnClick)
-	{
-		// log("puppaa "+ extOnClick + " | " + gameOnClick);
-		extOnClick();
-		gameOnClick();
 	}
 }
 
