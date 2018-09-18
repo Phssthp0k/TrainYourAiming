@@ -62,7 +62,7 @@ class Game_Class
 		this._description = "";
 		this._ico = "something";
 
-		this.bora = function () { log("boraa");}
+		this.bora = function () { log("boraa - " + this._name);}
 	}
 
 
@@ -79,10 +79,8 @@ class QuickAim_Class extends Game_Class
 	constructor()
 	{
 		super();
-
 		this.name = "Quick Aim!";
-
-		this.bora = function () { log("boree");}
+		this.bora = function () { log("boree " + this._name);}
 	}
 }
 
