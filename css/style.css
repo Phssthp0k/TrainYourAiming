@@ -57,6 +57,11 @@ button{
 /*------games------*/
 #gamesList{
     text-align: center;
+    display: inline-block;
+}
+
+#gameInList{
+    display: inline-block;
 }
 
 .img_cat{
