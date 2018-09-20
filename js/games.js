@@ -22,21 +22,28 @@ class GamesList_Class
 			{
 				for( var i=0; i < this._gamesList.length; i++ )
 				{
-					var game2Add = this._gamesList[i];
+					var game2Add = this._gamesList[i]
 					var div = document.createElement("div");
+					div.id = guid();
 					div.className = "gameInList";
 					div.style.width = "100px";
 					div.style.height = "100px";
-					div.style.background = "red";
+					div.style.background = getRandomColor();
 					div.style.color = "white";
 					div.innerHTML = game2Add.name;
 					// game's ico
 					// game's description
-
-					div.onclick = function()
+					div.onclick  = (function()
 					{
-						 onClickExtFunction(() => {game2Add.OnClick()});
-					}
+						var currentI = i;
+						var goo= game2Add;
+
+							return function()
+							{
+								onClickExtFunction();
+								goo.OnClick();
+							}
+					})();
 
 					this._divContainer.appendChild(div);
 				}
@@ -58,17 +65,17 @@ class Game_Class
 	constructor()
 	{
 		this._name = "Not Defined";
+		this._id = guid();
 		this._description = "";
 		this._ico = "something";
 
 		this.bora = function () { log("boraa - " + this._name);}
 	}
 
-
 	get name() {return this._name;}
 	set name(value) {this._name = value;}
 
-	OnClick(){log("notDefined");}
+	OnClick(){log("not Defined");}
 	SetDifficultyLevel(){log("notDefined");}
 }
 
@@ -91,5 +98,7 @@ class QuickClick_Class extends Game_Class
 		super();
 
 		this.name = "Quick Click!";
+		this.bora = function () { log("borx " + this._name);}
 	}
+	OnClick(){log("defa");}
 }

@@ -35,16 +35,18 @@
 	<div id="footer"></div>
 
 	<script>
-		function ShowGamingArea(gamesOnClick)
+		function ShowGamingArea()
 		{
-			log("ShowGamingArea "+gamesOnClick);
+			log("ShowGamingArea ");
+			//log(gamesOnClick);
+			//gamesOnClick();
 		}
 
 		var gamesList = new GamesList_Class("gamesList");
-		var x = new QuickAim_Class();
-		var y = new QuickClick_Class();
-		gamesList.AddNewGame( x );
-		gamesList.AddNewGame( y );
+		const yadda = new QuickClick_Class();
+		const wadda = new QuickAim_Class();
+		gamesList.AddNewGame( yadda );
+		gamesList.AddNewGame( wadda );
 		gamesList.GenerateGamesList(ShowGamingArea);
 	</script>
 </body>	
