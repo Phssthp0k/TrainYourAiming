@@ -6,12 +6,11 @@
 <!--<div>Train Your Aiming</div>-->
 	
 
-	<!-- <script src="js/clickableObject.js"></script> -->
-	<!-- <script src="js/target.js"></script> -->
 	<!-- <script src="js/score.js"></script> -->
-	<!-- <script src="js/init.js"></script> -->
-	<script src="js/drawing.js"></script> 
 	<script src="js/engine.js"></script>
+	<script src="js/CanvasManagement.js"></script> 
+	<script src="js/clickableObject.js"></script>
+	<script src="js/target.js"></script>
 	<script src="js/games.js"></script>
 
 	<div id="menu">
@@ -28,25 +27,28 @@
 		<div id="gamesList"></div>
 	</div>
 	
-<div id="gamingArea">
-		<canvas id="playCanvas"></canvas>
+	<div id="gamingArea">
+		<canvas id="playCanvas"  width="640" height="480"></canvas>
 	</div>
 
 	<div id="footer"></div>
 
 	<script>
+		// INIT
+			var drawing = new CanvasManagement_Class("playCanvas");
+		
+
 		function ShowGamingArea()
 		{
-			log("ShowGamingArea ");
 			//log(gamesOnClick);
 			//gamesOnClick();
+			document.getElementById("gamingArea").style.display = "inline";
+			document.getElementById("index").style.display = "none";
 		}
 
 		var gamesList = new GamesList_Class("gamesList");
-		const yadda = new QuickClick_Class();
-		const wadda = new QuickAim_Class();
-		gamesList.AddNewGame( yadda );
-		gamesList.AddNewGame( wadda );
+		gamesList.AddNewGame( new QuickClick_Class(drawing) );
+		gamesList.AddNewGame( new QuickAim_Class(drawing) );
 		gamesList.GenerateGamesList(ShowGamingArea);
 	</script>
 </body>	

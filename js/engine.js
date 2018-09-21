@@ -37,30 +37,6 @@ function getRandomColor()
   return color;
 }
 
-
-function BoardPreparation( )
-{
-	Log( "BoardPrep" );	
-	playing = false;
-	Reset();
-	drawing.RefreshScreen();
-	DrawStartSign(drawing.Canvas, "Press to START!");
-}
-
-function Reset()
-{
-	ResetScore();
-}
-
-function Start()
-{
-	Log( "Start" );
-	playing = true;
-	// drawing.PrintInfos();
-	drawing.StartRefresh();
-
-}
-
 class GameTimer
 {
 	constructor(intervalTime)

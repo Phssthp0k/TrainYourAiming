@@ -1,15 +1,13 @@
-'use strict'; // Used for classes
-
 // Var INIT //
-var drawing = new drawingClass( "playAreaCanvas" );
+var drawing = new CanvasManagement_Class( "playCanvas" );
 drawing.PrintInfos();
 
-var target = new targetClass();
+var target = new Target_Class();
 target.name = "mainTarget";
 target.SetCircles(3);
 target.targetPosition = drawing.canvasCenter;
-var objs = [ target ];
-drawing.UpdateObjectList( objs );
+
+drawing.UpdateObjectList( [target ] );
 
 
 var scoring = new ScoreClass();

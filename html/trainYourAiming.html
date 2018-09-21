@@ -60,7 +60,7 @@
 				</table>
 			</td>
 			<td id="play-side"> 				    
-				<div><canvas id="playAreaCanvas" width="640" height="480" ></canvas></div>
+				<div><canvas id="playCanvas" width="640" height="480" ></canvas></div>
 				
 				<div  id="resultsCanvas" width="1000" height="50" ></div>
 
@@ -74,7 +74,7 @@
 </html>
 <script src="../js/clickableObject.js"></script>
 <script src="../js/target.js"></script>
-<script src="../js/drawing.js"></script>
+<script src="../js/CanvasManagement.js"></script>
 <script src="../js/score.js"></script>
 <script src="../js/engine.js"></script>
 <script src="../js/init.js"></script>
@@ -100,6 +100,30 @@
 	}
 
 	SetDifficultyLevel();
+
+// Deprecated
+function BoardPreparation( )
+{
+	Log( "BoardPrep" );	
+	playing = false;
+	Reset();
+	drawing.RefreshScreen();
+	DrawStartSign(drawing.Canvas, "Press to START!");
+}
+
+function Reset()
+{
+	ResetScore();
+}
+
+function Start()
+{
+	Log( "Start" );
+	playing = true;
+	// drawing.PrintInfos();
+	drawing.StartRefresh();
+
+}
 
 
 drawing.Canvas.addEventListener('click', function(evt)

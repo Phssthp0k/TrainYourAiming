@@ -92,9 +92,14 @@ button{
 	border: 1px solid #000000;
 }
 
-#playAreaCanvas {
-	width: 640px;
-	height: 480px;
+#gamingArea
+{
+    display: none;
+}
+
+#playCanvas {
+	/*width: 640px;
+	 height: 480px;*/
 	background-color: #5a5a5a;
 }
 

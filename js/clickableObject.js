@@ -18,7 +18,7 @@ class clickableObject
 
 }
 
-class circle extends clickableObject
+class Circle_Class extends clickableObject
 {
 	constructor ( )	
 	{

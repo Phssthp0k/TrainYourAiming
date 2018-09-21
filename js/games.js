@@ -1,3 +1,4 @@
+// Genera i link per i giochi
 class GamesList_Class
 {
 	constructor( divContainerID )
@@ -33,15 +34,16 @@ class GamesList_Class
 					div.innerHTML = game2Add.name;
 					// game's ico
 					// game's description
+
 					div.onclick  = (function()
 					{
 						var currentI = i;
-						var goo= game2Add;
+						var goo = game2Add;
 
 							return function()
 							{
 								onClickExtFunction();
-								goo.OnClick();
+								goo.LoadGame();
 							}
 					})();
 
@@ -62,43 +64,66 @@ class GamesList_Class
 
 class Game_Class
 {
-	constructor()
+	constructor(drawing_Class)
 	{
 		this._name = "Not Defined";
 		this._id = guid();
 		this._description = "";
 		this._ico = "something";
-
-		this.bora = function () { log("boraa - " + this._name);}
 	}
 
 	get name() {return this._name;}
 	set name(value) {this._name = value;}
 
-	OnClick(){log("not Defined");}
+	LoadGame(){log("Loading '"+this._name+"'");}
+	SetDifficultyLevel(){log("notDefined");}
+
+	// Makes the game actually running (timer/click/etc)
+	Start(){log("notDefined");}
+	GameOver(){log("notDefined");}
+
 	SetDifficultyLevel(){log("notDefined");}
 }
 
-
 class QuickAim_Class extends Game_Class
 {
-	constructor()
+	constructor(drawing_Class)
 	{
-		super();
+		super(drawing_Class);
 		this.name = "Quick Aim!";
-		this.bora = function () { log("boree " + this._name);}
 	}
-	OnClick(){log("defi");}
+	LoadGame()
+	{
+		super.LoadGame();
+
+		var target = new Target_Class();
+		target.name = "mainTarget";
+		target.SetCircles(3);
+		target.maxRadius = 80;
+		target.targetPosition = drawing.canvasCenter;
+		target.targetPosition = { x: ((Math.random() * drawing.Canvas.width) + 1), y: ((Math.random() * drawing.Canvas.height) + 1) };
+
+		drawing.UpdateObjectList( [ target ] );
+		drawing.AddOnClickFunction( this.OnClick );
+		drawing.RefreshScreen();
+
+		// mostro la scritta start e il primo target
+		// al click sul target parte il timer
+	}
+
+	OnClick()
+	{
+		log("clicked");
+	}
 }
 
 class QuickClick_Class extends Game_Class
 {
-	constructor()
+	constructor(drawing_Class)
 	{
-		super();
+		super(drawing_Class);
 
 		this.name = "Quick Click!";
-		this.bora = function () { log("borx " + this._name);}
 	}
-	OnClick(){log("defa");}
+	LoadGame(){log("defa");}
 }

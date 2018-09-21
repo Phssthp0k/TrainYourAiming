@@ -1,4 +1,4 @@
-class targetClass
+class Target_Class
 {
 	constructor()
 	{
@@ -10,6 +10,15 @@ class targetClass
 		this.targetTimer = new GameTimer(100);
 
 		this.SetCircles(this.circlesNumber);
+	}
+
+	PrintInfos()
+	{
+		console.log(this.name);
+		console.log(this.targetPosition);
+		console.log(this.circlesNumber);
+		console.log(this.maxRadius);
+		console.log(this.targetCircles);
 	}
 
 	SetCircles( newCirclesNumber )
@@ -29,22 +38,13 @@ class targetClass
 		this.targetCircles = [];
 		for ( var i = 0; i < this.circlesNumber; i++ )
 		{
-			this.targetCircles[i]= new circle();
+			this.targetCircles[i]= new Circle_Class();
 			this.targetCircles[i].radius = this.maxRadius/(Math.abs(i-1)/2 + i/2 + (i+1)/2);
 			this.targetCircles[i].position = this.targetPosition;
 			this.targetCircles[i].hitScore = (i + 1);
 			this.targetCircles[i].name = "Circle points: "+this.targetCircles[i].hitScore;
 			// this.targetCircles[i].StartAnimation();
 		}
-	};
-
-	PrintInfos()
-	{
-		console.log(this.name);
-		console.log(this.targetPosition);
-		console.log(this.circlesNumber);
-		console.log(this.maxRadius);
-		console.log(this.targetCircles);
 	}
 
 	Draw( canvas )
