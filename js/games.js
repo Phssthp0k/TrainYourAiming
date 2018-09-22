@@ -102,13 +102,13 @@ class QuickAim_Class extends Game_Class
 
 		this.target.name = "mainTarget";
 		this.target.SetCircles(3);
-		this.target.maxRadius = 80;
+		this.target.SetRadius( 40 );
 		this.target.targetPosition = this._drawing_Class.canvasCenter;
 		this.target.targetPosition = { x: ((Math.random() * this._drawing_Class.Canvas.width) + 1), y: ((Math.random() * this._drawing_Class.Canvas.height) + 1) };
 		
 		this.target2.name = "target2";
 		this.target2.SetCircles(3);
-		this.target2.maxRadius = 40;
+		this.target2.SetRadius( 20 );
 		this.target2.targetPosition = this._drawing_Class.canvasCenter;
 		this.target2.targetPosition = { x: ((Math.random() * this._drawing_Class.Canvas.width) + 1), y: ((Math.random() * this._drawing_Class.Canvas.height) + 1) };
 
@@ -121,12 +121,12 @@ class QuickAim_Class extends Game_Class
 
 	OnClick(mouseEvents)
 	{
-		log("clicked");
-		if( this.target.IsHit(mouseEvents) > 0 )
+		var mousePos = GetMousePos(this._drawing_Class.Canvas, mouseEvents);
+		if( this.target.IsHit(mousePos) > 0 )
 		{
 			this.target.targetPosition = { x: ((Math.random() * this._drawing_Class.Canvas.width) + 1), y: ((Math.random() * this._drawing_Class.Canvas.height) + 1) };
 		}
-		if( this.target2.IsHit(mouseEvents) > 0 )
+		if( this.target2.IsHit(mousePos) > 0 )
 		{
 			this.target2.targetPosition = { x: ((Math.random() * this._drawing_Class.Canvas.width) + 1), y: ((Math.random() * this._drawing_Class.Canvas.height) + 1) };
 		}
