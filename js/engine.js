@@ -41,20 +41,28 @@ class GameTimer
 {
 	constructor(intervalTime)
 	{
-		this._intervalTimer
+		this._intervalTimer;
 		this._intervalTime = (intervalTime!==null)?intervalTime:100;
 		this._name = "Timer";
 
 	}
-		get timer1 () { return this._intervalTimer;}
-		set timer1 (vara) { return this._intervalTimer=vara;}
-		get name () { return this._name;}
+
+	PrintInfos()
+	{
+		console.log(this._intervalTimer);
+		console.log(this._intervalTime);
+		console.log(this._name);
+	}
+
+	get timer () { return this._intervalTimer;}
+	set timer (value) { return this._intervalTimer=value;}
+	get name () { return this._name;}
 
 	Start(param)
 	{
 		if ( param !== null )
 		{
-			log("in");
+			log("Start Timer ["+this._name+"]");
 			this._intervalTimer = setInterval(param,  this._intervalTime);	
 		}
 		else

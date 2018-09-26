@@ -11,7 +11,7 @@
 	<script src="js/CanvasManagement.js"></script> 
 	<script src="js/clickableObject.js"></script>
 	<script src="js/target.js"></script>
-	<script src="js/games.js"></script>
+	<script src="js/gameModes.js"></script>
 
 	<div id="menu">
         <ul>
@@ -24,7 +24,7 @@
             <h4>Train Your Aim</h4>
 		</div>
         <hr>
-		<div id="gamesList"></div>
+		<div id="gameModesList"></div>
 	</div>
 	
 	<div id="gamingArea">
@@ -46,9 +46,11 @@
 			document.getElementById("index").style.display = "none";
 		}
 
-		var gamesList = new GamesList_Class("gamesList");
-		gamesList.AddNewGame( new QuickClick_Class(drawing) );
-		gamesList.AddNewGame( new QuickAim_Class(drawing) );
-		gamesList.GenerateGamesList(ShowGamingArea);
+		var gameModesList = new GameModes_List_Class("gameModesList");
+		gameModesList.AddNewGame( new QuickClick_Class(drawing) );
+		gameModesList.AddNewGame( new QuickAim_Class(drawing) );
+		gameModesList.AddNewGame( new TestGame_Class(drawing) );
+
+		gameModesList.GenerateGamesList(ShowGamingArea);
 	</script>
 </body>	

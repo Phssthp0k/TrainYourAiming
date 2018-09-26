@@ -43,16 +43,16 @@ class Target_Class
 			this.targetCircles[i].position = this.targetPosition;
 			this.targetCircles[i].hitScore = (i + 1);
 			this.targetCircles[i].name = "Circle points: "+this.targetCircles[i].hitScore;
-			// this.targetCircles[i].StartAnimation();
+			//this.targetCircles[i].StartAnimation();
 		}
 	}
 
 	Draw( canvas )
 	{
 		var newPos = this.targetPosition;
-		this.targetCircles.forEach(function(elem)
+		this.targetCircles.forEach(function(circle)
 		{
-			elem.Draw( canvas, newPos );
+			circle.Draw( canvas, newPos );
 		});
 	};
 
@@ -75,4 +75,14 @@ class Target_Class
 		log("Score: [" + retval + "]");
 		return retval;
 	};
+
+	Vanish()
+	{
+		for ( var i = 0; i < this.circlesNumber; i++ )
+		{
+			log(this.targetCircles[i].globalAlpha);
+			this.targetCircles[i].globalAlpha=0.2;
+			
+		}
+	}
 }
