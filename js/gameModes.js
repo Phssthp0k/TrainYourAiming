@@ -27,10 +27,7 @@ class GameModes_List_Class
 					var div = document.createElement("div");
 					div.id = guid();
 					div.className = "gameInList";
-					div.style.width = "100px";
-					div.style.height = "100px";
 					div.style.background = getRandomColor();
-					div.style.color = "white";
 					div.innerHTML = game2Add.name;
 
 					// game's ico
@@ -185,7 +182,7 @@ class TestGame_Class extends Game_Class
 		if( this.quadrato.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
 		{
 			log('score');			
-			// this.quadrato.Animations().Boo();
+			this.quadrato.animations.Boo();
 		}
 		if(!this.autoRefresh) {this.CM.RefreshScreen(); }
 	}
@@ -200,7 +197,7 @@ class TestGame_Class extends Game_Class
 			//this.quadrato.StopRotate();
 			var coord = GetMousePos(this.CM.drawingCanvas, mouseEvt)
 			this.quadrato.position = { x: coord.x - this.quadrato.side/2 , y: coord.y  - this.quadrato.side/2  };
-			//this.quadrato.StartRotate(this.CM.drawingCanvas, 1);
+			//this.quadrato.animations.StartRotate(this.CM.drawingCanvas, 1);
 			if(!this.autoRefresh) {this.CM.RefreshScreen(); }
 
 		}

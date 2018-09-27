@@ -1,9 +1,9 @@
-class ScoreClass
+class Score_Class
 {
 	constructor()
 	{
 		this.lifes = 3;
-		this.score = 0;
+		this.totalScore = 0;
 		this.clicks = { 
 						lastClickTime : new Date().getTime(), 
 						lastClickDuration : 0, 

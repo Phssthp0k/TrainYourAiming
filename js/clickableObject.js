@@ -11,32 +11,35 @@ class clickableObject_Class
 
 
 		this.animationTimer = new GameTimer(1);
-	}
 
-	// Dev
-	Animations()
-	{
-		() => Boo()
+		// Dev
+		this.animations =
 		{
-			log('aok');
+			Boo()
+			{
+				log('aok');
+			},
+			Baa()
+			{
+				log('koa');
+			},
+			StartRotate(canvas, angle) {this.animationTimer.Start( ()=>this.Rotate(canvas, angle), 1);},
+			StopRotate(){this.animationTimer.Stop();},
+			Rotate(canvas, angle)
+			{
+				var COntext = canvas.getContext('2d');
+				COntext.clearRect(0, 0, canvas.Width, canvas.Height);
+				
+				COntext.save();
+				COntext.translate(this.position.x+(this.width/2), this.position.y+(this.height/2));
+				COntext.rotate(angle*Math.PI / 180);
+		    	COntext.translate(-this.position.x-(this.width/2), -this.position.y-(this.height/2));
+
+			}
 		}
-	}
-
-	// Dev
-	StartRotate(canvas, angle) {this.animationTimer.Start( ()=>this.Rotate(canvas, angle), 1);}
-	StopRotate(){this.animationTimer.Stop();}
-	Rotate(canvas, angle)
-	{
-		var COntext = canvas.getContext('2d');
-		COntext.clearRect(0, 0, canvas.Width, canvas.Height);
-		
-		COntext.save();
-		COntext.translate(this.position.x+(this.width/2), this.position.y+(this.height/2));
-		COntext.rotate(angle*Math.PI / 180);
-    	COntext.translate(-this.position.x-(this.width/2), -this.position.y-(this.height/2));
-
-	}
+	} // FINE COSTRUTTORE
 	
+
 	Draw( canvas, newPosition ){log("Draw function() is notDefined");};
 	Refresh( canvas )
 	{
