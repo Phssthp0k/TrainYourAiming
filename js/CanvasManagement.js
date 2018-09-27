@@ -14,6 +14,7 @@ class CanvasManagement_Class
 		this.updateScreenTimer;
 		this.objectsList;
 		this.refreshCount = 0;
+		
 		this.OnClick_ChildClassesFunctions = []; //[ this ];
 		this.OnMouseDown_ChildClassesFunctions = []; //[ this ];
 		this.OnMouseUp_ChildClassesFunctions = []; //[ this ];

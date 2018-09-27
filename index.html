@@ -35,13 +35,11 @@
 
 	<script>
 		// INIT
-			var drawing = new CanvasManagement_Class("playCanvas");
+			
+		var drawing = new CanvasManagement_Class("playCanvas");
 		
-
 		function ShowGamingArea()
 		{
-			//log(gamesOnClick);
-			//gamesOnClick();
 			document.getElementById("gamingArea").style.display = "inline";
 			document.getElementById("index").style.display = "none";
 		}
@@ -52,5 +50,28 @@
 		gameModesList.AddNewGame( new TestGame_Class(drawing) );
 
 		gameModesList.GenerateGamesList(ShowGamingArea);
+
+		window.onload = function()
+		{
+			var currGame = localStorage.getItem( "currGame" );
+			log(localStorage.getItem( "currGame" ));	
+
+			if(currGame != null )
+			{
+				log('s' + gameModesList.GamesList.length);
+				ShowGamingArea();
+				for ( var z = 0; z<gameModesList.GamesList.length; z++ )
+				{
+					log( gameModesList.GamesList[z] );
+					if( gameModesList.GamesList[z].name == currGame )
+					{
+						log( gameModesList.GamesList[z] );
+						gameModesList.GamesList[z].LoadGame();
+						break;
+					}
+				}
+			}
+			
+		}
 	</script>
 </body>	

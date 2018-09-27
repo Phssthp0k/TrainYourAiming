@@ -32,6 +32,7 @@ class GameModes_List_Class
 					div.style.background = getRandomColor();
 					div.style.color = "white";
 					div.innerHTML = game2Add.name;
+
 					// game's ico
 					// game's description
 
@@ -42,6 +43,7 @@ class GameModes_List_Class
 
 							return function()
 							{
+								localStorage.setItem("currGame",goo.name);
 								onClickExtFunction();
 								goo.LoadGame();
 							}
@@ -154,25 +156,28 @@ class TestGame_Class extends Game_Class
 	constructor(canvasManager)
 	{
 		super(canvasManager);
+
 		this.name = "Test!";
 		this.moveIt = false;
-		this.autoRefresh = true;
+		this.autoRefresh = false;
+		this.quadrato = new Square_Class("quadratoDiTest", 50);
 	}
+	
 	LoadGame()
 	{
 		log("Loading");
-		this.quadrato = new Square_Class("quadratoDiTest", 50);
 		this.quadrato.position = { x: ((Math.random() * this.CM.Canvas.width) + 1), y: ((Math.random() * this.CM.Canvas.height) + 1) };
 		
 		this.CM.UpdateObjectList( [ this.quadrato ] );
+
 		this.CM.Add_OnMouse_Click_Function( this );
 		this.CM.Add_OnMouse_Down_Function( this );
 		this.CM.Add_OnMouse_Up_Function( this );
 		this.CM.Add_OnMouse_Move_Function( this );
 		this.CM.Add_OnMouse_Out_Function( this );
 
-		 this.quadrato.StartRotate(this.CM.drawingCanvas, 1);
-		if(this.autoRefresh) {this.CM.StartRefresh();}{this.CM.RefreshScreen();}
+		// this.quadrato.StartRotate(this.CM.drawingCanvas, 1);
+		if(this.autoRefresh) {this.CM.StartRefresh();}else{this.CM.RefreshScreen();}
 	}
 
 	OnClick(mouseEvt)

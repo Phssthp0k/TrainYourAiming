@@ -13,6 +13,7 @@ class clickableObject_Class
 		this.animationTimer = new GameTimer(1);
 	}
 
+	// Dev
 	Animations()
 	{
 		() => Boo()
@@ -21,6 +22,7 @@ class clickableObject_Class
 		}
 	}
 
+	// Dev
 	StartRotate(canvas, angle) {this.animationTimer.Start( ()=>this.Rotate(canvas, angle), 1);}
 	StopRotate(){this.animationTimer.Stop();}
 	Rotate(canvas, angle)
