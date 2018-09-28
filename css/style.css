@@ -53,6 +53,12 @@ button{
     padding-right: 20px;
     
 }
+#menu ul li:hover{
+	cursor: crosshair;
+	color: red;
+	background-color: #FFBB00; 
+	border-radius: 5px;
+}
 
 /*------games------*/
 #gamesList{
