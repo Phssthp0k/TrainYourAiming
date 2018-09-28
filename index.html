@@ -37,6 +37,13 @@
 		// INIT
 			
 		var drawing = new CanvasManagement_Class("playCanvas");
+
+		function Home()
+		{
+			document.getElementById("gamingArea").style.display = "none";
+			document.getElementById("index").style.display = "inline";
+			localStorage.setItem( "currGame", null );
+		}
 		
 		function ShowGamingArea()
 		{
@@ -54,18 +61,14 @@
 		window.onload = function()
 		{
 			var currGame = localStorage.getItem( "currGame" );
-			log(localStorage.getItem( "currGame" ));	
-
+			
 			if(currGame != null )
 			{
-				log('s' + gameModesList.GamesList.length);
 				ShowGamingArea();
 				for ( var z = 0; z<gameModesList.GamesList.length; z++ )
 				{
-					log( gameModesList.GamesList[z] );
 					if( gameModesList.GamesList[z].name == currGame )
 					{
-						log( gameModesList.GamesList[z] );
 						gameModesList.GamesList[z].LoadGame();
 						break;
 					}
