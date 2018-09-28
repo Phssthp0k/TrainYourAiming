@@ -4,6 +4,8 @@ class Score_Class
 	{
 		this.lifes = 3;
 		this.totalScore = 0;
+		this.date;
+		this.time;
 		this.clicks = { 
 						lastClickTime : new Date().getTime(), 
 						lastClickDuration : 0, 
