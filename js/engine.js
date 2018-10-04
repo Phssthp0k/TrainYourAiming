@@ -39,11 +39,11 @@ function getRandomColor()
 
 class GameTimer
 {
-	constructor(intervalTime)
+	constructor(intervalTime, timerName)
 	{
 		this._intervalTimer;
 		this._intervalTime = (intervalTime!==null)?intervalTime:100;
-		this._name = "Timer";
+		this._name = (timerName!==null)?timerName:"Timer";
 
 	}
 
@@ -58,12 +58,12 @@ class GameTimer
 	set timer (value) { return this._intervalTimer=value;}
 	get name () { return this._name;}
 
-	Start(param)
+	Start(functy)
 	{
-		if ( param !== null )
+		if ( functy !== null )
 		{
 			log("Start Timer ["+this._name+"]");
-			this._intervalTimer = setInterval(param,  this._intervalTime);	
+			this._intervalTimer = setInterval(functy,  this._intervalTime);	
 		}
 		else
 		{

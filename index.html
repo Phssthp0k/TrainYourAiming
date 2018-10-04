@@ -42,7 +42,7 @@
 		{
 			document.getElementById("gamingArea").style.display = "none";
 			document.getElementById("index").style.display = "inline";
-			localStorage.setItem( "currGame", null );
+			localStorage.setItem( "currGame", "null" );
 		}
 		
 		function ShowGamingArea()
@@ -56,13 +56,13 @@
 		gameModesList.AddNewGame( new QuickAim_Class(drawing) );
 		gameModesList.AddNewGame( new TestGame_Class(drawing) );
 
-		gameModesList.GenerateGamesList(ShowGamingArea);
+		  gameModesList.GenerateGamesList(ShowGamingArea);
 
 		window.onload = function()
 		{
 			var currGame = localStorage.getItem( "currGame" );
 			
-			if(currGame != null )
+			if( currGame != "null" )
 			{
 				ShowGamingArea();
 				for ( var z = 0; z<gameModesList.GamesList.length; z++ )
@@ -73,6 +73,11 @@
 						break;
 					}
 				}
+			}
+			else
+			{
+				log('home');
+				Home();
 			}
 			
 		}

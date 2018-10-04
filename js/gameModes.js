@@ -145,7 +145,10 @@ class QuickClick_Class extends Game_Class
 
 		this.name = "Quick Click!";
 	}
-	LoadGame(){log("defa");}
+	LoadGame()
+	{
+		
+	}
 }
 
 class TestGame_Class extends Game_Class
@@ -182,7 +185,7 @@ class TestGame_Class extends Game_Class
 		if( this.quadrato.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
 		{
 			log('score');			
-			this.quadrato.animations.Boo();
+			this.quadrato.animations.FadeOut();
 		}
 		if(!this.autoRefresh) {this.CM.RefreshScreen(); }
 	}

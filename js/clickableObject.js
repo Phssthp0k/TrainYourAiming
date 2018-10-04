@@ -9,23 +9,16 @@ class clickableObject_Class
 		this.border = { width : 1, color : getRandomColor() };
 		this.hitScore = 1;
 
-
-		this.animationTimer = new GameTimer(1);
-
 		// Dev
 		this.animations =
 		{
-			Boo()
-			{
-				log('aok');
-			},
-			Baa()
-			{
-				log('koa');
-			},
-			StartRotate(canvas, angle) {this.animationTimer.Start( ()=>this.Rotate(canvas, angle), 1);},
-			StopRotate(){this.animationTimer.Stop();},
-			Rotate(canvas, angle)
+			timer : new GameTimer(1, "CO timer"),
+			list : {
+						active : [  ],
+					},
+			StartRotate(canvas, angle) {},
+			StopRotate(){},
+			Rotate(canvas, angle) 
 			{
 				var COntext = canvas.getContext('2d');
 				COntext.clearRect(0, 0, canvas.Width, canvas.Height);
@@ -34,11 +27,34 @@ class clickableObject_Class
 				COntext.translate(this.position.x+(this.width/2), this.position.y+(this.height/2));
 				COntext.rotate(angle*Math.PI / 180);
 		    	COntext.translate(-this.position.x-(this.width/2), -this.position.y-(this.height/2));
-
-			}
+			},
+			FadeIn(timeToFade) 
+			{
+				log('ok'); 
+				this.timer.Stop()
+			},
+			_fadeOut()
+			{
+				log('asdf')
+			},
+			FadeOut(timeToFade) 
+			{
+				log('ko '+ this);
+				this.timer.Start(this._fadeOut);
+			},
 		}
 	} // FINE COSTRUTTORE
-	
+			
+			Animate()
+			{
+				var animationList = this.animations.list.active;	
+				log (animationList.length);
+				for ( var i=0; i<animationList.length; i++ )
+				{
+					log(animationList[i]);
+					animationList[i]();
+				}
+			}
 
 	Draw( canvas, newPosition ){log("Draw function() is notDefined");};
 	Refresh( canvas )
