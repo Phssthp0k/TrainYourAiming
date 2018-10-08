@@ -12,6 +12,7 @@ class clickableObject_Class
 		// Dev
 		this.animations =
 		{
+			father : this,
 			timer : new GameTimer(1, "CO timer"),
 			list : {
 						active : [  ],
@@ -33,14 +34,14 @@ class clickableObject_Class
 				log('ok'); 
 				this.timer.Stop()
 			},
-			_fadeOut()
+			_fadeOut(father)
 			{
-				log('asdf')
+				log('asdf ' + father.name )
 			},
 			FadeOut(timeToFade) 
 			{
-				log('ko '+ this);
-				this.timer.Start(this._fadeOut);
+				log('ko '+ this.father);
+				this.timer.Start( (this.father) => this._fadeOut);
 			},
 		}
 	} // FINE COSTRUTTORE

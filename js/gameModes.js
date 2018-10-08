@@ -184,8 +184,10 @@ class TestGame_Class extends Game_Class
 	{
 		if( this.quadrato.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
 		{
-			log('score');			
-			this.quadrato.animations.FadeOut();
+			log('score');
+			var ll = this.quadrato;
+			ll.animations.FadeOut();			
+			//this.quadrato.animations.FadeOut();
 		}
 		if(!this.autoRefresh) {this.CM.RefreshScreen(); }
 	}
