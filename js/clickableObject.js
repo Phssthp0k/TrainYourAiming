@@ -40,8 +40,8 @@ class clickableObject_Class
 			},
 			FadeOut(timeToFade) 
 			{
-				log('ko '+ this.father);
-				this.timer.Start( (this.father) => this._fadeOut);
+				log('ko '+ this.father.name);
+				//this.timer.Start( );
 			},
 		}
 	} // FINE COSTRUTTORE

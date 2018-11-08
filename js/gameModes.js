@@ -85,6 +85,8 @@ class Game_Class
 	SetDifficultyLevel(){log("notDefined");}
 	OnClick(mouseEvents){log("notDefined. Mouse Click");}
 	IsHit(mousePos){log("notDefined. IsHit must be used to check if click happened inside shape boundaries");}
+
+	GameOver() {log("notDefined. GameOver");}
 }
 
 class QuickAim_Class extends Game_Class
@@ -205,6 +207,116 @@ class TestGame_Class extends Game_Class
 			//this.quadrato.animations.StartRotate(this.CM.drawingCanvas, 1);
 			if(!this.autoRefresh) {this.CM.RefreshScreen(); }
 
+		}
+	}
+}
+
+
+class FollowTheCircle_Class extends Game_Class
+{
+	/*
+		
+		Il giocatore deve portare il cursore sopra il cerchio e mantenerlo sopra in movimento
+	
+	*/
+	constructor(canvasManager)
+	{
+		super(canvasManager);
+
+		this.name = "Follow the Circle";
+		this.moveIt = false;
+		this.autoRefresh = true;
+		
+		this.cerchio = new Circle_Class();
+		this.cerchio.radius = 30;
+		
+		this.refreshTimer = new GameTimer(100);
+
+		this.OutSecs = 3;
+
+		this.circleVector = 5;
+		this.newDirection = Math.floor(Math.random() * 4); // 0---3 = NSWE
+		this.lastDirection = 0;
+
+		this.movementDelta = 10;
+	}
+
+	LoadGame()
+	{
+		log("Loading ["+this.name+"]");
+
+		this.cerchio.position = this.CM.canvasCenter ;
+		
+		this.CM.UpdateObjectList( [ this.cerchio ] );
+
+		this.CM.Add_OnMouse_Click_Function( this );
+		this.CM.Add_OnMouse_Down_Function( this );
+		this.CM.Add_OnMouse_Up_Function( this );
+		this.CM.Add_OnMouse_Move_Function( this );
+		this.CM.Add_OnMouse_Out_Function( this );
+
+		this.CM.StartRefresh()
+	}
+
+	OnClick(mouseEvt)
+	{
+		if( this.cerchio.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
+		{
+			this.refreshTimer.Start( () => {this.RefreshPos()} ); 
+		}
+	}
+	OnMouseDown(mouseEvt) {}
+	OnMouseUp(mouseEvt) { this.moveIt = false; }
+	OnMouseOut(mouseEvt) { this.moveIt = false; }
+	OnMouseMove(mouseEvt) 	
+	{ 
+		if( this.cerchio.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
+		{	
+			//this.RefreshPos();
+		}  
+		else
+		{
+			this.MoveIt = false;
+		}
+	}
+
+	RefreshPos()
+	{
+		/*
+			1. vettore a differenti lunghezze, (math.random)
+			2. all'azzeramento del vettore, nuova direzione (per ora NSWE)
+		*/
+		if( this.circleVector <= 0 )
+		{
+			this.circleVector = Math.floor(Math.random() * 10);
+			this.lastDirection = this.newDirection;
+
+			do
+			{
+				this.newDirection = Math.floor(Math.random() * 4);
+			}
+			while (this.newDirection === this.lastDirection )
+		}
+		else
+		{
+			this.circleVector--;
+			
+			switch(this.newDirection)
+			{
+				case 0: //up
+					this.cerchio.position.x += this.movementDelta;
+					break;
+				case 1: //down
+					this.cerchio.position.x -= this.movementDelta;
+					break;
+				case 2: //left
+					this.cerchio.position.y -= this.movementDelta;
+					break;
+				case 3: // right
+					this.cerchio.position.y += this.movementDelta;
+					break;
+			}
+			
 		}
 	}
 }

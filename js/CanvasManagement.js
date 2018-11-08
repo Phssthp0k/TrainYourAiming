@@ -127,9 +127,9 @@ class CanvasManagement_Class
 		})();
 	}
 
-	OnClick(mouseEvents) {log("click");}
-	OnMouseDown(mouseEvents){log("OnMouseDown");}
-	OnMouseUp(mouseEvents){	log("OnMouseUp");}
+	OnClick(mouseEvents) {		log("click");}
+	OnMouseDown(mouseEvents){	log("OnMouseDown");}
+	OnMouseUp(mouseEvents){		log("OnMouseUp");}
 	OnMouseMove(mouseEvents){	log("OnMouseMove");}
 	OnMouseOut(mouseEvents){	log("OnMouseOut");}
 
