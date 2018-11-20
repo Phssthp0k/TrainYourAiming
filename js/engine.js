@@ -37,6 +37,17 @@ function getRandomColor()
   return color;
 }
 
+var green = "#008000"
+var rogue = "#DC143C"
+var color
+{
+
+	red : "#DC143C"
+	green : "#008000"
+	darkblue : "#00008B"
+
+}
+
 class GameTimer
 {
 	constructor(intervalTime, timerName)

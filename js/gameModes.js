@@ -147,6 +147,7 @@ class QuickClick_Class extends Game_Class
 
 		this.name = "Quick Click!";
 	}
+
 	LoadGame()
 	{
 		
@@ -224,21 +225,27 @@ class FollowTheCircle_Class extends Game_Class
 		super(canvasManager);
 
 		this.name = "Follow the Circle";
-		this.moveIt = false;
 		this.autoRefresh = true;
 		
 		this.cerchio = new Circle_Class();
 		this.cerchio.radius = 30;
 		
-		this.refreshTimer = new GameTimer(100);
+		this.RefreshTimerLapse = 10
+		this.refreshTimer = new GameTimer(this.RefreshTimerLapse);
 
-		this.OutSecs = 3;
+		this.OutSecs = 3000;
 
-		this.circleVector = 5;
+		this.circleVector = 10;
+		this.circleSpeed = 10;
+		this.circleSpeedTick = 0;
 		this.newDirection = Math.floor(Math.random() * 4); // 0---3 = NSWE
 		this.lastDirection = 0;
 
 		this.movementDelta = 10;
+
+		this.lastMousePos = { x: 0, y: 0 };
+
+		this.score = 0;
 	}
 
 	LoadGame()
@@ -260,47 +267,69 @@ class FollowTheCircle_Class extends Game_Class
 
 	OnClick(mouseEvt)
 	{
-		if( this.cerchio.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
+		if( this.cerchio.IsHit( this.lastMousePos ) )
 		{
 			this.refreshTimer.Start( () => {this.RefreshPos()} ); 
 		}
 	}
 	OnMouseDown(mouseEvt) {}
-	OnMouseUp(mouseEvt) { this.moveIt = false; }
-	OnMouseOut(mouseEvt) { this.moveIt = false; }
+	OnMouseUp(mouseEvt) {}
+	OnMouseOut(mouseEvt) {}
 	OnMouseMove(mouseEvt) 	
-	{ 
-		if( this.cerchio.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
-		{	
-			//this.RefreshPos();
-		}  
-		else
-		{
-			this.MoveIt = false;
-		}
+	{
+		this.lastMousePos = GetMousePos(this.CM.drawingCanvas, mouseEvt);
+	}
+
+	GameOver()
+	{
+		this.refreshTimer.Stop();
+		this.CM.StopRefresh();
+		log(this.score);
+		alert("Gameover! Your Score is ["+this.score+"]");
 	}
 
 	RefreshPos()
 	{
 		/*
 			1. vettore a differenti lunghezze, (math.random)
-			2. all'azzeramento del vettore, nuova direzione (per ora NSWE)
-		*/
-		if( this.circleVector <= 0 )
-		{
-			this.circleVector = Math.floor(Math.random() * 10);
-			this.lastDirection = this.newDirection;
+			2. all'azzeramento del vettore, nuova direzione (per ora NSWE, poi anche diagonali)
 
-			do
-			{
-				this.newDirection = Math.floor(Math.random() * 4);
-			}
-			while (this.newDirection === this.lastDirection )
+		*/
+
+		// Controllo che il mouse sia all'interno del cerchio
+		if( this.cerchio.IsHit( this.lastMousePos ) )
+		{
+			this.cerchio.color = green;
+			this.score++;	
 		}
 		else
 		{
+			this.cerchio.color = rogue;		
+			// 
+			this.OutSecs -= this.RefreshTimerLapse;
+			if( this.OutSecs <= 0 )
+			{
+				this.GameOver();
+			}
+		}			
+
+		if( this.circleSpeedTick === this.circleSpeed )
+		{
+			this.circleSpeedTick = 0;
+
+			if( this.circleVector <= 0 )
+			{
+				this.circleVector = Math.floor(Math.random() * 10);
+				do
+				{
+					this.newDirection = Math.floor(Math.random() * 4);
+				}
+				while (this.newDirection === this.lastDirection )
+				this.lastDirection = this.newDirection;
+			}
+					
 			this.circleVector--;
-			
+				
 			switch(this.newDirection)
 			{
 				case 0: //up
@@ -316,7 +345,10 @@ class FollowTheCircle_Class extends Game_Class
 					this.cerchio.position.y += this.movementDelta;
 					break;
 			}
-			
+		}
+		else
+		{
+			this.circleSpeedTick++;
 		}
 	}
 }
