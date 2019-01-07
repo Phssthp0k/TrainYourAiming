@@ -70,6 +70,7 @@ class Game_Class
 		this._description = "";
 		this._ico = "something";
 		this.CM = canvasManager;
+		this.playing = false;
 	}
 
 	get name() {return this._name;}
@@ -230,13 +231,13 @@ class FollowTheCircle_Class extends Game_Class
 		this.cerchio = new Circle_Class();
 		this.cerchio.radius = 30;
 		
-		this.RefreshTimerLapse = 10
+		this.RefreshTimerLapse = 1
 		this.refreshTimer = new GameTimer(this.RefreshTimerLapse);
 
 		this.OutSecs = 3000;
 
 		this.circleVector = 10;
-		this.circleSpeed = 10;
+		this.circleSpeed = 25;
 		this.circleSpeedTick = 0;
 		this.newDirection = Math.floor(Math.random() * 4); // 0---3 = NSWE
 		this.lastDirection = 0;
@@ -267,9 +268,13 @@ class FollowTheCircle_Class extends Game_Class
 
 	OnClick(mouseEvt)
 	{
-		if( this.cerchio.IsHit( this.lastMousePos ) )
+		if( !this.playing)
 		{
-			this.refreshTimer.Start( () => {this.RefreshPos()} ); 
+			this.playing = true;
+			if( this.cerchio.IsHit( this.lastMousePos ) )
+			{
+				this.refreshTimer.Start( () => {this.RefreshPos()} ); 
+			}
 		}
 	}
 	OnMouseDown(mouseEvt) {}
@@ -282,6 +287,7 @@ class FollowTheCircle_Class extends Game_Class
 
 	GameOver()
 	{
+		this.playing = false;
 		this.refreshTimer.Stop();
 		this.CM.StopRefresh();
 		log(this.score);
