@@ -26,15 +26,16 @@ button
 #nav-bar
 {
     position:absolute;
-    left:5px;
-    top:5px;
+    left:0px;
+    top:0px;
+    height:100%;
     padding-left: 5px;
     padding-right: 5px;
-    background-color: #000000;
+    background-color: #B0E0E6;
     display: block;
     box-sizing: border-box;
     /*border-radius: 10px;*/
-    
+    width:320px;
 }
 
 #menu ul
@@ -42,7 +43,6 @@ button
     list-style: none;
     background-color: #000000;
 }
-
 #menu ul li
 {
     color: #ffffff;
@@ -64,20 +64,10 @@ button
 /*------games------*/
 #gameModesList
 {
-    position:absolute;
     top:0px;
-    left:300px;
     text-align: center;
     display: block;
     width:300px;
-}
-
-#gamesList
-{
-}
-
-.gameInList
-{
 }
 
 .img_cat
@@ -114,12 +104,6 @@ button
 	border: 1px solid #000000;
 }
 
-#gamingArea
-{
-    position:absolute;
-    display: block;
-    height:100%
-}
 
 #playCanvas
 {

@@ -6,20 +6,20 @@
 <!--<div>Train Your Aiming</div>-->
 	
 
-	<div id="gamingArea">
-		<canvas id="playCanvas"></canvas>
-	</div>
+	<canvas id="playCanvas"></canvas>
 	
+
+    <!-- Not in-game bar -->
 	<div id="nav-bar">
-        <ul>
+        <ul> 
             <li onclick="Home()">Train Your Aim</li>
         </ul>
+		<div id="gameModesList"></div>
     </div>
 	
-	<div id="gameModesList"></div>
-
+    <!-- In-game bar -->
 	<div class="stat-bar">
-		<button type="button" class="btn btn-rounded btn-danger">End Session</button>
+		<button onclick="Home()" type="button" class="btn btn-rounded btn-danger">End Session</button>
 	</div>
 
 	<div id="footer"></div>

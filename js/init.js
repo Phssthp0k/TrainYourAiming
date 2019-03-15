@@ -5,12 +5,15 @@ drawing.PrintInfos();
 
 function Home()
 {
+	log("home");
 	localStorage.setItem( "currGame", "null" );
+	document.getElementById("nav-bar").style.display = "block";
 }
 
 function ShowGamingArea()
 {
 	/* document.getElementById("gamingArea").style.display = "block"; */
+	document.getElementById("nav-bar").style.display = "none";
 }
 
 var gameModesList = new GameModes_List_Class("gameModesList");
