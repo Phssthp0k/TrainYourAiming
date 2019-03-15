@@ -2,28 +2,20 @@
 html, body
 {
     margin: auto;
-    /*padding: 20px;*/
 	text-align: center;
 	font-size: 32px;
+    background-color: #AF2025;
+    height:100%;
+    overflow: hidden;
 }
 
-.night-mode{
-	color: #858585;
-	background-color: #000000;
-}
-
-.day-mode{	
-	color: #000000;
-	background-color: #ffffff;
-}
-
-label{
+label
+{
 	border: 1px;
 }
 
-button{
-	width: 50px;
-	height: 30px;
+button
+{
 	background-color: orange;
 	border: none;
 	padding: auto;
@@ -31,20 +23,28 @@ button{
 }
 
 /*-----Menu------*/
-#menu{
-    width: 100%;
+#nav-bar
+{
+    position:absolute;
+    left:5px;
+    top:5px;
     padding-left: 5px;
     padding-right: 5px;
-    background-color: #F59B00;
+    background-color: #000000;
+    display: block;
+    box-sizing: border-box;
     /*border-radius: 10px;*/
     
 }
 
-#menu ul{
+#menu ul
+{
     list-style: none;
+    background-color: #000000;
 }
 
-#menu ul li{
+#menu ul li
+{
     color: #ffffff;
     text-align: center;
     display: inline-block;
@@ -53,7 +53,8 @@ button{
     padding-right: 20px;
     
 }
-#menu ul li:hover{
+#menu ul li:hover
+{
 	cursor: crosshair;
 	color: red;
 	background-color: #FFBB00; 
@@ -61,52 +62,69 @@ button{
 }
 
 /*------games------*/
-#gamesList{
+#gameModesList
+{
+    position:absolute;
+    top:0px;
+    left:300px;
     text-align: center;
-    display: inline-block;
+    display: block;
+    width:300px;
 }
 
-.gameInList{
-    display: inline-block;
+#gamesList
+{
 }
 
-.img_cat{
+.gameInList
+{
+}
+
+.img_cat
+{
     position:relative;
-    display: inline-block;
+    display: block;
 }
 
-.cat_name{
+.cat_name
+{
     position: absolute;
     display: none;
     text-align: center;
 }
 
-#cat1:hover + #cat_1{
+#cat1:hover + #cat_1
+{
     display: block;
 }
 
-#cat2:hover + #cat_2{
+#cat2:hover + #cat_2
+{
     display: block;
 }
 
-#cat3:hover + #cat_3{
+#cat3:hover + #cat_3
+{
     display: block;
 }
 
 /*-----game window------*/
-#scoreCanvas, #lifesCanvas, #clickTimeCanvas, #clickAvgTimeCanvas{
+#scoreCanvas, #lifesCanvas, #clickTimeCanvas, #clickAvgTimeCanvas
+{
 	border: 1px solid #000000;
 }
 
 #gamingArea
 {
-    display: none;
+    position:absolute;
+    display: block;
+    height:100%
 }
 
-#playCanvas {
-	/*width: 640px;
-	 height: 480px;*/
-	background-color: #5a5a5a;
+#playCanvas
+{
+	background-color: #1F2025;
+    display: block;
 }
 
 #main-table .td{
@@ -122,3 +140,10 @@ button{
 	width: auto;
 }
 
+.stat-bar
+{
+    position:absolute;
+    top:20px;
+    right:14px;
+    text-align:right;
+}

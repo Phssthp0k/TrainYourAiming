@@ -6,81 +6,31 @@
 <!--<div>Train Your Aiming</div>-->
 	
 
+	<div id="gamingArea">
+		<canvas id="playCanvas"></canvas>
+	</div>
+	
+	<div id="nav-bar">
+        <ul>
+            <li onclick="Home()">Train Your Aim</li>
+        </ul>
+    </div>
+	
+	<div id="gameModesList"></div>
+
+	<div class="stat-bar">
+		<button type="button" class="btn btn-rounded btn-danger">End Session</button>
+	</div>
+
+	<div id="footer"></div>
+
+
 	<!-- <script src="js/score.js"></script> -->
 	<script src="js/engine.js"></script>
 	<script src="js/CanvasManagement.js"></script> 
 	<script src="js/clickableObject.js"></script>
 	<script src="js/target.js"></script>
 	<script src="js/gameModes.js"></script>
-
-	<div id="menu">
-        <ul>
-            <li onclick="Home()">HOME</li>
-            <li>Chi siamo</li>  
-        </ul>
-    </div>
-	<div id="index">
-		<div id="banner">
-            <h4>Train Your Aim</h4>
-		</div>
-        <hr>
-		<div id="gameModesList"></div>
-	</div>
-	
-	<div id="gamingArea">
-		<canvas id="playCanvas"  width="640" height="480"></canvas>
-	</div>
-
-	<div id="footer"></div>
-
-	<script>
-		// INIT
-			
-		var drawing = new CanvasManagement_Class("playCanvas");
-
-		function Home()
-		{
-			document.getElementById("gamingArea").style.display = "none";
-			document.getElementById("index").style.display = "inline";
-			localStorage.setItem( "currGame", "null" );
-		}
-		
-		function ShowGamingArea()
-		{
-			document.getElementById("gamingArea").style.display = "inline";
-			document.getElementById("index").style.display = "none";
-		}
-
-		var gameModesList = new GameModes_List_Class("gameModesList");
-		gameModesList.AddNewGame( new QuickClick_Class(drawing) );
-		gameModesList.AddNewGame( new QuickAim_Class(drawing) );
-		gameModesList.AddNewGame( new TestGame_Class(drawing) );
-		gameModesList.AddNewGame( new FollowTheCircle_Class(drawing) );
-
-		  gameModesList.GenerateGamesList(ShowGamingArea);
-
-		window.onload = function()
-		{
-			var currGame = localStorage.getItem( "currGame" );
-			
-			if( currGame != "null" )
-			{
-				ShowGamingArea();
-				for ( var z = 0; z<gameModesList.GamesList.length; z++ )
-				{
-					if( gameModesList.GamesList[z].name == currGame )
-					{
-						gameModesList.GamesList[z].LoadGame();
-						break;
-					}
-				}
-			}
-			else
-			{
-				log('home');
-				Home();
-			}
-			
-		}
-	</script>
+	<script src="js/init.js"></script>
+</div>
 </body>	

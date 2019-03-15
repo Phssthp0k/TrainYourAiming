@@ -1,13 +1,46 @@
-// Var INIT //
-var drawing = new CanvasManagement_Class( "playCanvas" );
+var drawing = new CanvasManagement_Class("playCanvas");
+drawing.drawingCanvas.width  = window.document.body.clientWidth;
+drawing.drawingCanvas.height = window.document.body.clientHeight;
 drawing.PrintInfos();
 
-var target = new Target_Class();
-target.name = "mainTarget";
-target.SetCircles(3);
-target.targetPosition = drawing.canvasCenter;
+function Home()
+{
+	localStorage.setItem( "currGame", "null" );
+}
 
-drawing.UpdateObjectList( [target ] );
+function ShowGamingArea()
+{
+	/* document.getElementById("gamingArea").style.display = "block"; */
+}
 
+var gameModesList = new GameModes_List_Class("gameModesList");
+gameModesList.AddNewGame( new QuickClick_Class(drawing) );
+gameModesList.AddNewGame( new QuickAim_Class(drawing) );
+gameModesList.AddNewGame( new TestGame_Class(drawing) );
+gameModesList.AddNewGame( new FollowTheCircle_Class(drawing) );
 
-var scoring = new ScoreClass();
+  gameModesList.GenerateGamesList(ShowGamingArea);
+
+window.onload = function()
+{
+	var currGame = localStorage.getItem( "currGame" );
+	
+	if( currGame != "null" )
+	{
+		ShowGamingArea();
+		for ( var z = 0; z<gameModesList.GamesList.length; z++ )
+		{
+			if( gameModesList.GamesList[z].name == currGame )
+			{
+				gameModesList.GamesList[z].LoadGame();
+				break;
+			}
+		}
+	}
+	else
+	{
+		log('home');
+		Home();
+	}
+	
+}
