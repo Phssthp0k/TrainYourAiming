@@ -41,7 +41,6 @@ button
     width:320px;
 }
 
-
 /*------games------*/
 #gameModesList
 {
@@ -51,23 +50,15 @@ button
     width:300px;
 }
 
-#gameInList:hover
+.gameInList:hover
 {
-    color: #ff0000;
+    background-color:red;
+}
+
+.gameInList:hover
+{
+    background-color: #303030;
     cursor:pointer;
-}
-
-.img_cat
-{
-    position:relative;
-    display: block;
-}
-
-.cat_name
-{
-    position: absolute;
-    display: none;
-    text-align: center;
 }
 
 /*-----game window------*/
@@ -76,25 +67,11 @@ button
 	border: 1px solid #000000;
 }
 
-
 #playCanvas
 {
 	background-color: #1F2025;
     display: block;
     cursor:crosshair;
-}
-
-#main-table .td{
-	width: 33%;
-}
-
-#left-bar, #right-bar{
-	width: 33%;
-	text-align: left;
-}
-
-#play-side{
-	width: auto;
 }
 
 .stat-bar
