@@ -47,3 +47,5 @@ window.onload = function()
 	}
 	
 }
+
+Home()
