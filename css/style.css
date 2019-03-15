@@ -20,6 +20,8 @@ button
 	border: none;
 	padding: auto;
 	cursor: pointer;
+    width: 200px;
+    height: 50px;
 }
 
 /*-----Menu------*/
@@ -31,35 +33,14 @@ button
     height:100%;
     padding-left: 5px;
     padding-right: 5px;
-    background-color: #B0E0E6;
+    background-color: #000000;
+    color: #ffffff;
     display: block;
     box-sizing: border-box;
     /*border-radius: 10px;*/
     width:320px;
 }
 
-#menu ul
-{
-    list-style: none;
-    background-color: #000000;
-}
-#menu ul li
-{
-    color: #ffffff;
-    text-align: center;
-    display: inline-block;
-    margin: 5px auto;
-    padding-left: 20px;
-    padding-right: 20px;
-    
-}
-#menu ul li:hover
-{
-	cursor: crosshair;
-	color: red;
-	background-color: #FFBB00; 
-	border-radius: 5px;
-}
 
 /*------games------*/
 #gameModesList
@@ -68,6 +49,12 @@ button
     text-align: center;
     display: block;
     width:300px;
+}
+
+#gameInList:hover
+{
+    color: #ff0000;
+    cursor:pointer;
 }
 
 .img_cat
@@ -83,21 +70,6 @@ button
     text-align: center;
 }
 
-#cat1:hover + #cat_1
-{
-    display: block;
-}
-
-#cat2:hover + #cat_2
-{
-    display: block;
-}
-
-#cat3:hover + #cat_3
-{
-    display: block;
-}
-
 /*-----game window------*/
 #scoreCanvas, #lifesCanvas, #clickTimeCanvas, #clickAvgTimeCanvas
 {
@@ -109,6 +81,7 @@ button
 {
 	background-color: #1F2025;
     display: block;
+    cursor:crosshair;
 }
 
 #main-table .td{
