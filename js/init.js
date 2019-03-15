@@ -8,12 +8,14 @@ function Home()
 	log("home");
 	localStorage.setItem( "currGame", "null" );
 	document.getElementById("nav-bar").style.display = "block";
+	document.getElementById("stat-bar").style.display = "none";
 }
 
 function ShowGamingArea()
 {
 	/* document.getElementById("gamingArea").style.display = "block"; */
 	document.getElementById("nav-bar").style.display = "none";
+	document.getElementById("stat-bar").style.display = "block";
 }
 
 var gameModesList = new GameModes_List_Class("gameModesList");
