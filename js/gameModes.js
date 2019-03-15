@@ -27,7 +27,7 @@ class GameModes_List_Class
 					var div = document.createElement("div");
 					div.id = guid();
 					div.className = "gameInList";
-					div.style.background = getRandomColor();
+					//div.style.background = getRandomColor();
 					div.innerHTML = game2Add.name;
 
 					// game's ico
