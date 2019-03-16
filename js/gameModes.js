@@ -80,10 +80,10 @@ class Game_Class
 	SetDifficultyLevel(){log("notDefined");}
 
 	// Makes the game actually running (timer/click/etc)
-	Start(){log("notDefined");}
+	StartGame(){log("notDefined");}
 	GameOver(){log("notDefined");}
 
-	SetDifficultyLevel(){log("notDefined");}
+	SetDifficultyLevel(){log("notDefined. SetDifficultyLevel");}
 	OnClick(mouseEvents){log("notDefined. Mouse Click");}
 	IsHit(mousePos){log("notDefined. IsHit must be used to check if click happened inside shape boundaries");}
 
@@ -97,26 +97,27 @@ class QuickAim_Class extends Game_Class
 		super(canvasManager_Class);
 
 		this.name = "Quick Aim!";
-		this.target = new Target_Class();
-		this.target2 = new Target_Class();
 	}
+	
 	LoadGame()
 	{
 		super.LoadGame();
 
-		this.target.name = "mainTarget";
-		this.target.SetCircles(3);
-		this.target.SetRadius( 40 );
-		this.target.targetPosition = this.CM.canvasCenter;
-		this.target.targetPosition = { x: ((Math.random() * this.CM.Canvas.width) + 1), y: ((Math.random() * this.CM.Canvas.height) + 1) };
-		
-		this.target2.name = "target2";
-		this.target2.SetCircles(3);
-		this.target2.SetRadius( 20 );
-		this.target2.targetPosition = this.CM.canvasCenter;
-		this.target2.targetPosition = { x: ((Math.random() * this.CM.Canvas.width) + 1), y: ((Math.random() * this.CM.Canvas.height) + 1) };
+		this._targets = [];
+		for( var i=0; i < 10; i++ )
+		{
+			target = new Target_Class();
+			target.name = "mainTarget";
+			target.SetCircles(3);
+			target.SetRadius( 40 );
+			target.targetPosition = this.CM.canvasCenter;
+			target.targetPosition = { x: ((Math.random() * this.CM.Canvas.width) + 1), y: ((Math.random() * this.CM.Canvas.height) + 1) };
 
-		this.CM.UpdateObjectList( [ this.target, this.target2 ] );
+			this._targets[this._gamesList.length] = this.target;
+		}
+
+		
+		this.CM.UpdateObjectList( this._targets );
 		this.CM.Add_OnMouse_Click_Function( this );
 		this.CM.RefreshScreen();
 		// mostro la scritta start e il primo target
@@ -138,6 +139,11 @@ class QuickAim_Class extends Game_Class
 		this.CM.RefreshScreen();
 			
 	}
+
+	StartGame()
+	{
+
+	}
 }
 
 class QuickClick_Class extends Game_Class
@@ -152,6 +158,11 @@ class QuickClick_Class extends Game_Class
 	LoadGame()
 	{
 		
+	}
+
+	StartGame()
+	{
+
 	}
 }
 
@@ -182,6 +193,11 @@ class TestGame_Class extends Game_Class
 
 		// this.quadrato.StartRotate(this.CM.drawingCanvas, 1);
 		if(this.autoRefresh) {this.CM.StartRefresh();}else{this.CM.RefreshScreen();}
+	}
+
+	StartGame()
+	{
+
 	}
 
 	OnClick(mouseEvt)
