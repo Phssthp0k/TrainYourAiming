@@ -17,13 +17,13 @@ function GameOver()
 	log("game over");
 	var currGame = localStorage.getItem( "currGame" );
 	for ( var z = 0; z<gameModesList.GamesList.length; z++ )
+	{
+		if( gameModesList.GamesList[z].name == currGame )
 		{
-			if( gameModesList.GamesList[z].name == currGame )
-			{
-				gameModesList.GamesList[z].GameOver();
-				break;
-			}
+			gameModesList.GamesList[z].GameOver();
+			break;
 		}
+	}
 	Home();
 }
 

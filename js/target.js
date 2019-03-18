@@ -7,12 +7,8 @@ class Target_Class
 		this.targetPosition = { x : 70, y : 70};
 		this.circlesNumber = 3;
 		this.targetCircles = [];
-		this.circlesColors = []
-		for ( var i = 0; i < this.circlesNumber; i++ )
-		{
-			this.circlesColors[this.circlesColors.length] = getRandomColor();
-		}
-		log( this.circleColors );
+		this.circlesColors = []; 
+		//log( this.circleColors );
 		this.targetTimer = new GameTimer(100);
 
 		this.SetCircles(this.circlesNumber);

@@ -95,16 +95,14 @@ class Game_Class
 	}
 }
 
+
 class QuickAim_Class extends Game_Class
 {
 	constructor(canvasManager_Class)
 	{
 		super(canvasManager_Class);
-
 		this.name = "Quick Aim";
-
 		this._tensionFromCenter = (this.CM.Canvas.height/2);
-
 		this.QA_timer = new GameTimer(500);
 	}
 	
@@ -112,28 +110,42 @@ class QuickAim_Class extends Game_Class
 	{
 		super.LoadGame();
 		
+		this._spawning = false;
+
+		this._maxTargets = 10;
 		this._targetID = 0;
-		this._targetsAmount = 10;
+		this._targetsAmount = 0;
 		this._targets = [];
-		this.QA_timer.Start( () => this.SpawnCircle() );
+
+		this.StartGame();
 	}
 
 	SpawnCircle()
 	{
-		this.target = new Target_Class();
-		this.target.name = "target-"+this._targetID; this._targetID+=1;
-		this.target.SetCircles(2);
-		this.target.circlesColors = [ "#AA0000", "#ff0000" ];
-		this.target.SetRadius( 20 );
-		this.target.targetPosition = this.CM.canvasCenter;
-		this.target.targetPosition = { x: ((Math.random() * this.CM.Canvas.height) + 1 + (this._tensionFromCenter)), y: ((Math.random() * this.CM.Canvas.height) + 1) };
-		
-		this._targets[this._targets.length] = this.target;
+		if( !this._spawning )
+		{
+			this._spawning = true;
+			if( this._targetsAmount < this._maxTargets )
+			{
+				this.target = new Target_Class();
+				this.target.name = "target-"+this._targetID; this._targetID+=1;
 
-		this.CM.UpdateObjectList( this._targets );
-		this.CM.Add_OnMouse_Click_Function( this );
+				this.target.SetCircles(2);
+				this.target.circlesColors = [ "#AA0000", "#ff0000" ];
+				this.target.SetRadius( 20 );
+				this.target.targetPosition = this.CM.canvasCenter;
+				this.target.targetPosition = { x: ((Math.random() * this.CM.Canvas.height) + 1 + (this._tensionFromCenter)), y: ((Math.random() * this.CM.Canvas.height) + 1) };
+				
+				this._targets[this._targets.length] = this.target;
+				this._targetsAmount+=1;
+				
+				this.CM.UpdateObjectList( this._targets );
+				this.CM.Add_OnMouse_Click_Function( this );
+			}
 
-		this.CM.RefreshScreen();
+			this._spawning = false;
+			this.CM.RefreshScreen();
+		}
 	}
 
 	OnClick(mouseEvents)
@@ -146,7 +158,6 @@ class QuickAim_Class extends Game_Class
 			if( this._targets[i].IsHit(mousePos) > 0 )
 			{
 				log("hit ["+this._targets[i].name+"]" );
-				log( this._targets[i].circlesColors );
 				this.toRemove = i;
 			}
 		}
@@ -155,23 +166,26 @@ class QuickAim_Class extends Game_Class
 		if ( this.toRemove >= 0)
 		{
 			this._targets.splice( this.toRemove, 1);
-			this._targetsAmount = this._targetsAmount-1;
+			this._targetsAmount-=1;
 		}
 		this.CM.RefreshScreen();
 	}
 
 	StartGame()
 	{
-
+		this.QA_timer.Start( () => this.SpawnCircle() );
 	}
 
 	GameOver()
 	{
 		log("QA Game Over");
+		super.GameOver();
 		this.QA_timer.Stop();
 		this.CM.ClearScreen();
 	}
 }
+
+
 
 class QuickClick_Class extends Game_Class
 {
@@ -192,6 +206,7 @@ class QuickClick_Class extends Game_Class
 
 	}
 }
+
 
 class TestGame_Class extends Game_Class
 {
@@ -339,6 +354,8 @@ class FollowTheCircle_Class extends Game_Class
 
 	GameOver()
 	{
+		//super(GameOver);
+		super.GameOver();
 		this.refreshTimer.Stop();
 		log(this.score);
 		alert("Gameover! Your Score is ["+this.score+"]");
