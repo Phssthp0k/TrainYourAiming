@@ -97,47 +97,51 @@ class QuickAim_Class extends Game_Class
 		super(canvasManager_Class);
 
 		this.name = "Quick Aim!";
+
+		this._tensionFromCenter = (this.CM.Canvas.height/2);
+		this._targetsAmount = 10;
+		this._targets = [];
 	}
 	
 	LoadGame()
 	{
 		super.LoadGame();
 
-		this._targets = [];
-		for( var i=0; i < 10; i++ )
+		for( var i=0; i < this._targetsAmount; i++ )
 		{
-			target = new Target_Class();
-			target.name = "mainTarget";
-			target.SetCircles(3);
-			target.SetRadius( 40 );
-			target.targetPosition = this.CM.canvasCenter;
-			target.targetPosition = { x: ((Math.random() * this.CM.Canvas.width) + 1), y: ((Math.random() * this.CM.Canvas.height) + 1) };
-
-			this._targets[this._gamesList.length] = this.target;
+			this.target = new Target_Class();
+			this.target.name = "target-"+i;
+			this.target.SetCircles(2);
+			this.target.circlesColors = [ "#AA0000", "#ff0000" ];
+			this.target.SetRadius( 20 );
+			this.target.targetPosition = this.CM.canvasCenter;
+			this.target.targetPosition = { x: ((Math.random() * this.CM.Canvas.height) + 1 + (this._tensionFromCenter)), y: ((Math.random() * this.CM.Canvas.height) + 1) };
+			
+			this._targets[this._targets.length] = this.target;
 		}
 
 		
 		this.CM.UpdateObjectList( this._targets );
 		this.CM.Add_OnMouse_Click_Function( this );
-		this.CM.RefreshScreen();
+		this.CM.StartRefreshScreen();
 		// mostro la scritta start e il primo target
-		// al click sul target parte il timer
 	}
 
 	OnClick(mouseEvents)
 	{
 		var mousePos = GetMousePos(this.CM.Canvas, mouseEvents);
-		if( this.target.IsHit(mousePos) > 0 )
+		
+		for( var i=0; i < this._targetsAmount; i++ )
 		{
-			this.target.targetPosition = { x: ((Math.random() * this.CM.Canvas.width) + 1), y: ((Math.random() * this.CM.Canvas.height) + 1) };
-			//this.target.Vanish();
+			if( this._targets[i].IsHit(mousePos) > 0 )
+			{
+				log("hit ["+this._targets[i].name+"]" );
+				log( this._targets[i].circlesColors );
+				this._targets[i].circlesColors = [ "#0000ff", "#FF0000" ];
+				log( this._targets[i].circlesColors );
+				// this.CM.RefreshScreen();
+			}
 		}
-		if( this.target2.IsHit(mousePos) > 0 )
-		{
-			this.target2.targetPosition = { x: ((Math.random() * this.CM.Canvas.width) + 1), y: ((Math.random() * this.CM.Canvas.height) + 1) };
-		}
-		this.CM.RefreshScreen();
-			
 	}
 
 	StartGame()
@@ -176,6 +180,8 @@ class TestGame_Class extends Game_Class
 		this.moveIt = false;
 		this.autoRefresh = false;
 		this.quadrato = new Square_Class("quadratoDiTest", 50);
+		this.color = "#aaaa00";
+		this.quadrato.color = this.color;
 	}
 	
 	LoadGame()
@@ -212,8 +218,15 @@ class TestGame_Class extends Game_Class
 		if(!this.autoRefresh) {this.CM.RefreshScreen(); }
 	}
 
-	OnMouseDown(mouseEvt) { if( this.quadrato.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) ){this.moveIt = true;} }
-	OnMouseUp(mouseEvt) { this.moveIt = false; }
+	OnMouseDown(mouseEvt) 
+	{ 
+		if( this.quadrato.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
+		{
+			this.moveIt = true;
+			this.quadrato.color = "#ffff00";
+		} 
+	}
+	OnMouseUp(mouseEvt) { this.moveIt = false; this.quadrato.color = this.color}
 	OnMouseOut(mouseEvt) { this.moveIt = false; }
 	OnMouseMove(mouseEvt)
 	{

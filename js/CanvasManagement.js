@@ -134,10 +134,12 @@ class CanvasManagement_Class
 	OnMouseOut(mouseEvents){	log("OnMouseOut");}
 
 	StartRefresh() {log("StartRefresh"); this.drawingTimer.Start( () => {this.RefreshScreen()} );}
+	StartRefreshScreen() {this.StartRefresh();}
 	StopRefresh() {this.drawingTimer.Stop();}
+	StopRefreshScreen() {this.StopRefresh();}
 	RefreshScreen()
 	{
-		//log(this.refreshCount);
+		// log(this.refreshCount);
 		this.refreshCount ++;
 
 		// da rimuovere
@@ -152,6 +154,13 @@ class CanvasManagement_Class
 			listObj.Draw( canvas );
 		});
 	}
+	ClearScreen()
+	{
+		var canvas = this.drawingCanvas;
+		var context = canvas.getContext('2d');
+		context.clearRect(0, 0, canvas.width, canvas.height);
+	}
+	ClrScr() { this.ClearScreen(); }
 }
 
 function UpdateAllScore()

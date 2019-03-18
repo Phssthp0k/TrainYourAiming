@@ -7,6 +7,12 @@ class Target_Class
 		this.targetPosition = { x : 70, y : 70};
 		this.circlesNumber = 3;
 		this.targetCircles = [];
+		this.circlesColors = []
+		for ( var i = 0; i < this.circlesNumber; i++ )
+		{
+			this.circlesColors[this.circlesColors.length] = getRandomColor();
+		}
+		log( this.circleColors );
 		this.targetTimer = new GameTimer(100);
 
 		this.SetCircles(this.circlesNumber);
@@ -42,6 +48,7 @@ class Target_Class
 			this.targetCircles[i].radius = this.maxRadius/(Math.abs(i-1)/2 + i/2 + (i+1)/2);
 			this.targetCircles[i].position = this.targetPosition;
 			this.targetCircles[i].hitScore = (i + 1);
+			this.targetCircles[i].color = this.circlesColors[i];
 			this.targetCircles[i].name = "Circle points: "+this.targetCircles[i].hitScore;
 			//this.targetCircles[i].StartAnimation();
 		}
@@ -76,13 +83,13 @@ class Target_Class
 		return retval;
 	};
 
-	Vanish()
+	FadeOut()
 	{
 		for ( var i = 0; i < this.circlesNumber; i++ )
 		{
 			log(this.targetCircles[i].globalAlpha);
 			this.targetCircles[i].globalAlpha=0.2;
-			
+			this.UpdateTarget();
 		}
 	}
 }
