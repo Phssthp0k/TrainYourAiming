@@ -87,7 +87,12 @@ class Game_Class
 	OnClick(mouseEvents){log("notDefined. Mouse Click");}
 	IsHit(mousePos){log("notDefined. IsHit must be used to check if click happened inside shape boundaries");}
 
-	GameOver() {log("notDefined. GameOver");}
+	GameOver() 
+	{
+		log("notDefined. GameOver");
+		this.playing = false;
+		this.CM.StopRefresh();
+	}
 }
 
 class QuickAim_Class extends Game_Class
@@ -96,57 +101,75 @@ class QuickAim_Class extends Game_Class
 	{
 		super(canvasManager_Class);
 
-		this.name = "Quick Aim!";
+		this.name = "Quick Aim";
 
 		this._tensionFromCenter = (this.CM.Canvas.height/2);
-		this._targetsAmount = 10;
-		this._targets = [];
+
+		this.QA_timer = new GameTimer(500);
 	}
 	
 	LoadGame()
 	{
 		super.LoadGame();
-
-		for( var i=0; i < this._targetsAmount; i++ )
-		{
-			this.target = new Target_Class();
-			this.target.name = "target-"+i;
-			this.target.SetCircles(2);
-			this.target.circlesColors = [ "#AA0000", "#ff0000" ];
-			this.target.SetRadius( 20 );
-			this.target.targetPosition = this.CM.canvasCenter;
-			this.target.targetPosition = { x: ((Math.random() * this.CM.Canvas.height) + 1 + (this._tensionFromCenter)), y: ((Math.random() * this.CM.Canvas.height) + 1) };
-			
-			this._targets[this._targets.length] = this.target;
-		}
-
 		
+		this._targetID = 0;
+		this._targetsAmount = 10;
+		this._targets = [];
+		this.QA_timer.Start( () => this.SpawnCircle() );
+	}
+
+	SpawnCircle()
+	{
+		this.target = new Target_Class();
+		this.target.name = "target-"+this._targetID; this._targetID+=1;
+		this.target.SetCircles(2);
+		this.target.circlesColors = [ "#AA0000", "#ff0000" ];
+		this.target.SetRadius( 20 );
+		this.target.targetPosition = this.CM.canvasCenter;
+		this.target.targetPosition = { x: ((Math.random() * this.CM.Canvas.height) + 1 + (this._tensionFromCenter)), y: ((Math.random() * this.CM.Canvas.height) + 1) };
+		
+		this._targets[this._targets.length] = this.target;
+
 		this.CM.UpdateObjectList( this._targets );
 		this.CM.Add_OnMouse_Click_Function( this );
-		this.CM.StartRefreshScreen();
-		// mostro la scritta start e il primo target
+
+		this.CM.RefreshScreen();
 	}
 
 	OnClick(mouseEvents)
 	{
 		var mousePos = GetMousePos(this.CM.Canvas, mouseEvents);
-		
+		this.toRemove = -1;
+
 		for( var i=0; i < this._targetsAmount; i++ )
 		{
 			if( this._targets[i].IsHit(mousePos) > 0 )
 			{
 				log("hit ["+this._targets[i].name+"]" );
 				log( this._targets[i].circlesColors );
-				this._targets[i].circlesColors = [ "#0000ff", "#FF0000" ];
-				log( this._targets[i].circlesColors );
-				// this.CM.RefreshScreen();
+				this.toRemove = i;
 			}
 		}
+		this._targets[this.toRemove] = this.circlesColors = [ "#0000ff", "#FF0000" ];
+
+		if ( this.toRemove >= 0)
+		{
+			this._targets.splice( this.toRemove, 1);
+			this._targetsAmount = this._targetsAmount-1;
+		}
+		this.CM.RefreshScreen();
 	}
 
 	StartGame()
 	{
 
+	}
+
+	GameOver()
+	{
+		log("QA Game Over");
+		this.QA_timer.Stop();
+		this.CM.ClearScreen();
 	}
 }
 
@@ -316,9 +339,7 @@ class FollowTheCircle_Class extends Game_Class
 
 	GameOver()
 	{
-		this.playing = false;
 		this.refreshTimer.Stop();
-		this.CM.StopRefresh();
 		log(this.score);
 		alert("Gameover! Your Score is ["+this.score+"]");
 	}

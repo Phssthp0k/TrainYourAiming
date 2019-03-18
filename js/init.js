@@ -11,6 +11,22 @@ function Home()
 	document.getElementById("stat-bar").style.display = "none";
 }
 
+
+function GameOver()
+{
+	log("game over");
+	var currGame = localStorage.getItem( "currGame" );
+	for ( var z = 0; z<gameModesList.GamesList.length; z++ )
+		{
+			if( gameModesList.GamesList[z].name == currGame )
+			{
+				gameModesList.GamesList[z].GameOver();
+				break;
+			}
+		}
+	Home();
+}
+
 function ShowGamingArea()
 {
 	/* document.getElementById("gamingArea").style.display = "block"; */
