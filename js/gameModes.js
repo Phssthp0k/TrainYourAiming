@@ -89,9 +89,11 @@ class Game_Class
 
 	GameOver() 
 	{
-		log("notDefined. GameOver");
+		log("Game_Class.GameOver");
 		this.playing = false;
+		this.CM.ClearScreen();
 		this.CM.StopRefresh();
+		this.CM.Remove_OnMouse_Functions();
 	}
 }
 
@@ -131,7 +133,7 @@ class QuickAim_Class extends Game_Class
 				this.target.name = "target-"+this._targetID; this._targetID+=1;
 
 				this.target.SetCircles(2);
-				this.target.circlesColors = [ "#AA0000", "#ff0000" ];
+				this.target.circlesColors = [ colors.rogue, colors.red ];
 				this.target.SetRadius( 20 );
 				this.target.targetPosition = this.CM.canvasCenter;
 				this.target.targetPosition = { x: ((Math.random() * this.CM.Canvas.height) + 1 + (this._tensionFromCenter)), y: ((Math.random() * this.CM.Canvas.height) + 1) };
@@ -141,6 +143,7 @@ class QuickAim_Class extends Game_Class
 				
 				this.CM.UpdateObjectList( this._targets );
 				this.CM.Add_OnMouse_Click_Function( this );
+				this.target.Update();
 			}
 
 			this._spawning = false;
@@ -157,11 +160,11 @@ class QuickAim_Class extends Game_Class
 		{
 			if( this._targets[i].IsHit(mousePos) > 0 )
 			{
-				log("hit ["+this._targets[i].name+"]" );
+				log("Target ["+this._targets[i].name+"] was HIT" );
+				this._targets[i].FadeOut(100);
 				this.toRemove = i;
 			}
 		}
-		this._targets[this.toRemove] = this.circlesColors = [ "#0000ff", "#FF0000" ];
 
 		if ( this.toRemove >= 0)
 		{
@@ -178,10 +181,9 @@ class QuickAim_Class extends Game_Class
 
 	GameOver()
 	{
-		log("QA Game Over");
-		super.GameOver();
+		// log("QA Game Over");
 		this.QA_timer.Stop();
-		this.CM.ClearScreen();
+		super.GameOver();
 	}
 }
 
@@ -193,12 +195,31 @@ class QuickClick_Class extends Game_Class
 	{
 		super(canvasManager);
 
-		this.name = "Quick Click!";
+		this.name = "Quick Click";		
+		this.quadrato2 = new Square_Class("quadratoDiTest2", 50);
 	}
 
 	LoadGame()
 	{
+		super.LoadGame();
+
+		this.quadrato2.position = { x: ((Math.random() * this.CM.Canvas.width) + 1), y: ((Math.random() * this.CM.Canvas.height) + 1) };		
 		
+		this.quadrato2.color = getRandomColor();
+		
+		this.CM.UpdateObjectList( [ this.quadrato2 ] );
+		this.CM.Add_OnMouse_Click_Function( this );
+
+		this.CM.RefreshScreen();		
+	}
+
+	OnClick(mouseEvt)
+	{
+		if( this.quadrato2.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
+		{
+			this.quadrato2.animations.FadeOut(100);
+		}
+		this.CM.RefreshScreen();
 	}
 
 	StartGame()
@@ -216,9 +237,9 @@ class TestGame_Class extends Game_Class
 
 		this.name = "Test!";
 		this.moveIt = false;
-		this.autoRefresh = false;
+		this.autoRefresh = true;
 		this.quadrato = new Square_Class("quadratoDiTest", 50);
-		this.color = "#aaaa00";
+		this.color = colors.blue;
 		this.quadrato.color = this.color;
 	}
 	
@@ -244,14 +265,16 @@ class TestGame_Class extends Game_Class
 
 	}
 
+	GameOver()
+	{
+		super.GameOver();
+	}
+
 	OnClick(mouseEvt)
 	{
 		if( this.quadrato.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
 		{
-			log('score');
 			var ll = this.quadrato;
-			ll.animations.FadeOut();			
-			//this.quadrato.animations.FadeOut();
 		}
 		if(!this.autoRefresh) {this.CM.RefreshScreen(); }
 	}
@@ -261,7 +284,7 @@ class TestGame_Class extends Game_Class
 		if( this.quadrato.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
 		{
 			this.moveIt = true;
-			this.quadrato.color = "#ffff00";
+			this.quadrato.color = colors.green;
 		} 
 	}
 	OnMouseUp(mouseEvt) { this.moveIt = false; this.quadrato.color = this.color}
@@ -357,7 +380,6 @@ class FollowTheCircle_Class extends Game_Class
 		//super(GameOver);
 		super.GameOver();
 		this.refreshTimer.Stop();
-		log(this.score);
 		alert("Gameover! Your Score is ["+this.score+"]");
 	}
 

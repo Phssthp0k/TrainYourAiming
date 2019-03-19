@@ -26,16 +26,14 @@ class Target_Class
 	SetCircles( newCirclesNumber )
 	{
 		this.circlesNumber = newCirclesNumber;
-		this.UpdateTarget();
 	}
 
 	SetRadius( newRadius )
 	{
 		this.maxRadius = newRadius;
-		this.UpdateTarget();
 	}
 
-	UpdateTarget()
+	Update()
 	{
 		this.targetCircles = [];
 		for ( var i = 0; i < this.circlesNumber; i++ )
@@ -44,9 +42,8 @@ class Target_Class
 			this.targetCircles[i].radius = this.maxRadius/(Math.abs(i-1)/2 + i/2 + (i+1)/2);
 			this.targetCircles[i].position = this.targetPosition;
 			this.targetCircles[i].hitScore = (i + 1);
-			this.targetCircles[i].color = this.circlesColors[i];
+			this.targetCircles[i].color = getColor(this.circlesColors[i]);
 			this.targetCircles[i].name = "Circle points: "+this.targetCircles[i].hitScore;
-			//this.targetCircles[i].StartAnimation();
 		}
 	}
 
@@ -75,17 +72,14 @@ class Target_Class
 				// log(elem.name + " " +elem.hitScore);
 			}
 		});
-		log("Score: [" + retval + "]");
 		return retval;
 	};
 
-	FadeOut()
+	FadeOut(msec)
 	{
 		for ( var i = 0; i < this.circlesNumber; i++ )
 		{
-			log(this.targetCircles[i].globalAlpha);
-			this.targetCircles[i].globalAlpha=0.2;
-			this.UpdateTarget();
+			this.targetCircles[i].FadeOut(msec);
 		}
-	}
+	};
 }

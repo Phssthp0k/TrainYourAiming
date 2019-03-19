@@ -1,11 +1,11 @@
 var drawing = new CanvasManagement_Class("playCanvas");
 drawing.drawingCanvas.width  = window.document.body.clientWidth;
 drawing.drawingCanvas.height = window.document.body.clientHeight;
-drawing.PrintInfos();
+//drawing.PrintInfos();
 
 function Home()
 {
-	log("home");
+	log("Requesting home");
 	localStorage.setItem( "currGame", "null" );
 	document.getElementById("nav-bar").style.display = "block";
 	document.getElementById("stat-bar").style.display = "none";
@@ -14,7 +14,7 @@ function Home()
 
 function GameOver()
 {
-	log("game over");
+	log("Issuing Game Over");
 	var currGame = localStorage.getItem( "currGame" );
 	for ( var z = 0; z<gameModesList.GamesList.length; z++ )
 	{

@@ -4,10 +4,10 @@ class clickableObject_Class
 	{
 		this.name = (newName || "notDefine");
 		this.position = { x : 0, y : 0 };
-		this.color = getRandomColor();
 		this.canClip = false;
 		this.border = { width : 1, color : getRandomColor() };
 		this.hitScore = 1;
+		this.color = getRandomColor(); // array r g b a
 
 		// Dev
 		this.animations =
@@ -32,16 +32,12 @@ class clickableObject_Class
 			FadeIn(timeToFade) 
 			{
 				log('ok'); 
-				this.timer.Stop()
-			},
-			_fadeOut(father)
-			{
-				log('asdf ' + father.name )
 			},
 			FadeOut(timeToFade) 
 			{
-				log('ko '+ this.father.name);
-				//this.timer.Start( );
+				this.father.SetOpacity(getOpacity(this.father.color)-0.2);
+				// Creo un timer di sec/timeToFade (valore di opacity da togliere ad ogni giro)
+				// che operi da solo
 			},
 		}
 	} // FINE COSTRUTTORE
@@ -56,7 +52,6 @@ class clickableObject_Class
 					animationList[i]();
 				}
 			}
-
 	Draw( canvas, newPosition ){log("Draw function() is notDefined");};
 	Refresh( canvas )
 	{
@@ -67,11 +62,11 @@ class clickableObject_Class
 	OnClick( canvas, newPosition ){log("notDefined");};
 	IsHit( mousePos ){log("notDefined");};
 
-	FadeOut(speedMs)
+	SetOpacity(opacity)
 	{
-		var timer = new GameTimer(speedMs);
-		timer.Start( function() {  } );
+		this.color = [ this.color[0], this.color[1], this.color[2], opacity ];
 	}
+	ChangeOpacity(opacity) { SetOpacity(opacity); }
 }
 
 class Rectangle_Class extends clickableObject_Class
@@ -79,6 +74,7 @@ class Rectangle_Class extends clickableObject_Class
 	constructor(newName, width, height )	
 	{
 		super(newName);
+
 		this.width = width;
 		this.height = height;
 	}
@@ -98,7 +94,7 @@ class Rectangle_Class extends clickableObject_Class
 		}
 
 		COntext.beginPath();
-		COntext.fillStyle = this.color;
+		COntext.fillStyle = getColor(this.color);
 		COntext.fillRect(this.position.x, this.position.y, this.width, this.height);
 		COntext.lineWidth = this.borderWidth;
 		COntext.strokeStyle = this.borderColor;
@@ -174,5 +170,10 @@ class Circle_Class extends clickableObject_Class
 	{
 		var res = Math.sqrt((this.position.x-mousePos.x)*(this.position.x-mousePos.x) + (this.position.y-mousePos.y)*(this.position.y-mousePos.y));
 		return (( res < this.radius ) ? this.hitScore : 0 );
+	}
+
+	FadeOut()
+	{
+		this.animations.FadeOut(100);
 	}
 }

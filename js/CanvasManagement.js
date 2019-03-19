@@ -42,6 +42,16 @@ class CanvasManagement_Class
 
 	UpdateObjectList( oBjectsList ) {this.objectsList = oBjectsList;}
 
+	Remove_OnMouse_Functions()
+	{
+		log("Remove_OnMouse_Functions");
+		this.OnClick_ChildClassesFunctions = [];
+		this.OnMouseDown_ChildClassesFunctions = [];
+		this.OnMouseUp_ChildClassesFunctions = [];
+		this.OnMouseMove_ChildClassesFunctions = [];
+		this.OnMouseOut_ChildClassesFunctions = [];
+		log("length ["+this.OnClick_ChildClassesFunctions.length+"]");
+	}
 	Add_OnMouse_Click_Function( Newfunction ){this.OnClick_ChildClassesFunctions[this.OnClick_ChildClassesFunctions.length] = Newfunction;}
 	Add_OnMouse_Down_Function( Newfunction ){this.OnMouseDown_ChildClassesFunctions[this.OnMouseDown_ChildClassesFunctions.length] = Newfunction;}
 	Add_OnMouse_Up_Function( Newfunction ){this.OnMouseUp_ChildClassesFunctions[this.OnMouseUp_ChildClassesFunctions.length] = Newfunction;}
@@ -60,6 +70,7 @@ class CanvasManagement_Class
 				{
 					for( var i = 0; i < onClickChildFunctions.length; i++ )
 					{
+						log(onClickChildFunctions[i]);
 						onClickChildFunctions[i].OnClick(evt);
 					}
 				}
