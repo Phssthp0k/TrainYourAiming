@@ -123,7 +123,7 @@ class QuickClick_Class extends Game_Class
 
 		this.quadrato2.animations.FadeIn(100);
 
-		this.CM.RefreshScreen();		
+		this.CM.StartRefresh();		
 	}
 
 	OnClick(mouseEvt)
@@ -132,7 +132,7 @@ class QuickClick_Class extends Game_Class
 		{
 			this.quadrato2.animations.FadeOut(100);
 		}
-		this.CM.RefreshScreen();
+		//this.CM.RefreshScreen();
 	}
 
 	StartGame()
@@ -177,8 +177,8 @@ class QuickAim_Class extends Game_Class
 				this.target.name = "target-"+this._targetID; this._targetID+=1;
 
 				this.target.SetCircles(2);
-				var color1 = colors.rogue.slice(0);
-				var color2 = colors.red.slice(0);
+				//var color1 = colors.rogue.slice(0);
+				//var color2 = colors.red.slice(0);
 				//color1[3] = 0;
 				//color2[3] = 0;
 				this.target.circlesColors = [ colors.rogue, colors.red ];

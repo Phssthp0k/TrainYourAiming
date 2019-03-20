@@ -32,23 +32,24 @@ class clickableObject_Class
 			FadeIn(timeToFade) 
 			{
 				log('fadein');
-				var fadeInTimer = new GameTimer( timeToFade, "FadeIn");
-				fadeInTimer.Start( this._fadeIn(fadeInTimer));
+				this.timer.timing = timeToFade;
+				// this.timer.Start( () => {this._fadeIn()} );	non deve chiamare la funzione ma la funzione deve essere aggiunta all'elenco. Verra' chiamato un metodo comune che esegue tutte le trasformazioni
+				this.timer.Start( () => {this._fadeIn()} );	
 			},
-			_fadeIn(timer2Stop)
+			_fadeIn()
 			{
-				if( getOpacity(this.color) >= 100 )
+				if( getOpacity(this.father.color) >= 1 )
 				{
-					timer2Stop.Stop();
+					this.timer.Stop();
 				}
 				else
 				{
-					this.color[3] += 0.1;
+					this.father.color[3] += 0.1;
 				}
 			},
 			FadeOut(timeToFade) 
 			{
-				this.father.SetOpacity(getOpacity(this.father.color)-0.2);
+				this.father.SetOpacity(getOpacity(this.father.color)-0.1);
 				// Creo un timer di sec/timeToFade (valore di opacity da togliere ad ogni giro)
 				// che operi da solo
 			},
