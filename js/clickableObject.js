@@ -19,7 +19,7 @@ class clickableObject_Class
 					},
 			StartRotate(canvas, angle) {},
 			StopRotate(){},
-			Rotate(canvas, angle) 
+			Rotate(canvas, angle, speedMs) 
 			{
 				var COntext = canvas.getContext('2d');
 				COntext.clearRect(0, 0, canvas.Width, canvas.Height);
@@ -31,7 +31,20 @@ class clickableObject_Class
 			},
 			FadeIn(timeToFade) 
 			{
-				log('ok'); 
+				log('fadein');
+				var fadeInTimer = new GameTimer( timeToFade, "FadeIn");
+				fadeInTimer.Start( this._fadeIn(fadeInTimer));
+			},
+			_fadeIn(timer2Stop)
+			{
+				if( getOpacity(this.color) >= 100 )
+				{
+					timer2Stop.Stop();
+				}
+				else
+				{
+					this.color[3] += 0.1;
+				}
 			},
 			FadeOut(timeToFade) 
 			{
@@ -42,16 +55,16 @@ class clickableObject_Class
 		}
 	} // FINE COSTRUTTORE
 			
-			Animate()
-			{
-				var animationList = this.animations.list.active;	
-				log (animationList.length);
-				for ( var i=0; i<animationList.length; i++ )
-				{
-					log(animationList[i]);
-					animationList[i]();
-				}
-			}
+	Animate()
+	{
+		var animationList = this.animations.list.active;	
+		log (animationList.length);
+		for ( var i=0; i<animationList.length; i++ )
+		{
+			log(animationList[i]);
+			animationList[i]();
+		}
+	}
 	Draw( canvas, newPosition ){log("Draw function() is notDefined");};
 	Refresh( canvas )
 	{
@@ -142,7 +155,7 @@ class Circle_Class extends clickableObject_Class
 
 		COntext.beginPath();
 		COntext.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
-		COntext.fillStyle = this.color;
+		COntext.fillStyle = getColor(this.color);
 		COntext.fill();
 		COntext.lineWidth = this.borderWidth;
 		COntext.strokeStyle = this.borderColor;

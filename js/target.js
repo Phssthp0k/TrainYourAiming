@@ -42,7 +42,7 @@ class Target_Class
 			this.targetCircles[i].radius = this.maxRadius/(Math.abs(i-1)/2 + i/2 + (i+1)/2);
 			this.targetCircles[i].position = this.targetPosition;
 			this.targetCircles[i].hitScore = (i + 1);
-			this.targetCircles[i].color = getColor(this.circlesColors[i]);
+			this.targetCircles[i].color = this.circlesColors[i];
 			this.targetCircles[i].name = "Circle points: "+this.targetCircles[i].hitScore;
 		}
 	}

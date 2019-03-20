@@ -61,77 +61,71 @@ class CanvasManagement_Class
 	{
 		var caller = this;
 
-		var onClickChildFunctions = this.OnClick_ChildClassesFunctions;
 		this.drawingCanvas.onclick = (function(evt)
 		{
 			return function(evt)
 			{
-				if( onClickChildFunctions.length > 0)
+				if( caller.OnClick_ChildClassesFunctions.length > 0)
 				{
-					for( var i = 0; i < onClickChildFunctions.length; i++ )
+					for( var i = 0; i < caller.OnClick_ChildClassesFunctions.length; i++ )
 					{
-						log(onClickChildFunctions[i]);
-						onClickChildFunctions[i].OnClick(evt);
+						caller.OnClick_ChildClassesFunctions[i].OnClick(evt);
 					}
 				}
 			}
 		})();
 
-		var onMouseDownChildFunctions = this.OnMouseDown_ChildClassesFunctions;
 		this.drawingCanvas.onmousedown = (function(evt)
 		{
 			return function(evt)
 			{
-				if( onMouseDownChildFunctions.length > 0)
+				if( caller.OnMouseDown_ChildClassesFunctions.length > 0)
 				{
-					for( var i = 0; i < onMouseDownChildFunctions.length; i++ )
+					for( var i = 0; i < caller.OnMouseDown_ChildClassesFunctions.length; i++ )
 					{
-						onMouseDownChildFunctions[i].OnMouseDown(evt);
+						caller.OnMouseDown_ChildClassesFunctions[i].OnMouseDown(evt);
 					}
 				}
 			}
 		})();
 
-		var onMouseUpFunctions = this.OnMouseUp_ChildClassesFunctions;
 		this.drawingCanvas.onmouseup = (function(evt)
 		{
 			return function(evt)
 			{
-				if( onMouseUpFunctions.length > 0)
+				if( caller.OnMouseUp_ChildClassesFunctions.length > 0)
 				{
-					for( var i = 0; i < onMouseUpFunctions.length; i++ )
+					for( var i = 0; i < caller.OnMouseUp_ChildClassesFunctions.length; i++ )
 					{
-						onMouseUpFunctions[i].OnMouseUp(evt);
+						caller.OnMouseUp_ChildClassesFunctions[i].OnMouseUp(evt);
 					}
 				}
 			}
 		})();
 
-		var onMouseMoveFunctions = this.OnMouseMove_ChildClassesFunctions;
 		this.drawingCanvas.onmousemove = (function(evt)
 		{
 			return function(evt)
 			{
-				if( onMouseMoveFunctions.length > 0)
+				if( caller.OnMouseMove_ChildClassesFunctions.length > 0)
 				{
-					for( var i = 0; i < onMouseMoveFunctions.length; i++ )
+					for( var i = 0; i < caller.OnMouseMove_ChildClassesFunctions.length; i++ )
 					{
-						onMouseMoveFunctions[i].OnMouseMove(evt);
+						caller.OnMouseMove_ChildClassesFunctions[i].OnMouseMove(evt);
 					}
 				}
 			}
 		})();
 
-		var onMuseOutFunctions = this.OnMouseOut_ChildClassesFunctions;
 		this.drawingCanvas.onmouseout = (function(evt)
 		{
 			return function(evt)
 			{
-				if( onMuseOutFunctions.length > 0)
+				if( caller.OnMouseOut_ChildClassesFunctions.length > 0)
 				{
-					for( var i = 0; i < onMuseOutFunctions.length; i++ )
+					for( var i = 0; i < caller.OnMouseOut_ChildClassesFunctions.length; i++ )
 					{
-						onMuseOutFunctions[i].OnMouseOut(evt);
+						caller.OnMouseOut_ChildClassesFunctions[i].OnMouseOut(evt);
 					}
 				}
 			}

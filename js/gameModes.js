@@ -98,6 +98,50 @@ class Game_Class
 }
 
 
+class QuickClick_Class extends Game_Class
+{
+	constructor(canvasManager)
+	{
+		super(canvasManager);
+
+		this.name = "Quick Click";		
+		this.quadrato2 = new Square_Class("quadratoDiTest2", 50);
+	}
+
+	LoadGame()
+	{
+		super.LoadGame();
+
+		this.quadrato2.position = { x: ((Math.random() * this.CM.Canvas.width) + 1), y: ((Math.random() * this.CM.Canvas.height) + 1) };		
+		
+		var quadColor = getRandomColor();
+		quadColor[3] = 0;
+		this.quadrato2.color = quadColor;
+		
+		this.CM.UpdateObjectList( [ this.quadrato2 ] );
+		this.CM.Add_OnMouse_Click_Function( this );
+
+		this.quadrato2.animations.FadeIn(100);
+
+		this.CM.RefreshScreen();		
+	}
+
+	OnClick(mouseEvt)
+	{
+		if( this.quadrato2.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
+		{
+			this.quadrato2.animations.FadeOut(100);
+		}
+		this.CM.RefreshScreen();
+	}
+
+	StartGame()
+	{
+
+	}
+}
+
+
 class QuickAim_Class extends Game_Class
 {
 	constructor(canvasManager_Class)
@@ -133,6 +177,10 @@ class QuickAim_Class extends Game_Class
 				this.target.name = "target-"+this._targetID; this._targetID+=1;
 
 				this.target.SetCircles(2);
+				var color1 = colors.rogue.slice(0);
+				var color2 = colors.red.slice(0);
+				//color1[3] = 0;
+				//color2[3] = 0;
 				this.target.circlesColors = [ colors.rogue, colors.red ];
 				this.target.SetRadius( 20 );
 				this.target.targetPosition = this.CM.canvasCenter;
@@ -144,6 +192,8 @@ class QuickAim_Class extends Game_Class
 				this.CM.UpdateObjectList( this._targets );
 				this.CM.Add_OnMouse_Click_Function( this );
 				this.target.Update();
+
+				//this.target.animations.FadeIn(100);
 			}
 
 			this._spawning = false;
@@ -187,46 +237,6 @@ class QuickAim_Class extends Game_Class
 	}
 }
 
-
-
-class QuickClick_Class extends Game_Class
-{
-	constructor(canvasManager)
-	{
-		super(canvasManager);
-
-		this.name = "Quick Click";		
-		this.quadrato2 = new Square_Class("quadratoDiTest2", 50);
-	}
-
-	LoadGame()
-	{
-		super.LoadGame();
-
-		this.quadrato2.position = { x: ((Math.random() * this.CM.Canvas.width) + 1), y: ((Math.random() * this.CM.Canvas.height) + 1) };		
-		
-		this.quadrato2.color = getRandomColor();
-		
-		this.CM.UpdateObjectList( [ this.quadrato2 ] );
-		this.CM.Add_OnMouse_Click_Function( this );
-
-		this.CM.RefreshScreen();		
-	}
-
-	OnClick(mouseEvt)
-	{
-		if( this.quadrato2.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
-		{
-			this.quadrato2.animations.FadeOut(100);
-		}
-		this.CM.RefreshScreen();
-	}
-
-	StartGame()
-	{
-
-	}
-}
 
 
 class TestGame_Class extends Game_Class
@@ -394,12 +404,12 @@ class FollowTheCircle_Class extends Game_Class
 		// Controllo che il mouse sia all'interno del cerchio
 		if( this.cerchio.IsHit( this.lastMousePos ) )
 		{
-			this.cerchio.color = green;
+			this.cerchio.color = colors.green;
 			this.score++;	
 		}
 		else
 		{
-			this.cerchio.color = rogue;		
+			this.cerchio.color = colors.rogue;		
 			// 
 			this.OutSecs -= this.RefreshTimerLapse;
 			if( this.OutSecs <= 0 )
