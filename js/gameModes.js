@@ -70,22 +70,31 @@ class Game_Class
 		this._description = "";
 		this._ico = "something";
 		this.CM = canvasManager;
-		this.playing = false;
+		this._playing = false;
 	}
 
 	get name() {return this._name;}
 	set name(value) {this._name = value;}
 
+	get playing() {return this._playing;}
+	set playing(value) {this._playing = value;}
+
+
 	LoadGame(){log("Loading '"+this._name+"'");}
 	SetDifficultyLevel(){log("notDefined");}
-
-	// Makes the game actually running (timer/click/etc)
-	StartGame(){log("notDefined");}
-	GameOver(){log("notDefined");}
 
 	SetDifficultyLevel(){log("notDefined. SetDifficultyLevel");}
 	OnClick(mouseEvents){log("notDefined. Mouse Click");}
 	IsHit(mousePos){log("notDefined. IsHit must be used to check if click happened inside shape boundaries");}
+
+	// Makes the game actually running (timer/click/etc)
+	StartGame()
+	{
+		log("Game_Class.StartGame");
+		this.playing = true;
+		this.CM.StartRefresh();
+
+	}
 
 	GameOver() 
 	{
@@ -148,21 +157,25 @@ class QuickAim_Class extends Game_Class
 	{
 		super(canvasManager_Class);
 		this.name = "Quick Aim";
-		this._tensionFromCenter = (this.CM.Canvas.height/2);
-		this.QA_timer = new GameTimer(500);
 	}
 	
 	LoadGame()
 	{
 		super.LoadGame();
 		
+		this.GameTime = 20000;
+		this.GameSpeed = 500;
+		this.QA_timer = new GameTimer(this.GameSpeed);
+
+		this._tensionFromCenter = (this.CM.Canvas.height/2);
+		this._targetsMinimumDistance = 10;
+
 		this._spawning = false;
-
-		this._targetID = 0;
-
 		this._maxTargets = 10;
+		this._targetID = 0;
 		this._targets = [];
 		this._destroyedTargets = [];
+		this._targetTimeout = 1000;
 
 		this.CM.Add_OnMouse_Click_Function( this );
 
@@ -171,7 +184,8 @@ class QuickAim_Class extends Game_Class
 
 	StartGame()
 	{
-		this.CM.StartRefresh();
+		super.StartGame();
+		log( this.playing );
 		this.QA_timer.Start( () => this.CircleManagement() );
 	}
 
@@ -179,10 +193,21 @@ class QuickAim_Class extends Game_Class
 	{
 		this.QA_timer.Stop();
 		super.GameOver();
+		log( this.playing );
+		alert("Game Over!");
 	}
 
 	CircleManagement()
 	{
+		if( this.GameTime <= 0 )
+		{
+			this.GameOver();
+		}
+		else
+		{
+			this.GameTime-=this.GameSpeed;
+		}
+
 		if ( this._destroyedTargets.length > 0 )
 		{
 			for( var del=0; del < this._destroyedTargets.length; del++ )
@@ -208,13 +233,17 @@ class QuickAim_Class extends Game_Class
 				this.target.circlesColors = [ color1, color2 ];
 				this.target.SetRadius( 20 );
 				this.target.targetPosition = this.CM.canvasCenter;
-				this.target.targetPosition = { x: ((Math.random() * this.CM.Canvas.height) + 1 + (this._tensionFromCenter)), y: ((Math.random() * this.CM.Canvas.height) + 1) };
-				
-				this._targets[this._targets.length] = this.target;
+
+				for( var i=0; i < this._targets.length; i++ )
+				{
+
+				}
+				this.target.targetPosition = { x: ((Math.random() * this._tensionFromCenter) + 1 + (this._tensionFromCenter)), y: ((Math.random() * this._tensionFromCenter) + 1) };
 				
 				this.target.Update();
-
 				this.target.FadeIn(100);
+
+				this._targets[this._targets.length] = this.target;
 			}
 			this._spawning = false;
 		}

@@ -2,10 +2,10 @@ class Score_Class
 {
 	constructor()
 	{
-		this.lifes = 3;
 		this.totalScore = 0;
 		this.date;
 		this.time;
+		this.clickHistory = [] // holds ClickRecord_ClassES
 		this.clicks = { 
 						lastClickTime : new Date().getTime(), 
 						lastClickDuration : 0, 
@@ -23,8 +23,13 @@ class Score_Class
 	}
 };
 
-function ResetScore()
+class ClickRecord_Class
 {
-	// Log( 'Resetting Score' );
-	scoring = new ScoreClass();
+	constructor(mouseCoord)
+	{
+		this._lastClickTime=new Date().getTime()
+		this._mouseCoord=mouseCoord
+	}
+
+	get MouseCoord
 }

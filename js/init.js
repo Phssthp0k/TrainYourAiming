@@ -1,3 +1,12 @@
+//alert( window.canRunAds );
+
+if( window.canRunAds === undefined )
+{
+    // adblocker detected, show fallback
+//	alert("Spegni adblocker");
+}
+
+
 var drawing = new CanvasManagement_Class("playCanvas");
 drawing.drawingCanvas.width  = window.document.body.clientWidth;
 drawing.drawingCanvas.height = window.document.body.clientHeight;
@@ -10,8 +19,6 @@ function Home()
 	document.getElementById("nav-bar").style.display = "block";
 	document.getElementById("stat-bar").style.display = "none";
 }
-
-
 function GameOver()
 {
 	log("Issuing Game Over");
@@ -20,7 +27,11 @@ function GameOver()
 	{
 		if( gameModesList.GamesList[z].name == currGame )
 		{
-			gameModesList.GamesList[z].GameOver();
+			log(gameModesList.GamesList[z].playing);
+			if( gameModesList.GamesList[z].playing)
+			{
+				gameModesList.GamesList[z].GameOver();
+			}
 			break;
 		}
 	}
