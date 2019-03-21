@@ -121,7 +121,7 @@ class QuickClick_Class extends Game_Class
 		this.CM.UpdateObjectList( [ this.quadrato2 ] );
 		this.CM.Add_OnMouse_Click_Function( this );
 
-		this.quadrato2.animations.FadeIn(100);
+		this.quadrato2.animations.FadeIn(200);
 
 		this.CM.StartRefresh();		
 	}
@@ -158,82 +158,83 @@ class QuickAim_Class extends Game_Class
 		
 		this._spawning = false;
 
-		this._maxTargets = 10;
 		this._targetID = 0;
-		this._targetsAmount = 0;
+
+		this._maxTargets = 10;
 		this._targets = [];
+		this._destroyedTargets = [];
+
+		this.CM.Add_OnMouse_Click_Function( this );
 
 		this.StartGame();
 	}
 
-	SpawnCircle()
+	StartGame()
 	{
+		this.CM.StartRefresh();
+		this.QA_timer.Start( () => this.CircleManagement() );
+	}
+
+	GameOver()
+	{
+		this.QA_timer.Stop();
+		super.GameOver();
+	}
+
+	CircleManagement()
+	{
+		if ( this._destroyedTargets.length > 0 )
+		{
+			for( var del=0; del < this._destroyedTargets.length; del++ )
+			{
+				this._targets.splice(this._destroyedTargets[del], 1);
+			}
+			this._destroyedTargets = [];
+		}
+
 		if( !this._spawning )
 		{
 			this._spawning = true;
-			if( this._targetsAmount < this._maxTargets )
+			if( this._targets.length < this._maxTargets )
 			{
 				this.target = new Target_Class();
 				this.target.name = "target-"+this._targetID; this._targetID+=1;
 
 				this.target.SetCircles(2);
-				//var color1 = colors.rogue.slice(0);
-				//var color2 = colors.red.slice(0);
-				//color1[3] = 0;
-				//color2[3] = 0;
-				this.target.circlesColors = [ colors.rogue, colors.red ];
+				var color1 = colors.rogue.slice(0);
+				var color2 = colors.red.slice(0);
+				color1[3] = 0;
+				color2[3] = 0;
+				this.target.circlesColors = [ color1, color2 ];
 				this.target.SetRadius( 20 );
 				this.target.targetPosition = this.CM.canvasCenter;
 				this.target.targetPosition = { x: ((Math.random() * this.CM.Canvas.height) + 1 + (this._tensionFromCenter)), y: ((Math.random() * this.CM.Canvas.height) + 1) };
 				
 				this._targets[this._targets.length] = this.target;
-				this._targetsAmount+=1;
 				
-				this.CM.UpdateObjectList( this._targets );
-				this.CM.Add_OnMouse_Click_Function( this );
 				this.target.Update();
 
-				//this.target.animations.FadeIn(100);
+				this.target.FadeIn(100);
 			}
-
 			this._spawning = false;
-			this.CM.RefreshScreen();
 		}
+		this.CM.UpdateObjectList( this._targets );
 	}
 
 	OnClick(mouseEvents)
 	{
 		var mousePos = GetMousePos(this.CM.Canvas, mouseEvents);
-		this.toRemove = -1;
 
-		for( var i=0; i < this._targetsAmount; i++ )
+		for( var i=0; i < this._targets.length; i++ )
 		{
+			// Controllo se ho colpito
 			if( this._targets[i].IsHit(mousePos) > 0 )
 			{
 				log("Target ["+this._targets[i].name+"] was HIT" );
-				this._targets[i].FadeOut(100);
-				this.toRemove = i;
+				this._destroyedTargets[this._destroyedTargets.length] = i;
+				this._targets[i].FadeOut(70);
 			}
 		}
-
-		if ( this.toRemove >= 0)
-		{
-			this._targets.splice( this.toRemove, 1);
-			this._targetsAmount-=1;
-		}
-		this.CM.RefreshScreen();
-	}
-
-	StartGame()
-	{
-		this.QA_timer.Start( () => this.SpawnCircle() );
-	}
-
-	GameOver()
-	{
-		// log("QA Game Over");
-		this.QA_timer.Stop();
-		super.GameOver();
 	}
 }
 

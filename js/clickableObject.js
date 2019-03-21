@@ -13,12 +13,17 @@ class clickableObject_Class
 		this.animations =
 		{
 			father : this,
-			timer : new GameTimer(1, "CO timer"),
-			list : {
-						active : [  ],
-					},
-			StartRotate(canvas, angle) {},
-			StopRotate(){},
+			// animationTimer : new GameTimer(1, "CO timer"),  // Da implementare
+			list : [ ],
+			RotateLeft(canvas, angle )
+			{
+
+			},
+			StartRotate(canvas, angle) 
+			{
+				// se angle negativo, spin a sx, se poisitivo a dx.
+			},
+			StopRotate() {},
 			Rotate(canvas, angle, speedMs) 
 			{
 				var COntext = canvas.getContext('2d');
@@ -29,29 +34,43 @@ class clickableObject_Class
 				COntext.rotate(angle*Math.PI / 180);
 		    	COntext.translate(-this.position.x-(this.width/2), -this.position.y-(this.height/2));
 			},
+			// Fade IN e fade OUT
+			fadeTimer : new GameTimer(100, "FadeTimer"),
 			FadeIn(timeToFade) 
 			{
-				log('fadein');
-				this.timer.timing = timeToFade;
-				// this.timer.Start( () => {this._fadeIn()} );	non deve chiamare la funzione ma la funzione deve essere aggiunta all'elenco. Verra' chiamato un metodo comune che esegue tutte le trasformazioni
-				this.timer.Start( () => {this._fadeIn()} );	
+				this.fadeTimer.Stop(); // Blocco se stavo gia' facendo un fade
+				this.fadeTimer.timing = timeToFade;
+				// this.timer.Start( () => {this._fadeIn()} );	non deve chiamare la funzione ma la funzione deve essere aggiunta all'elenco. 
+				// Verra' chiamato un metodo comune che esegue tutte le trasformazioni
+				this.fadeTimer.Start( () => {this._fadeIn()} );	
 			},
 			_fadeIn()
 			{
 				if( getOpacity(this.father.color) >= 1 )
 				{
-					this.timer.Stop();
+					this.fadeTimer.Stop();
 				}
 				else
 				{
 					this.father.color[3] += 0.1;
 				}
-			},
+			},			
 			FadeOut(timeToFade) 
 			{
-				this.father.SetOpacity(getOpacity(this.father.color)-0.1);
-				// Creo un timer di sec/timeToFade (valore di opacity da togliere ad ogni giro)
-				// che operi da solo
+				this.fadeTimer.Stop(); // Blocco se stavo gia' facendo un fade
+				this.fadeTimer.timing = timeToFade;
+				this.fadeTimer.Start( () => {this._fadeOut()} );	
+			},
+			_fadeOut()
+			{
+				if( getOpacity(this.father.color) <= 0 )
+				{
+					this.fadeTimer.Stop();
+				}
+				else
+				{
+					this.father.color[3] -= 0.1;
+				}
 			},
 		}
 	} // FINE COSTRUTTORE

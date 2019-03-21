@@ -12,7 +12,7 @@ class CanvasManagement_Class
 
 		this.canvasCenter = { x: this.drawingCanvas.width / 2, y: this.drawingCanvas.height / 2 };
 		this.updateScreenTimer;
-		this.objectsList;
+		this.objectsList = [];
 		this.refreshCount = 0;
 		
 		this.OnClick_ChildClassesFunctions = []; //[ this ];
@@ -144,20 +144,23 @@ class CanvasManagement_Class
 	StopRefreshScreen() {this.StopRefresh();}
 	RefreshScreen()
 	{
-		// log(this.refreshCount);
-		this.refreshCount ++;
-
-		// da rimuovere
-		//UpdateAllScore();
-
-		var canvas = this.drawingCanvas;
-		var context = canvas.getContext('2d');
-		context.clearRect(0, 0, canvas.width, canvas.height);
-
-		this.objectsList.forEach(function(listObj)
+		if ( this.objectsList.length > 0 )
 		{
-			listObj.Draw( canvas );
-		});
+			// log(this.refreshCount);
+			this.refreshCount ++;
+
+			// da rimuovere
+			//UpdateAllScore();
+
+			var canvas = this.drawingCanvas;
+			var context = canvas.getContext('2d');
+			context.clearRect(0, 0, canvas.width, canvas.height);
+
+			this.objectsList.forEach(function(listObj)
+			{
+				listObj.Draw( canvas );
+			});
+		}
 	}
 	ClearScreen()
 	{

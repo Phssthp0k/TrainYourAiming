@@ -7,9 +7,7 @@ class Target_Class
 		this.targetPosition = { x : 70, y : 70};
 		this.circlesNumber = 3;
 		this.targetCircles = [];
-		this.circlesColors = []; 
-		//log( this.circleColors );
-		this.targetTimer = new GameTimer(100);
+		this.circlesColors = [];
 
 		this.SetCircles(this.circlesNumber);
 	}
@@ -75,11 +73,19 @@ class Target_Class
 		return retval;
 	};
 
+	FadeIn(msec)
+	{
+		for ( var i = 0; i < this.circlesNumber; i++ )
+		{
+			this.targetCircles[i].animations.FadeIn(msec);
+		}
+	}
+
 	FadeOut(msec)
 	{
 		for ( var i = 0; i < this.circlesNumber; i++ )
 		{
-			this.targetCircles[i].FadeOut(msec);
+			this.targetCircles[i].animations.FadeOut(msec);
 		}
 	};
 }
