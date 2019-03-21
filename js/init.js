@@ -27,7 +27,6 @@ function GameOver()
 	{
 		if( gameModesList.GamesList[z].name == currGame )
 		{
-			log(gameModesList.GamesList[z].playing);
 			if( gameModesList.GamesList[z].playing)
 			{
 				gameModesList.GamesList[z].GameOver();

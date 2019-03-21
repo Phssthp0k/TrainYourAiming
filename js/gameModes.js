@@ -113,7 +113,7 @@ class QuickClick_Class extends Game_Class
 	{
 		super(canvasManager);
 
-		this.name = "Quick Click";		
+		this.name = "Test Fade";		
 		this.quadrato2 = new Square_Class("quadratoDiTest2", 50);
 	}
 
@@ -275,7 +275,7 @@ class TestGame_Class extends Game_Class
 	{
 		super(canvasManager);
 
-		this.name = "Test!";
+		this.name = "Test DragDrop";
 		this.moveIt = false;
 		this.autoRefresh = true;
 		this.quadrato = new Square_Class("quadratoDiTest", 50);
@@ -347,9 +347,7 @@ class TestGame_Class extends Game_Class
 class FollowTheCircle_Class extends Game_Class
 {
 	/*
-		
 		Il giocatore deve portare il cursore sopra il cerchio e mantenerlo sopra in movimento
-	
 	*/
 	constructor(canvasManager)
 	{
