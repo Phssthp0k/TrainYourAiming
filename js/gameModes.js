@@ -106,6 +106,42 @@ class Game_Class
 	}
 }
 
+class FourSquares_Class extends Game_Class
+{
+	constructor(canvasManager)
+	{
+		super(canvasManager);
+
+		this.name = "Four Squares";
+
+		this.quadratoWidth = 50;
+
+		this.quadratoNW = new Square_Class("quadratoDiTest2", this.quadratoWidth);
+		this.quadratoSW = new Square_Class("quadratoDiTest2", this.quadratoWidth);
+		this.quadratoNE = new Square_Class("quadratoDiTest2", this.quadratoWidth);
+		this.quadratoSE = new Square_Class("quadratoDiTest2", this.quadratoWidth);
+
+		this.distanceFromCenter = 10;
+	}
+
+	LoadGame()
+	{
+		this.quadratoNW.position = { x: (this.CM.drawingCanvas.width /2) - this.quadratoWidth - this.distanceFromCenter, y: (this.CM.drawingCanvas.height/2) - this.quadratoWidth - this.distanceFromCenter };
+		this.quadratoSW.position = { x: (this.CM.drawingCanvas.width /2) - this.quadratoWidth - this.distanceFromCenter, y: (this.CM.drawingCanvas.height/2) + this.quadratoWidth + this.distanceFromCenter};
+		this.quadratoNE.position = { x: (this.CM.drawingCanvas.width /2) + this.quadratoWidth + this.distanceFromCenter, y: (this.CM.drawingCanvas.height/2) + this.quadratoWidth + this.distanceFromCenter};
+		this.quadratoSE.position = { x: (this.CM.drawingCanvas.width /2) + this.quadratoWidth + this.distanceFromCenter, y: (this.CM.drawingCanvas.height/2) - this.quadratoWidth - this.distanceFromCenter};
+
+		this.quadratoNW.color = colors.red;
+		this.quadratoSW.color = colors.red;
+		this.quadratoNE.color = colors.yellow;
+		this.quadratoSE.color = colors.red;
+
+
+		this.CM.UpdateObjectList( [ this.quadratoNW, this.quadratoSW, this.quadratoNE, this.quadratoSE ] );
+
+		this.CM.RefreshScreen();
+	}
+}
 
 class QuickClick_Class extends Game_Class
 {

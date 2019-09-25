@@ -28,10 +28,15 @@ class CanvasManagement_Class
 
 	PrintInfos()
 	{
+		console.log("drawingCanvas");
 		console.log(this.drawingCanvas);
+		console.log("canvasCenter");
 		console.log(this.canvasCenter);
+		console.log("updateScreenTimer");
 		console.log(this.updateScreenTimer);
+		console.log("objectsList");
 		console.log(this.objectsList);
+		console.log("drawingTimer");
 		console.log(this.drawingTimer);
 	}
 

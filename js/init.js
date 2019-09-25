@@ -49,6 +49,7 @@ gameModesList.AddNewGame( new QuickClick_Class(drawing) );
 gameModesList.AddNewGame( new QuickAim_Class(drawing) );
 gameModesList.AddNewGame( new TestGame_Class(drawing) );
 gameModesList.AddNewGame( new FollowTheCircle_Class(drawing) );
+gameModesList.AddNewGame( new FourSquares_Class(drawing) );
 
   gameModesList.GenerateGamesList(ShowGamingArea);
 
