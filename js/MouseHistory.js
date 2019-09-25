@@ -1,0 +1,4 @@
+class MouseHistory_Class
+{
+	
+}
