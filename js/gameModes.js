@@ -12,6 +12,8 @@ class GameModes_List_Class
 
 	AddNewGame( game )
 	{
+		// console.log("this._gamesList.length");
+		// console.log(this._gamesList.length);
 		this._gamesList[this._gamesList.length] = game;
 	}
 
@@ -430,7 +432,8 @@ class FollowTheCircle_Class extends Game_Class
 		this.CM.StartRefresh()
 	}
 
-	OnClick(mouseEvt)
+	OnClick(mouseEvt) {}
+	OnMouseDown(mouseEvt) 
 	{
 		if( !this.playing)
 		{
@@ -441,7 +444,6 @@ class FollowTheCircle_Class extends Game_Class
 			}
 		}
 	}
-	OnMouseDown(mouseEvt) {}
 	OnMouseUp(mouseEvt) {}
 	OnMouseOut(mouseEvt) {}
 	OnMouseMove(mouseEvt) 	
