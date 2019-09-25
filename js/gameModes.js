@@ -168,7 +168,7 @@ class QuickClick_Class extends Game_Class
 		this.quadrato2.color = quadColor;
 		
 		this.CM.UpdateObjectList( [ this.quadrato2 ] );
-		this.CM.Add_OnMouse_Click_Function( this );
+		this.CM.Add_OnMouse_Down_Function( this );
 
 		this.quadrato2.animations.FadeIn(200);
 

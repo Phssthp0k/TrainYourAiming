@@ -171,6 +171,8 @@ class CanvasManagement_Class
 	{
 		var canvas = this.drawingCanvas;
 		var context = canvas.getContext('2d');
+
+		// Pulire anche l'array degli oggetti
 		context.clearRect(0, 0, canvas.width, canvas.height);
 	}
 	ClrScr() { this.ClearScreen(); }
