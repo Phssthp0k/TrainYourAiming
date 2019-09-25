@@ -137,11 +137,11 @@ class CanvasManagement_Class
 		})();
 	}
 
-	OnClick(mouseEvents) {		log("click");}
-	OnMouseDown(mouseEvents){	log("OnMouseDown");}
-	OnMouseUp(mouseEvents){		log("OnMouseUp");}
-	OnMouseMove(mouseEvents){	log("OnMouseMove");}
-	OnMouseOut(mouseEvents){	log("OnMouseOut");}
+	OnClick(mouseEvents) 	{	log("click");		}
+	OnMouseDown(mouseEvents){	log("OnMouseDown");	}
+	OnMouseUp(mouseEvents)	{	log("OnMouseUp");	}
+	OnMouseMove(mouseEvents){	log("OnMouseMove");	}
+	OnMouseOut(mouseEvents)	{	log("OnMouseOut");	}
 
 	StartRefresh() {log("StartRefresh"); this.drawingTimer.Start( () => {this.RefreshScreen()} );}
 	StartRefreshScreen() {this.StartRefresh();}

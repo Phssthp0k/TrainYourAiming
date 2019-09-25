@@ -2,10 +2,7 @@ class MouseHistory_Class
 {
 	// Need to know:
 	// clicks history
-	// fastest mouse down/up diff
-	// longest mouse down/up diff
-	// fastest between mouse up and next mouse down (click)
-	// longest between mouse up and next mouse down (click)
+	// Last click 
 
 
 	constructor()
@@ -35,6 +32,7 @@ class MouseHistory_Class
 		this._clickHistory[this._clickHistory.length] = this.newClick;
 	}
 }
+
 
 
 class ClickRecord_Class

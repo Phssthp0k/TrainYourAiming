@@ -86,6 +86,8 @@ class Game_Class
 	SetDifficultyLevel(){log("notDefined");}
 
 	SetDifficultyLevel(){log("notDefined. SetDifficultyLevel");}
+	OnMouseDown(mouseEvents){log("notDefined. Mouse Click");}
+	OnMouseUp(mouseEvents){log("notDefined. Mouse Click");}
 	OnClick(mouseEvents){log("notDefined. Mouse Click");}
 	IsHit(mousePos){log("notDefined. IsHit must be used to check if click happened inside shape boundaries");}
 
@@ -173,7 +175,7 @@ class QuickClick_Class extends Game_Class
 		this.CM.StartRefresh();		
 	}
 
-	OnClick(mouseEvt)
+	OnMouseDown(mouseEvt)
 	{
 		if( this.quadrato2.IsHit( GetMousePos(this.CM.drawingCanvas, mouseEvt) ) )
 		{
