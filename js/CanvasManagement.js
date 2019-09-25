@@ -11,7 +11,7 @@ class CanvasManagement_Class
 		//this.hitCanvas = document.createElement('canvas');
 
 		this.canvasCenter = { x: this.drawingCanvas.width / 2, y: this.drawingCanvas.height / 2 };
-		this.updateScreenTimer;
+		// this.updateScreenTimer;
 		this.objectsList = [];
 		this.refreshCount = 0;
 		
@@ -32,8 +32,8 @@ class CanvasManagement_Class
 		console.log(this.drawingCanvas);
 		console.log("canvasCenter");
 		console.log(this.canvasCenter);
-		console.log("updateScreenTimer");
-		console.log(this.updateScreenTimer);
+		// console.log("updateScreenTimer");
+		// console.log(this.updateScreenTimer);
 		console.log("objectsList");
 		console.log(this.objectsList);
 		console.log("drawingTimer");
