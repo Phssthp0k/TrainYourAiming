@@ -11,7 +11,7 @@ class MouseHistory_Class
 		this._Time_last_Click;
 		this._Time_last_ClickDelta = 0;
 
-		this._avgClickDuration : ( this.totalPlayTime>0 && this.clicksAmount>0) ? (this.totalPlayTime/this.clicksAmount) : 0
+		this._avgClickDuration = ( this.totalPlayTime>0 && this.clicksAmount>0) ? (this.totalPlayTime/this.clicksAmount) : 0
 
 		this._clicksAmount = 0;
 	}

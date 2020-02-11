@@ -3,12 +3,24 @@ var playing = false;
 
 function guid() 
 {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+	function s4() 
+	{
+		return Math.floor((1 + Math.random()) * 0x10000)
+		  .toString(16)
+		  .substring(1);
+	}
+	return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+function name()
+{
+	function s4() 
+	{
+		return Math.floor((1 + Math.random()) * 0x10000)
+	    	.toString(16)
+	    	.substring(1);
+	}
+  return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
 }
 
 function echo(messate) { Log(message); }
@@ -27,6 +39,12 @@ function GetMousePos(canvas, evt)
 		};
 }
 
+function elem(htmlID)
+{
+	return document.getElementById(htmlID);
+}
+
+
 class GameTimer
 {
 	constructor(intervalTime, timerName)
@@ -34,7 +52,6 @@ class GameTimer
 		this._intervalTimer;
 		this._intervalTiming = (intervalTime!==null)?intervalTime:100;
 		this._name = (timerName!==null)?timerName:"Timer";
-
 	}
 
 	PrintInfos()
@@ -89,10 +106,18 @@ function hexToRgbAOpacity(hex, opacity)
 }
 function hexToRgbA(hex) {	return hexToRgbAOpacity(hex, 1);}
 
+function Random(top, bottom) { RandomNumber(top, bottom); }
+function RandomNumber(top, bottom)
+{
+	var below = bottom || 0;
+	var floor = Math.floor, randomize = Math.random;    
+    return floor(randomize()*top) + below;
+}
+
 function getRandomColorOpacity(opacity) 
 {
-    var floor = Math.floor, random = Math.random, s = 255;    
-    return [ floor(random()*s), floor(random()*s), floor(random()*s), opacity ];
+    var s = 255;    
+    return [ Random(s), Random(s), Random(s), opacity ];
     
 }
 function getRandomColor()

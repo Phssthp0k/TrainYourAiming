@@ -81,8 +81,6 @@ class Game_Class
 	get playing() {return this._playing;}
 	set playing(value) {this._playing = value;}
 
-
-	LoadGame(){log("Loading '"+this._name+"'");}
 	SetDifficultyLevel(){log("notDefined");}
 
 	SetDifficultyLevel(){log("notDefined. SetDifficultyLevel");}
@@ -91,13 +89,30 @@ class Game_Class
 	OnClick(mouseEvents){log("notDefined. Mouse Click");}
 	IsHit(mousePos){log("notDefined. IsHit must be used to check if click happened inside shape boundaries");}
 
+	LoadGame()
+	{
+		log("Loading '"+this._name+"'");
+		this.ShowStartGame();
+	}
+
+	ShowStartGame() 
+	{
+		log("Game_Class.ShowStartGame");
+		this.CM.ClearScreen();
+		this.GameStartID = div.createDiv_Centered( "GameStart", "gray", 800, 200, () => {this.StartGame();});
+		this.asdfa = div.createDiv_Centered( "GameStart", "blue", 300, 100, function () {log("cippa");});
+
+		div.Write2div(this.asdfa, "CLICK 2 Start");
+	}
+
 	// Makes the game actually running (timer/click/etc)
 	StartGame()
 	{
 		log("Game_Class.StartGame");
+		elem(this.GameStartID).remove();
+		elem(this.asdfa).remove();
 		this.playing = true;
 		this.CM.StartRefresh();
-
 	}
 
 	GameOver() 
@@ -109,6 +124,50 @@ class Game_Class
 		this.CM.Remove_OnMouse_Functions();
 	}
 }
+
+class Test2_Class extends Game_Class
+{
+	constructor(canvasManager)
+	{
+		super(canvasManager);
+
+		this.name = "Test New Div Renderer";
+		this.targetsList = [];
+	}
+
+	LoadGame()
+	{
+		super.LoadGame();
+	}
+
+	StartGame()
+	{
+		super.StartGame();
+		this.SpawnTarget();
+	}
+
+	SpawnTarget(oldObj)
+	{
+		if(oldObj)
+		{
+			oldObj.Destroy();
+		}
+		var targetID = name();
+		var obj = new Circle_V2_Class(targetID, 30);
+		obj.OnClick = () => {this.SpawnTarget(obj);};
+		obj.Color = "red";
+		obj.Border = "3px solid darkred";
+		log(RandomNumber(343));
+		obj.Location = { left: RandomNumber(1500), top: RandomNumber(1000) };
+		obj.Spawn();
+	}
+
+	GameOver()
+	{
+
+	}
+}
+
 
 class FourSquares_Class extends Game_Class
 {
@@ -130,7 +189,9 @@ class FourSquares_Class extends Game_Class
 
 	LoadGame()
 	{
-		this.quadratoNW.position = { x: (this.CM.drawingCanvas.width /2) - this.quadratoWidth - this.distanceFromCenter, y: (this.CM.drawingCanvas.height/2) - this.quadratoWidth - this.distanceFromCenter };
+		super.ShowStartGame();
+
+		this.quadratoNW.position = { x: (this.CM.drawingCanvas.width /2) - this.quadratoWidth - this.distanceFromCenter, y: (this.CM.drawingCanvas.height/2) - this.quadratoWidth - this.distanceFromCenter};
 		this.quadratoSW.position = { x: (this.CM.drawingCanvas.width /2) - this.quadratoWidth - this.distanceFromCenter, y: (this.CM.drawingCanvas.height/2) + this.quadratoWidth + this.distanceFromCenter};
 		this.quadratoNE.position = { x: (this.CM.drawingCanvas.width /2) + this.quadratoWidth + this.distanceFromCenter, y: (this.CM.drawingCanvas.height/2) + this.quadratoWidth + this.distanceFromCenter};
 		this.quadratoSE.position = { x: (this.CM.drawingCanvas.width /2) + this.quadratoWidth + this.distanceFromCenter, y: (this.CM.drawingCanvas.height/2) - this.quadratoWidth - this.distanceFromCenter};
@@ -140,6 +201,11 @@ class FourSquares_Class extends Game_Class
 		this.quadratoNE.color = colors.yellow;
 		this.quadratoSE.color = colors.red;
 
+	}
+
+	StartGame()
+	{
+		super.StartGame();
 
 		this.CM.UpdateObjectList( [ this.quadratoNW, this.quadratoSW, this.quadratoNE, this.quadratoSE ] );
 
@@ -217,9 +283,15 @@ class QuickAim_Class extends Game_Class
 		this._destroyedTargets = [];
 		this._targetTimeout = 1000;
 
+		this._gameField = new Rectangle_Class("gameField",this._tensionFromCenter*2,this._tensionFromCenter);
+		this._gameField.border= colors.green;
+		this._gameField.position = {x: this.CM.Canvas.width/4, y: this.CM.Canvas.height/4};
+
+		this._targets[this._targets.length] = this._gameField;
+
 		this.CM.Add_OnMouse_Click_Function( this );
 
-		this.StartGame();
+		//this.StartGame();
 	}
 
 	StartGame()
@@ -266,10 +338,9 @@ class QuickAim_Class extends Game_Class
 				this.target.name = "target-"+this._targetID; this._targetID+=1;
 
 				this.target.SetCircles(2);
-				var color1 = colors.rogue.slice(0);
-				var color2 = colors.red.slice(0);
-				color1[3] = 0;
-				color2[3] = 0;
+				var color1 = colors.rogue.slice(0);		color1[3] = 0;
+				var color2 = colors.red.slice(0);		color2[3] = 0;
+				
 				this.target.circlesColors = [ color1, color2 ];
 				this.target.SetRadius( 20 );
 				this.target.targetPosition = this.CM.canvasCenter;
@@ -301,7 +372,7 @@ class QuickAim_Class extends Game_Class
 			{
 				log("Target ["+this._targets[i].name+"] was HIT" );
 				this._destroyedTargets[this._destroyedTargets.length] = i;
-				this._targets[i].FadeOut(70);
+				this._targets[i].FadeOut(5);
 			}
 		}
 	}

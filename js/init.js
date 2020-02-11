@@ -6,11 +6,13 @@ if( window.canRunAds === undefined )
 //	alert("Spegni adblocker");
 }
 
-
 var drawing = new CanvasManagement_Class("playCanvas");
 drawing.drawingCanvas.width  = window.document.body.clientWidth;
 drawing.drawingCanvas.height = window.document.body.clientHeight;
 //drawing.PrintInfos();
+
+var div = new DivManagement_Class();
+
 
 function Home()
 {
@@ -45,13 +47,16 @@ function ShowGamingArea()
 }
 
 var gameModesList = new GameModes_List_Class("gameModesList");
+gameModesList.AddNewGame( new Test2_Class(drawing) );
 gameModesList.AddNewGame( new QuickClick_Class(drawing) );
 gameModesList.AddNewGame( new QuickAim_Class(drawing) );
 gameModesList.AddNewGame( new TestGame_Class(drawing) );
 gameModesList.AddNewGame( new FollowTheCircle_Class(drawing) );
 gameModesList.AddNewGame( new FourSquares_Class(drawing) );
 
-  gameModesList.GenerateGamesList(ShowGamingArea);
+gameModesList.GenerateGamesList(ShowGamingArea);
+
+
 
 window.onload = function()
 {

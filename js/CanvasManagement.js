@@ -40,6 +40,7 @@ class CanvasManagement_Class
 		console.log(this.drawingTimer);
 	}
 
+	get canvas() { return Canvas; };
 	get Canvas()
 	{
 		return this.drawingCanvas;
@@ -147,6 +148,7 @@ class CanvasManagement_Class
 	StartRefreshScreen() {this.StartRefresh();}
 	StopRefresh() {this.drawingTimer.Stop();}
 	StopRefreshScreen() {this.StopRefresh();}
+	Refresh() {this.Refresh();}
 	RefreshScreen()
 	{
 		if ( this.objectsList.length > 0 )
@@ -176,36 +178,17 @@ class CanvasManagement_Class
 		context.clearRect(0, 0, canvas.width, canvas.height);
 	}
 	ClrScr() { this.ClearScreen(); }
-}
-
-function UpdateAllScore()
-{
-// Da sistemare
-		UpdateScore();
-		WriteLifes();
-		WriteClickTime();
-		WriteAvgClickTime();
-		WriteBestClickTime();
-}
-
-function UpdateScore(){if( scoring.score >= 0 ) { Write2div("score", scoring.score); }}
-function WriteLifes(){if( scoring.lifes >= 0 ) { Write2div("lifes", scoring.lifes); }}
-function WriteClickTime(){Write2div("totClickTime", scoring.clicks.lastClickDuration);}
-function WriteAvgClickTime(){Write2div("avgClickTime", scoring.clicks.avgClickDuration);}
-function WriteBestClickTime(){Write2div("bestClickTime", scoring.clicks.bestClickDuration);}
-function Write2div(divID, message)
-{
-	document.getElementById(divID).innerHTML = message;
+	clrscr() { this.ClearScreen(); }
 }
 
 function DrawStartSign( canvas, message ) 
 {
 	var canvasQuarter = { left: canvas.width / 4, top: canvas.height / 4 };
 	var rect = { x : canvasQuarter.left, y : canvasQuarter.top, width : canvasQuarter.left *2, height : canvasQuarter.top *2 };
-	DrawMessage2Canvas( canvas, message, rect, true );
+	DrawString2Canvas( canvas, message, rect, true );
 }
 
-function DrawMessage2Canvas(canvas, message, rect, clearScr)
+function DrawString2Canvas(canvas, message, rect, clearScr)
 {
 	var context = canvas.getContext('2d');
 

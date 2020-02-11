@@ -87,3 +87,12 @@ button
     right:14px;
     text-align:right;
 }
+
+#gameStart
+{
+    position:absolute;
+    display:none;
+    top:200px;
+    right:140px;
+    text-align:right;
+}
