@@ -283,12 +283,6 @@ class QuickAim_Class extends Game_Class
 		this._destroyedTargets = [];
 		this._targetTimeout = 1000;
 
-		this._gameField = new Rectangle_Class("gameField",this._tensionFromCenter*2,this._tensionFromCenter);
-		this._gameField.border= colors.green;
-		this._gameField.position = {x: this.CM.Canvas.width/4, y: this.CM.Canvas.height/4};
-
-		this._targets[this._targets.length] = this._gameField;
-
 		this.CM.Add_OnMouse_Click_Function( this );
 
 		//this.StartGame();
