@@ -10,7 +10,6 @@ class CanvasManagement_Class
 		this.drawingCanvas = document.getElementById(newDrawingCanvasID);
 		//this.hitCanvas = document.createElement('canvas');
 
-		this.canvasCenter = { x: this.drawingCanvas.width / 2, y: this.drawingCanvas.height / 2 };
 		// this.updateScreenTimer;
 		this.objectsList = [];
 		this.refreshCount = 0;
@@ -237,7 +236,6 @@ class CanvasManagement_Class
 		// Non disegnare se fuori dal canvas
 		// Non e' preciso, 
 		// this.DrawAimCrossair(this.LastMouseCoord);
-
 
 		if ( this.objectsList.length > 0 )
 		{

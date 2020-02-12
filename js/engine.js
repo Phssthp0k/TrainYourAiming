@@ -87,7 +87,10 @@ class GameTimer
 	}
 }
 
-
+function Distance( coord1, coord2 )
+{
+	return math.square( math.pow(coord2.x-coord1.x, 2) + math.pow(coord2.y-coord1.y, 2) );
+}
 
 function hexToRgbAOpacity(hex, opacity)
 {

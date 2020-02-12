@@ -273,7 +273,8 @@ class QuickAim_Class extends Game_Class
 		this.GameSpeed = 500;
 		this.QA_timer = new GameTimer(this.GameSpeed);
 
-		this._tensionFromCenter = (this.CM.Canvas.height/2);
+		this._tensionFromCenterX = (this.CM.Canvas.width/2);
+		this._tensionFromCenterY = (this.CM.Canvas.height/2);
 		this._targetsMinimumDistance = 10;
 
 		this._spawning = false;
@@ -338,13 +339,27 @@ class QuickAim_Class extends Game_Class
 				
 				this.target.circlesColors = [ color1, color2 ];
 				this.target.SetRadius( 20 );
-				this.target.targetPosition = this.CM.canvasCenter;
+				this.target.Position = this.CM.canvasCenter;
 
-				for( var i=0; i < this._targets.length; i++ )
+				var isPosOK = false;
+				var targetDistance = this.target.Radius*2;
+				
+					this.target.Position = { x: ((Math.random() * this._tensionFromCenterX) + 1 + (this._tensionFromCenterX)), y: ((Math.random() * this._tensionFromCenterY) + 1) };
+/* NON va
+Serve per evitare la sovrapposizione
+				while ( isPosOK )
 				{
+					var caller = this;
+					log(caller.target.Position);
 
-				}
-				this.target.targetPosition = { x: ((Math.random() * this._tensionFromCenter) + 1 + (this._tensionFromCenter)), y: ((Math.random() * this._tensionFromCenter) + 1) };
+					for( var i=0; i < caller._targets.length; i++ )
+					{
+						if( Distance( caller.target.Position, caller._targets[i].Position ) > 0 )
+						{
+							isPosOk = true;
+						}
+					}
+				} */
 				
 				this.target.Update();
 				this.target.FadeIn(100);
@@ -358,7 +373,7 @@ class QuickAim_Class extends Game_Class
 
 	OnMouseMove(mouseEvents)
 	{
-		
+
 	}
 
 	OnClick(mouseEvents)
