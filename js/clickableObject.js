@@ -102,6 +102,7 @@ class clickableObject_Class
 	ChangeOpacity(opacity) { SetOpacity(opacity); }
 }
 
+// -----------------------------------------------------------------
 class Rectangle_Class extends clickableObject_Class
 {
 	constructor(newName, width, height )	
@@ -140,6 +141,7 @@ class Rectangle_Class extends clickableObject_Class
 	}
 }
 
+// -----------------------------------------------------------------
 class Square_Class extends Rectangle_Class
 {
 	constructor ( newName, newSide )	
@@ -149,12 +151,13 @@ class Square_Class extends Rectangle_Class
 	}
 }
 
+// -----------------------------------------------------------------
 class Circle_Class extends clickableObject_Class
 {
 	constructor ( )	
 	{
 		super();
-		this.radius = 70;
+		this.radius = 50;
 
 		this.Animations = [];
 		this.circleTimer = new GameTimer(500);

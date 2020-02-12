@@ -17,8 +17,8 @@ class clickableObject_V2_Class
 		// this.Default();
 	}
 
-	get LifeSpan()			{ 	return this._lifespan = value; 	}
-	set LifeSpan(value)		{	return this._lifespan;
+	get LifeSpan()			{ 	return this._lifespan; 	}
+	set LifeSpan(value)		{	this._lifespan = value;	}
 
 	get Color()				{ 	return this.div.style.backgroundColor;	}
 	set Color(value)		{ 	this.div.style.backgroundColor = value;	}

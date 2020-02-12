@@ -4,7 +4,7 @@ html, body
     margin: auto;
 	text-align: center;
 	font-size: 32px;
-    background-color: #AF2025;
+    background-color: black;
     height:100%;
     overflow: hidden;
 }
@@ -72,11 +72,14 @@ button
 	border: 1px solid #000000;
 }
 
-#playCanvas
+#GameField_Canvas
 {
 	background-color: #1F2025;
+    visibility:hidden;
     display: block;
-    cursor:crosshair;
+    cursor: url(cursors/Csgocrosshair.cur), default; /* none; cell;  crosshair; */
+    position:absolute;
+    border: 2px solid darkred;
 }
 
 #stat-bar

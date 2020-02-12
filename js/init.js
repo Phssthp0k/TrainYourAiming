@@ -6,12 +6,20 @@ if( window.canRunAds === undefined )
 //	alert("Spegni adblocker");
 }
 
-var drawing = new CanvasManagement_Class("playCanvas");
-drawing.drawingCanvas.width  = window.document.body.clientWidth;
-drawing.drawingCanvas.height = window.document.body.clientHeight;
-//drawing.PrintInfos();
+var gameField = new CanvasManagement_Class("GameField_Canvas");
+gameField.Resize( [2,2] );
 
 var div = new DivManagement_Class();
+
+var gameModesList = new GameModes_List_Class("gameModesList");
+// gameModesList.AddNewGame( new Test2_Class(gameField) );
+// gameModesList.AddNewGame( new QuickClick_Class(gameField) );
+gameModesList.AddNewGame( new QuickAim_Class(gameField) );
+// gameModesList.AddNewGame( new TestGame_Class(gameField) );
+// gameModesList.AddNewGame( new FollowTheCircle_Class(gameField) );
+gameModesList.AddNewGame( new FourSquares_Class(gameField) );
+
+gameModesList.GenerateGamesList(LoadGameCheckList);
 
 
 function Home()
@@ -32,6 +40,7 @@ function GameOver()
 			if( gameModesList.GamesList[z].playing)
 			{
 				gameModesList.GamesList[z].GameOver();
+				gameField.Hide();
 			}
 			break;
 		}
@@ -39,22 +48,14 @@ function GameOver()
 	Home();
 }
 
-function ShowGamingArea()
+function LoadGameCheckList()
 {
 	/* document.getElementById("gamingArea").style.display = "block"; */
+	log("LoadGameCheckList");
 	document.getElementById("nav-bar").style.display = "none";
 	document.getElementById("stat-bar").style.display = "block";
+	gameField.Show();
 }
-
-var gameModesList = new GameModes_List_Class("gameModesList");
-gameModesList.AddNewGame( new Test2_Class(drawing) );
-gameModesList.AddNewGame( new QuickClick_Class(drawing) );
-gameModesList.AddNewGame( new QuickAim_Class(drawing) );
-gameModesList.AddNewGame( new TestGame_Class(drawing) );
-gameModesList.AddNewGame( new FollowTheCircle_Class(drawing) );
-gameModesList.AddNewGame( new FourSquares_Class(drawing) );
-
-gameModesList.GenerateGamesList(ShowGamingArea);
 
 
 
@@ -64,7 +65,6 @@ window.onload = function()
 	
 	if( currGame != "null" )
 	{
-		ShowGamingArea();
 		for ( var z = 0; z<gameModesList.GamesList.length; z++ )
 		{
 			if( gameModesList.GamesList[z].name == currGame )

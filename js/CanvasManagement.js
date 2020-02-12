@@ -23,30 +23,19 @@ class CanvasManagement_Class
 
 		this.drawingTimer = new GameTimer(1);
 
+		this.LatMouseCoord = {x:0, y:0};
+
 		this.clickMngmnt();
 	}
 
-	PrintInfos()
-	{
-		console.log("drawingCanvas");
-		console.log(this.drawingCanvas);
-		console.log("canvasCenter");
-		console.log(this.canvasCenter);
-		// console.log("updateScreenTimer");
-		// console.log(this.updateScreenTimer);
-		console.log("objectsList");
-		console.log(this.objectsList);
-		console.log("drawingTimer");
-		console.log(this.drawingTimer);
-	}
+	get Context()	{ return this.drawingCanvas.getContext('2d'); }
+
 
 	get canvas() { return Canvas; };
 	get Canvas()
 	{
 		return this.drawingCanvas;
 	}
-
-	UpdateObjectList( oBjectsList ) {this.objectsList = oBjectsList;}
 
 	Remove_OnMouse_Functions()
 	{
@@ -113,6 +102,7 @@ class CanvasManagement_Class
 		{
 			return function(evt)
 			{
+				if (evt) {caller.LastMouseCoord = GetMousePos( caller.drawingCanvas, evt);}
 				if( caller.OnMouseMove_ChildClassesFunctions.length > 0)
 				{
 					for( var i = 0; i < caller.OnMouseMove_ChildClassesFunctions.length; i++ )
@@ -138,11 +128,100 @@ class CanvasManagement_Class
 		})();
 	}
 
-	OnClick(mouseEvents) 	{	log("click");		}
-	OnMouseDown(mouseEvents){	log("OnMouseDown");	}
-	OnMouseUp(mouseEvents)	{	log("OnMouseUp");	}
-	OnMouseMove(mouseEvents){	log("OnMouseMove");	}
-	OnMouseOut(mouseEvents)	{	log("OnMouseOut");	}
+	OnClick(mouseEvents) 		{	log("click");		}
+	OnMouseDown(mouseEvents)	{	log("OnMouseDown");	}
+	OnMouseUp(mouseEvents)		{	log("OnMouseUp");	}
+	OnMouseMove(mouseEvents)	{	log("OnMouseMove");	}
+	OnMouseOut(mouseEvents)		{	log("OnMouseOut");	}
+
+	DrawCenterCrossline()
+	{
+		var x = this.drawingCanvas.width / 2;
+		var y = this.drawingCanvas.height / 2;
+
+		// remove aliasing
+		x = Math.floor(x) + 0.5;
+		y = Math.floor(y) + 0.5;
+		this.Context.strokeWidth = 1;
+
+		this.Context.moveTo(x, y - 10);
+		this.Context.lineTo(x, y + 10);
+
+		this.Context.moveTo(x - 10,  y);
+		this.Context.lineTo(x + 10,  y);
+
+		// Line color
+		this.Context.strokeStyle = 'green';
+		this.Context.stroke();
+  		this.Context.strokeStyle = 'black';
+	}
+
+	DrawAimCrossair(coord)
+	{
+		var x = coord.x;
+		var y = coord.y;
+
+		this.Context.strokeWidth = 1;
+
+		this.Context.moveTo(x, y - 10);
+		this.Context.lineTo(x, y + 10);
+
+		this.Context.moveTo(x - 10,  y);
+		this.Context.lineTo(x + 10,  y);
+
+		// Line color
+		this.Context.strokeStyle = 'white';
+		this.Context.stroke();
+  		this.Context.strokeStyle = 'black';
+	}
+
+	UpdateObjectList( oBjectsList ) {this.objectsList = oBjectsList;}
+
+
+	Resize( ratio ) // in form of [4,3]
+	{
+		var multFactor = 256;
+
+		var x=ratio[0];
+		var y=ratio[1];
+		var newWidth = x*multFactor;
+		var newHeight = y*multFactor;
+		var orizSpace = window.document.body.clientWidth - newWidth;
+		var vertSpace = window.document.body.clientHeight - newHeight;
+
+		this.drawingCanvas.style.left = orizSpace /2;
+		this.drawingCanvas.style.top = vertSpace /2;
+
+		this.drawingCanvas.width = newWidth;
+		this.drawingCanvas.height = newHeight;
+	}	
+
+	Show()
+	{
+		log("xxx");
+		this.drawingCanvas.style.visibility = "visible";
+	}
+	Hide()
+	{
+		this.drawingCanvas.style.visibility = "hidden";
+	}
+
+
+	PrintInfos()
+	{
+		console.log("drawingCanvas");
+		console.log(this.drawingCanvas);
+		console.log("canvasCenter");
+		console.log(this.canvasCenter);
+		// console.log("updateScreenTimer");
+		// console.log(this.updateScreenTimer);
+		console.log("objectsList");
+		console.log(this.objectsList);
+		console.log("drawingTimer");
+		console.log(this.drawingTimer);
+	}
+
+
 
 	StartRefresh() {log("StartRefresh"); this.drawingTimer.Start( () => {this.RefreshScreen()} );}
 	StartRefreshScreen() {this.StartRefresh();}
@@ -151,6 +230,15 @@ class CanvasManagement_Class
 	Refresh() {this.Refresh();}
 	RefreshScreen()
 	{
+		var canvas = this.drawingCanvas;
+		this.ClearScreen();
+
+		this.DrawCenterCrossline();
+		// Non disegnare se fuori dal canvas
+		// Non e' preciso, 
+		// this.DrawAimCrossair(this.LastMouseCoord);
+
+
 		if ( this.objectsList.length > 0 )
 		{
 			// log(this.refreshCount);
@@ -158,11 +246,7 @@ class CanvasManagement_Class
 
 			// da rimuovere
 			//UpdateAllScore();
-
-			var canvas = this.drawingCanvas;
-			var context = canvas.getContext('2d');
-			context.clearRect(0, 0, canvas.width, canvas.height);
-
+			
 			this.objectsList.forEach(function(listObj)
 			{
 				listObj.Draw( canvas );
@@ -180,6 +264,9 @@ class CanvasManagement_Class
 	ClrScr() { this.ClearScreen(); }
 	clrscr() { this.ClearScreen(); }
 }
+
+
+
 
 function DrawStartSign( canvas, message ) 
 {
