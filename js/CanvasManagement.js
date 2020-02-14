@@ -197,7 +197,6 @@ class CanvasManagement_Class
 
 	Show()
 	{
-		log("xxx");
 		this.drawingCanvas.style.visibility = "visible";
 	}
 	Hide()

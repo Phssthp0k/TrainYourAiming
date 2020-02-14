@@ -148,6 +148,15 @@ function getOpacity(color)
 	return color[3];
 }
 
+function colorToArray(color)
+{
+	// From object
+
+	// expect { r: xxx, g: yyy, b: zzz, a: ttt }
+	// return [ color.r, color.g, color.b, color.a ]
+
+	// Rimane con array in quanto piu' semplice ora
+}
 
 var colors = 
 {

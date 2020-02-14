@@ -8,13 +8,15 @@ class clickableObject_Class
 		this.border = { width : 1, color : getRandomColor() };
 		this.hitScore = 1;
 		this.color = getRandomColor(); // array r g b a
+		
+		this.timestamp = new Date().getTime();
 
 		// Dev
 		this.animations =
 		{
 			father : this,
 			// animationTimer : new GameTimer(1, "CO timer"),  // Da implementare
-			list : [ ],
+			activeList : [ ],
 			RotateLeft(canvas, angle )
 			{
 
@@ -75,6 +77,9 @@ class clickableObject_Class
 		}
 	} // FINE COSTRUTTORE
 			
+	get SpawnTime()	{ return this.timestamp; }
+	get Life()	{ return (new Date().getTime() - this.timeStamp); }
+
 	Animate()
 	{
 		var animationList = this.animations.list.active;	
@@ -154,9 +159,9 @@ class Square_Class extends Rectangle_Class
 // -----------------------------------------------------------------
 class Circle_Class extends clickableObject_Class
 {
-	constructor ( )	
+	constructor ( newName )	
 	{
-		super();
+		super(newName);
 		this.radius = 50;
 
 		this.Animations = [];

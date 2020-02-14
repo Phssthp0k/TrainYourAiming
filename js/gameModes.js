@@ -99,10 +99,9 @@ class Game_Class
 	{
 		log("Game_Class.ShowStartGame");
 		this.CM.ClearScreen();
-		this.GameStartID = div.createDiv_Centered( "GameStart", "gray", 800, 200, () => {this.StartGame();});
-		this.asdfa = div.createDiv_Centered( "GameStart", "blue", 300, 100, function () {log("cippa");});
+		this.GameStartID = div.createDiv_Centered( "GameStart", "lightgray", 300, 100, () => {this.StartGame();});
 
-		div.Write2div(this.asdfa, "CLICK 2 Start");
+		div.Write2div(this.GameStartID, "CLICK 2 Start");
 	}
 
 	// Makes the game actually running (timer/click/etc)
@@ -110,7 +109,6 @@ class Game_Class
 	{
 		log("Game_Class.StartGame");
 		elem(this.GameStartID).remove();
-		elem(this.asdfa).remove();
 		this.playing = true;
 		this.CM.StartRefresh();
 	}
@@ -334,9 +332,11 @@ class QuickAim_Class extends Game_Class
 				this.target.name = "target-"+this._targetID; this._targetID+=1;
 
 				this.target.SetCircles(2);
+				// copio l'array nella var colore e lo rendo trasp.
 				var color1 = colors.rogue.slice(0);		color1[3] = 0;
 				var color2 = colors.red.slice(0);		color2[3] = 0;
 				
+
 				this.target.circlesColors = [ color1, color2 ];
 				this.target.SetRadius( 20 );
 				this.target.Position = this.CM.canvasCenter;
@@ -385,7 +385,7 @@ Serve per evitare la sovrapposizione
 			// Controllo se ho colpito
 			if( this._targets[i].IsHit(mousePos) > 0 )
 			{
-				log("Target ["+this._targets[i].name+"] was HIT" );
+				log("Target ["+this._targets[i].name+"] was HIT, Life ["+this._targets[i].Life+"], SpawnTime ["+this._targets[i].SpawnTime+"]" );
 				this._destroyedTargets[this._destroyedTargets.length] = i;
 				this._targets[i].FadeOut(5);
 			}
