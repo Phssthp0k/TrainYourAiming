@@ -2,8 +2,8 @@ class clickableObject_Class
 {
 	constructor(newName)
 	{
-		this.name = (newName || "notDefine");
-		this.position = { x : 0, y : 0 };
+		this.name = (newName || "notDefined");
+		this.position = { x : 0, y : 0 }; // La posizione deve essere sempre centrale
 		this.canClip = false;
 		this.border = { width : 1, color : getRandomColor() };
 		this.hitScore = 1;
@@ -80,6 +80,9 @@ class clickableObject_Class
 	get SpawnTime()	{ return this.timestamp; }
 	get Life()	{ return (new Date().getTime() - this.timeStamp); }
 
+	get Position()	{ return this.position; }
+	set Position(value)	{ this.position=value; }
+
 	Animate()
 	{
 		var animationList = this.animations.list.active;	
@@ -107,114 +110,112 @@ class clickableObject_Class
 	ChangeOpacity(opacity) { SetOpacity(opacity); }
 }
 
-// -----------------------------------------------------------------
-class Rectangle_Class extends clickableObject_Class
+class drawable_ObjectsList_Class
 {
-	constructor(newName, width, height )	
+	constructor(listName)
+	{
+		this.name = listName || "Not Defined";
+		this.objectList = [];
+	}
+
+	get List() {return this.objectList;}
+	get list() {return this.objectList;}
+
+	set List(value) { this.objectList = value; }
+	set list(value) { this.objectList = value; }
+
+	Add(newObject)
+	{
+		this.objectList[this.objectList.length] = newObject;
+	}
+
+	Update(newList)
+	{
+		this.objectList = newList;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class CrossAir_Class extends clickableObject_Class
+{
+	constructor ( newName, newColor, newPosition )	
 	{
 		super(newName);
 
-		this.width = width;
-		this.height = height;
+		this.color = newColor;
+		this.position = newPosition
 	}
 
 	Draw( canvas, newPosition )
 	{
-		this.position = newPosition || this.position;
 		var COntext = canvas.getContext('2d');
-
-		if (!this.canClip)
-		{
-			if(this.position.x > canvas.width-this.width) { this.position.x = canvas.width-this.width; }
-			if(this.position.x <= 0) { this.position.x = 0 }
-
-			if(this.position.y > canvas.height-this.height) { this.position.y = canvas.height-this.height; }
-			if(this.position.y <= 0) { this.position.y = 0 }
-		}
-
-		COntext.beginPath();
-		COntext.fillStyle = getColor(this.color);
-		COntext.fillRect(this.position.x, this.position.y, this.width, this.height);
-		COntext.lineWidth = this.borderWidth;
-		COntext.strokeStyle = this.borderColor;
-		COntext.stroke();
-	}
-
-	IsHit( mousePos )
-	{
-		return ( mousePos.x > this.position.x && mousePos.x < (this.position.x+this.width) && mousePos.y > this.position.y && mousePos.y < (this.position.y+this.height) )?this.hitScore:0;
-	}
-}
-
-// -----------------------------------------------------------------
-class Square_Class extends Rectangle_Class
-{
-	constructor ( newName, newSide )	
-	{
-		super(newName, newSide, newSide);
-		this.side = newSide;
-	}
-}
-
-// -----------------------------------------------------------------
-class Circle_Class extends clickableObject_Class
-{
-	constructor ( newName )	
-	{
-		super(newName);
-		this.radius = 50;
-
-		this.Animations = [];
-		this.circleTimer = new GameTimer(500);
-	}
-
-	Draw( canvas, newPosition )
-	{
 		this.position = newPosition || this.position;
-		var COntext = canvas.getContext('2d');
+		var strokeColor = this.color;
+		var coord = this.position;
 
-		if (!this.canClip)
-		{
-			if(this.position.x < (this.radius)) { this.position.x = this.radius; }
-			if(this.position.x > canvas.width-(this.radius)) { this.position.x = canvas.width-this.radius; }
-			if(this.position.y < (this.radius)) { this.position.y = this.radius; }
-			if(this.position.y > canvas.height-(this.radius)) { this.position.y = canvas.height-this.radius; }
-		}
 
-		COntext.beginPath();
-		COntext.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
-		COntext.fillStyle = getColor(this.color);
-		COntext.fill();
-		COntext.lineWidth = this.borderWidth;
-		COntext.strokeStyle = this.borderColor;
+		// log("drawing crossair @ ["+coord.x+"]["+coord.y+"], color ["+strokeColor+"]");
+		var x = coord.x;
+		var y = coord.y;
+
+		COntext.strokeWidth = 1;
+
+		COntext.moveTo(x, y - 10);
+		COntext.lineTo(x, y + 10);
+
+		COntext.moveTo(x - 10,  y);
+		COntext.lineTo(x + 10,  y);
+
+		// Line color
+		COntext.strokeStyle = strokeColor;
 		COntext.stroke();
-	
-	};
-
-	StartAnimation()
-	{
-		this.circleTimer.Start( () => {this.Animation()} );
-	}
-
-	Animation()
-	{
-		if( this.Animations.length > 0 )
-		{
-			for( var i = 0; i < this.Animations.length; i++ )
-			{
-				this.Animations[i]();
-			}
-		}
-	}
-
-	IsHit( mousePos )
-	{
-		var res = Math.sqrt((this.position.x-mousePos.x)*(this.position.x-mousePos.x) + (this.position.y-mousePos.y)*(this.position.y-mousePos.y));
-		return (( res < this.radius ) ? this.hitScore : 0 );
-	}
-
-	FadeOut()
-	{
-		this.animations.FadeOut(100);
+  		COntext.strokeStyle = colors.black;
 	}
 }
+
+class Text_Class extends clickableObject_Class
+{
+
+}
+
+
+function DrawStartSign( canvas, message ) 
+{
+	var canvasQuarter = { left: canvas.width / 4, top: canvas.height / 4 };
+	var rect = { x : canvasQuarter.left, y : canvasQuarter.top, width : canvasQuarter.left *2, height : canvasQuarter.top *2 };
+	DrawString2Canvas( canvas, message, rect, true );
+}
+
+function DrawString2Canvas(canvas, message, rect, clearScr)
+{
+	var context = canvas.getContext('2d');
+
+	if( clearScr ) { context.clearRect(0, 0, canvas.width, canvas.height); }
+
+	context.font = '18pt Calibri';
+	var gradient=context.createLinearGradient(0,0,rect.width,0);
+	gradient.addColorStop("0","magenta");
+	gradient.addColorStop("0.5","blue");
+	gradient.addColorStop("1.0","red");
+	// Fill with gradient
+	context.fillStyle=gradient;
+	context.textAlign = 'center';
+	// context.shadowBlur=20;
+	// context.shadowColor="black";
+	context.fillText(message, canvas.width/2, canvas.height/2);
+}
+

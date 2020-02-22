@@ -14,3 +14,51 @@ function WriteLifes(){if( scoring.lifes >= 0 ) { Write2div("lifes", scoring.life
 function WriteClickTime(){Write2div("totClickTime", scoring.clicks.lastClickDuration);}
 function WriteAvgClickTime(){Write2div("avgClickTime", scoring.clicks.avgClickDuration);}
 function WriteBestClickTime(){Write2div("bestClickTime", scoring.clicks.bestClickDuration);}
+
+	DrawCenterCrossline()
+	{
+		var x = this.drawingCanvas.width / 2;
+		var y = this.drawingCanvas.height / 2;
+
+		// remove aliasing
+		x = Math.floor(x) + 0.5;
+		y = Math.floor(y) + 0.5;
+		this.Context.strokeWidth = 1;
+
+		this.Context.moveTo(x, y - 10);
+		this.Context.lineTo(x, y + 10);
+
+		this.Context.moveTo(x - 10,  y);
+		this.Context.lineTo(x + 10,  y);
+
+		// Line color
+		this.Context.strokeStyle = 'green';
+		this.Context.stroke();
+  		this.Context.strokeStyle = 'black';
+	}
+
+	DrawAimCrossair(coord, strkcolor)
+	{
+		this.DrawCrossair(coord, strkcolor);
+	}
+
+	DrawCrossair(coord, strkcolor)
+	{
+		var strokeColor = strkcolor || colors.white;
+		log("drawing crossair @ ["+coord.x+"]["+coord.y+"], color ["+strokeColor+"]");
+		var x = coord.x;
+		var y = coord.y;
+
+		this.Context.strokeWidth = 1;
+
+		this.Context.moveTo(x, y - 10);
+		this.Context.lineTo(x, y + 10);
+
+		this.Context.moveTo(x - 10,  y);
+		this.Context.lineTo(x + 10,  y);
+
+		// Line color
+		this.Context.strokeStyle = 'white';
+		this.Context.stroke();
+  		this.Context.strokeStyle = colors.black;
+	}

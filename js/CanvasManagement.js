@@ -11,7 +11,10 @@ class CanvasManagement_Class
 		//this.hitCanvas = document.createElement('canvas');
 
 		// this.updateScreenTimer;
-		this.objectsList = [];
+		this.background_Objects_List = new drawable_ObjectsList_Class("BackgroundObjects");
+		this.clickable_Objects_List = new drawable_ObjectsList_Class("ClickableObjects");
+		this.overlay_Objects_List = new drawable_ObjectsList_Class("OverlayObjects");
+
 		this.refreshCount = 0;
 		
 		this.OnClick_ChildClassesFunctions = []; //[ this ];
@@ -133,48 +136,8 @@ class CanvasManagement_Class
 	OnMouseMove(mouseEvents)	{	log("OnMouseMove");	}
 	OnMouseOut(mouseEvents)		{	log("OnMouseOut");	}
 
-	DrawCenterCrossline()
-	{
-		var x = this.drawingCanvas.width / 2;
-		var y = this.drawingCanvas.height / 2;
-
-		// remove aliasing
-		x = Math.floor(x) + 0.5;
-		y = Math.floor(y) + 0.5;
-		this.Context.strokeWidth = 1;
-
-		this.Context.moveTo(x, y - 10);
-		this.Context.lineTo(x, y + 10);
-
-		this.Context.moveTo(x - 10,  y);
-		this.Context.lineTo(x + 10,  y);
-
-		// Line color
-		this.Context.strokeStyle = 'green';
-		this.Context.stroke();
-  		this.Context.strokeStyle = 'black';
-	}
-
-	DrawAimCrossair(coord)
-	{
-		var x = coord.x;
-		var y = coord.y;
-
-		this.Context.strokeWidth = 1;
-
-		this.Context.moveTo(x, y - 10);
-		this.Context.lineTo(x, y + 10);
-
-		this.Context.moveTo(x - 10,  y);
-		this.Context.lineTo(x + 10,  y);
-
-		// Line color
-		this.Context.strokeStyle = 'white';
-		this.Context.stroke();
-  		this.Context.strokeStyle = 'black';
-	}
-
-	UpdateObjectList( oBjectsList ) {this.objectsList = oBjectsList;}
+	// solo per retro compatibilita'. Da rimuovere
+	UpdateObjectList( oBjectsList ) {this.clickable_Objects_List.List = oBjectsList;}
 
 
 	Resize( ratio ) // in form of [4,3]
@@ -214,7 +177,7 @@ class CanvasManagement_Class
 		// console.log("updateScreenTimer");
 		// console.log(this.updateScreenTimer);
 		console.log("objectsList");
-		console.log(this.objectsList);
+		console.log(this.clickableObjectsList);
 		console.log("drawingTimer");
 		console.log(this.drawingTimer);
 	}
@@ -231,20 +194,30 @@ class CanvasManagement_Class
 		var canvas = this.drawingCanvas;
 		this.ClearScreen();
 
-		this.DrawCenterCrossline();
-		// Non disegnare se fuori dal canvas
-		// Non e' preciso, 
-		// this.DrawAimCrossair(this.LastMouseCoord);
+		this.refreshCount ++;
 
-		if ( this.objectsList.length > 0 )
-		{
-			// log(this.refreshCount);
-			this.refreshCount ++;
+		// Draw Background Objectss
+		if ( this.background_Objects_List.List.length > 0 )
+		{	
+			this.background_Objects_List.List.forEach(function(listObj)
+			{
+				listObj.Draw( canvas );
+			});
+		}
 
-			// da rimuovere
-			//UpdateAllScore();
-			
-			this.objectsList.forEach(function(listObj)
+		// Draw Clickable Objects
+		if ( this.clickable_Objects_List.List.length > 0 )
+		{	
+			this.clickable_Objects_List.List.forEach(function(listObj)
+			{
+				listObj.Draw( canvas );
+			});
+		}
+
+		// Draw Overlay Objects (like crossair)
+		if ( this.overlay_Objects_List.List.length > 0 )
+		{	
+			this.overlay_Objects_List.List.forEach(function(listObj)
 			{
 				listObj.Draw( canvas );
 			});
@@ -260,34 +233,5 @@ class CanvasManagement_Class
 	}
 	ClrScr() { this.ClearScreen(); }
 	clrscr() { this.ClearScreen(); }
-}
-
-
-
-
-function DrawStartSign( canvas, message ) 
-{
-	var canvasQuarter = { left: canvas.width / 4, top: canvas.height / 4 };
-	var rect = { x : canvasQuarter.left, y : canvasQuarter.top, width : canvasQuarter.left *2, height : canvasQuarter.top *2 };
-	DrawString2Canvas( canvas, message, rect, true );
-}
-
-function DrawString2Canvas(canvas, message, rect, clearScr)
-{
-	var context = canvas.getContext('2d');
-
-	if( clearScr ) { context.clearRect(0, 0, canvas.width, canvas.height); }
-
-	context.font = '18pt Calibri';
-	var gradient=context.createLinearGradient(0,0,rect.width,0);
-	gradient.addColorStop("0","magenta");
-	gradient.addColorStop("0.5","blue");
-	gradient.addColorStop("1.0","red");
-	// Fill with gradient
-	context.fillStyle=gradient;
-	context.textAlign = 'center';
-	// context.shadowBlur=20;
-	// context.shadowColor="black";
-	context.fillText(message, canvas.width/2, canvas.height/2);
 }
 

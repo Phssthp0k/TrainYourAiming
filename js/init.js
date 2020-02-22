@@ -12,12 +12,13 @@ gameField.Resize( [2,2] );
 var div = new DivManagement_Class();
 
 var gameModesList = new GameModes_List_Class("gameModesList");
-// gameModesList.AddNewGame( new Test2_Class(gameField) );
-// gameModesList.AddNewGame( new QuickClick_Class(gameField) );
+gameModesList.AddNewGame( new aimTraining_Class(gameField) );
 gameModesList.AddNewGame( new QuickAim_Class(gameField) );
+gameModesList.AddNewGame( new FourSquares_Class(gameField) );
+gameModesList.AddNewGame( new QuickClick_Class(gameField) );
+gameModesList.AddNewGame( new Test2_Class(gameField) );
 // gameModesList.AddNewGame( new TestGame_Class(gameField) );
 // gameModesList.AddNewGame( new FollowTheCircle_Class(gameField) );
-gameModesList.AddNewGame( new FourSquares_Class(gameField) );
 
 gameModesList.GenerateGamesList(LoadGameCheckList);
 
