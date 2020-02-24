@@ -162,28 +162,24 @@ class CrossAir_Class extends clickableObject_Class
 
 	Draw( canvas, newPosition )
 	{
-		var COntext = canvas.getContext('2d');
+		this.COntext = canvas.getContext('2d');
+
 		this.position = newPosition || this.position;
-		var strokeColor = this.color;
-		var coord = this.position;
+		this.strokeColor = this.color;
+		this.coord = this.position;
 
 
 		// log("drawing crossair @ ["+coord.x+"]["+coord.y+"], color ["+strokeColor+"]");
-		var x = coord.x;
-		var y = coord.y;
+		this.x = this.coord.x;
+		this.y = this.coord.y;
 
-		COntext.strokeWidth = 1;
-
-		COntext.moveTo(x, y - 10);
-		COntext.lineTo(x, y + 10);
-
-		COntext.moveTo(x - 10,  y);
-		COntext.lineTo(x + 10,  y);
-
-		// Line color
-		COntext.strokeStyle = strokeColor;
-		COntext.stroke();
-  		COntext.strokeStyle = colors.black;
+		this.COntext.lineWidth = 1;
+		this.COntext.strokeStyle = this.strokeColor;
+		this.COntext.moveTo(this.x, this.y - 10);
+		this.COntext.lineTo(this.x, this.y + 10);
+		this.COntext.moveTo(this.x - 10,  this.y);
+		this.COntext.lineTo(this.x + 10,  this.y);
+		this.COntext.stroke();
 	}
 }
 

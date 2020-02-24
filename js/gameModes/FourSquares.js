@@ -23,10 +23,10 @@ class FourSquares_Class extends Game_Class
 		yy = Math.floor(yy) + 0.5;
 
 		this.centralCrossair = new CrossAir_Class("CCA", colors.red, { x: xx, y: yy} );
+
 		this.CM.background_Objects_List.Add(this.centralCrossair);
 
 		this.distanceFromCenter = 50;
-
 
 		this.CM.Add_OnMouse_Click_Function( this );
 	}
@@ -44,7 +44,9 @@ class FourSquares_Class extends Game_Class
 		this.quadratoSE.Position = { x: (this.CM.drawingCanvas.width /2) + this.quadratoWidth/2 + this.distanceFromCenter, 
 									y: (this.CM.drawingCanvas.height/2) - this.quadratoWidth/2 - this.distanceFromCenter};
 
+		this.centralCrossair.color = colors.red;
 		this.quadratoNW.color = colors.red;
+		this.quadratoNW.borderWidth = 3;
 		this.quadratoSW.color = colors.red;
 		this.quadratoNE.color = colors.yellow;
 		this.quadratoSE.color = colors.red;

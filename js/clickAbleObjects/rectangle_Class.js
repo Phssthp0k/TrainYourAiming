@@ -36,7 +36,7 @@ class Rectangle_Class extends clickableObject_Class
 
 	IsHit( mousePos )
 	{
-		if( (mousePos.x > this.position.x-(this.width/2) || mousePos.x < (this.position.x+(this.width/2))) && 
+		if( (mousePos.x > this.position.x-(this.width/2) && mousePos.x < (this.position.x+(this.width/2))) && 
 				(mousePos.y > this.position.y-(this.height/2) && mousePos.y < (this.position.y+(this.height/2)))
 			)
 				{
