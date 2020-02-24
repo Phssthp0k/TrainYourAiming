@@ -31,7 +31,7 @@ class GameModes_List_Class
 					div.className = "gameInList";
 					//div.style.background = getRandomColor();
 					div.innerHTML = game2Add.name;
-
+					
 					// game's ico
 					// game's description
 

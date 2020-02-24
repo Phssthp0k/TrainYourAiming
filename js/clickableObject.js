@@ -110,30 +110,6 @@ class clickableObject_Class
 	ChangeOpacity(opacity) { SetOpacity(opacity); }
 }
 
-class drawable_ObjectsList_Class
-{
-	constructor(listName)
-	{
-		this.name = listName || "Not Defined";
-		this.objectList = [];
-	}
-
-	get List() {return this.objectList;}
-	get list() {return this.objectList;}
-
-	set List(value) { this.objectList = value; }
-	set list(value) { this.objectList = value; }
-
-	Add(newObject)
-	{
-		this.objectList[this.objectList.length] = newObject;
-	}
-
-	Update(newList)
-	{
-		this.objectList = newList;
-	}
-}
 
 
 
@@ -142,46 +118,6 @@ class drawable_ObjectsList_Class
 
 
 
-
-
-
-
-
-
-
-
-class CrossAir_Class extends clickableObject_Class
-{
-	constructor ( newName, newColor, newPosition )	
-	{
-		super(newName);
-
-		this.color = newColor;
-		this.position = newPosition
-	}
-
-	Draw( canvas, newPosition )
-	{
-		this.COntext = canvas.getContext('2d');
-
-		this.position = newPosition || this.position;
-		this.strokeColor = this.color;
-		this.coord = this.position;
-
-
-		// log("drawing crossair @ ["+coord.x+"]["+coord.y+"], color ["+strokeColor+"]");
-		this.x = this.coord.x;
-		this.y = this.coord.y;
-
-		this.COntext.lineWidth = 1;
-		this.COntext.strokeStyle = this.strokeColor;
-		this.COntext.moveTo(this.x, this.y - 10);
-		this.COntext.lineTo(this.x, this.y + 10);
-		this.COntext.moveTo(this.x - 10,  this.y);
-		this.COntext.lineTo(this.x + 10,  this.y);
-		this.COntext.stroke();
-	}
-}
 
 class Text_Class extends clickableObject_Class
 {

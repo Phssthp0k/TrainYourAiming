@@ -1,3 +1,31 @@
+
+// Ciascun layer contiene una lista di oggetti da disegnare
+class Layer_Class
+{
+	constructor(listName)
+	{
+		this.name = listName || "Not Defined";
+		this.objectList = [];
+	}
+
+	get List() {return this.objectList;}
+	get list() {return this.objectList;}
+
+	set List(value) { this.objectList = value; }
+	set list(value) { this.objectList = value; }
+
+	Add(newObject)
+	{
+		this.objectList[this.objectList.length] = newObject;
+	}
+
+	Update(newList)
+	{
+		this.objectList = newList;
+	}
+}
+
+
 // Instantiate with a container, draws the passed objs
 class CanvasManagement_Class
 {
@@ -11,9 +39,9 @@ class CanvasManagement_Class
 		//this.hitCanvas = document.createElement('canvas');
 
 		// this.updateScreenTimer;
-		this.background_Objects_List = new drawable_ObjectsList_Class("BackgroundObjects");
-		this.clickable_Objects_List = new drawable_ObjectsList_Class("ClickableObjects");
-		this.overlay_Objects_List = new drawable_ObjectsList_Class("OverlayObjects");
+		this.background_Objects_List = new Layer_Class("BackgroundObjects");
+		this.clickable_Objects_List = new Layer_Class("ClickableObjects");
+		this.overlay_Objects_List = new Layer_Class("OverlayObjects");
 
 		this.refreshCount = 0;
 		
