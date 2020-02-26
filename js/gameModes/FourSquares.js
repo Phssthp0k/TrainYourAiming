@@ -48,7 +48,7 @@ class FourSquares_Class extends Game_Class
 
 
 		this.quadratoNW.color = colors.red;
-		// this.quadratoNW.border.width = 5;
+		 this.quadratoNW.border.width = 5;
 		this.quadratoSW.color = colors.red;
 		this.quadratoNE.color = colors.yellow;
 		this.quadratoSE.color = colors.red;
