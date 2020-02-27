@@ -4,6 +4,7 @@ class CrossHair_Class extends clickableObject_Class
 	{
 		super(newName);
 
+		this.strokeColor = newColor;
 		this.color = newColor;
 		this.position = newPosition
 	}
@@ -13,21 +14,14 @@ class CrossHair_Class extends clickableObject_Class
 		var COntext = canvas.getContext('2d');
 		
 		this.position = newPosition || this.position;
-		this.strokeColor = this.color;
-		this.coord = this.position;
-
-
-		// log("drawing crossair @ ["+coord.x+"]["+coord.y+"], color ["+strokeColor+"]");
-		this.x = this.coord.x;
-		this.y = this.coord.y;
-
+		
 		COntext.beginPath();
 		COntext.lineWidth = 1;
 		COntext.strokeStyle = this.strokeColor;
-		COntext.moveTo(this.x, this.y - 10);
-		COntext.lineTo(this.x, this.y + 10);
-		COntext.moveTo(this.x - 10,  this.y);
-		COntext.lineTo(this.x + 10,  this.y);
+		COntext.moveTo(this.position.x, this.position.y - 10);
+		COntext.lineTo(this.position.x, this.position.y + 10);
+		COntext.moveTo(this.position.x - 10,  this.position.y);
+		COntext.lineTo(this.position.x + 10,  this.position.y);
 		COntext.stroke();
 	}
 }

@@ -170,7 +170,7 @@ class CanvasManagement_Class
 
 	Resize( ratio ) // in form of [4,3]
 	{
-		var multFactor = 256;
+		var multFactor = 256; // each square that represents a part of the playng ground
 
 		var x=ratio[0];
 		var y=ratio[1];
@@ -223,6 +223,8 @@ class CanvasManagement_Class
 		this.ClearScreen();
 
 		this.refreshCount ++;
+
+		// Deve diventare un ciclo su array di layer
 
 		// Draw Background Objectss
 		if ( this.background_Objects_List.List.length > 0 )
