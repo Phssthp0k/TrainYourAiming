@@ -45,7 +45,6 @@ class Rectangle_Class extends clickableObject_Class
 				else
 				{
 					return 0;
-				}
-		  
+				}  
 	}
 }

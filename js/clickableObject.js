@@ -8,6 +8,8 @@ class clickableObject_Class
 		this.border = { width : 1, color : getRandomColor() };
 		this.hitScore = 1;
 		this.color = getRandomColor(); // array r g b a
+
+		this._isDestroyed = false;
 		
 		this.timestamp = new Date().getTime();
 
@@ -76,12 +78,16 @@ class clickableObject_Class
 			},
 		}
 	} // FINE COSTRUTTORE
-			
-	get SpawnTime()	{ return this.timestamp; }
-	get Life()	{ return (new Date().getTime() - this.timeStamp); }
 
-	get Position()	{ return this.position; }
-	set Position(value)	{ this.position=value; }
+	get Name()				{ return this.name;	}
+			
+	get SpawnTime()			{ return this.timestamp; }
+	get Life()				{ return (new Date().getTime() - this.timeStamp); }
+
+	get Position()			{ return this.position; }
+	set Position(value)		{ this.position=value; }
+
+	get isDestroyed()		{ return this._isDestroyed; }
 
 	Animate()
 	{
@@ -101,28 +107,23 @@ class clickableObject_Class
 	}
 	
 	OnClick( canvas, newPosition ){log("notDefined");};
-	IsHit( mousePos ){log("notDefined");};
+	IsHit( mousePos ){if(this._isDestroyed ) {	log("Object Destroyed"); } log("notDefined");};
 
 	SetOpacity(opacity)
 	{
 		this.color = [ this.color[0], this.color[1], this.color[2], opacity ];
 	}
 	ChangeOpacity(opacity) { SetOpacity(opacity); }
+
+	Destroy()
+	{
+		this._isDestroyed = true;
+	}
 }
 
 
 
 
-
-
-
-
-
-
-class Text_Class extends clickableObject_Class
-{
-
-}
 
 
 function DrawStartSign( canvas, message ) 

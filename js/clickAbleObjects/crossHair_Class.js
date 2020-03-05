@@ -17,7 +17,7 @@ class CrossHair_Class extends clickableObject_Class
 		
 		COntext.beginPath();
 		COntext.lineWidth = 1;
-		COntext.strokeStyle = this.strokeColor;
+		COntext.strokeStyle = getColor(this.strokeColor);
 		COntext.moveTo(this.position.x, this.position.y - 10);
 		COntext.lineTo(this.position.x, this.position.y + 10);
 		COntext.moveTo(this.position.x - 10,  this.position.y);

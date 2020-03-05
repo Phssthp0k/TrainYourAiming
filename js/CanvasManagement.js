@@ -19,6 +19,30 @@ class Layer_Class
 		this.objectList[this.objectList.length] = newObject;
 	}
 
+	Pop() // Remove Last Element
+	{
+		this.objectList.Pop();
+	}
+
+	Shift() // Remove First Element
+	{
+		this.objectList.Shift();
+	}
+
+	RemoveByName(remName)
+	{
+		log(remName);
+		for( var i=0; i < this.objectList.length; i++ )
+		{
+			log(this.objectList[i].Name);
+			if( this.objectList[i].Name.localeCompare(remName) == 0 )
+			{
+				log("remove");
+				this.objectList.splice(i,1);
+			}
+		}
+	}
+
 	Update(newList)
 	{
 		this.objectList = newList;
@@ -35,6 +59,10 @@ class CanvasManagement_Class
 		{
 			alert( "Canvas ID hasn't been correctly passed" );
 		}
+		this.multFactor = 256; // each square that represents a part of the playng ground
+		this.ratio = [ 2, 2 ]; // modificare in oggetto { oriz, vert }
+		this._isGraduated = 1;
+
 		this.drawingCanvas = document.getElementById(newDrawingCanvasID);
 		//this.hitCanvas = document.createElement('canvas');
 
@@ -59,6 +87,9 @@ class CanvasManagement_Class
 	}
 
 	get Context()	{ return this.drawingCanvas.getContext('2d'); }
+
+	get isGraduated() { return this._isGraduated; }
+	set isGraduated(value)	{ this._isGraduated = value; }
 
 
 	get canvas() { return Canvas; };
@@ -168,14 +199,15 @@ class CanvasManagement_Class
 	UpdateObjectList( oBjectsList ) {this.clickable_Objects_List.List = oBjectsList;}
 
 
-	Resize( ratio ) // in form of [4,3]
+	Resize( newRatio ) // in form of [4,3]
 	{
-		var multFactor = 256; // each square that represents a part of the playng ground
 
-		var x=ratio[0];
-		var y=ratio[1];
-		var newWidth = x*multFactor;
-		var newHeight = y*multFactor;
+		this.ratio = newRatio;
+
+		var x=this.ratio[0];
+		var y=this.ratio[1];
+		var newWidth = x*this.multFactor;
+		var newHeight = y*this.multFactor;
 		var orizSpace = window.document.body.clientWidth - newWidth;
 		var vertSpace = window.document.body.clientHeight - newHeight;
 
@@ -219,8 +251,56 @@ class CanvasManagement_Class
 	Refresh() {this.Refresh();}
 	RefreshScreen()
 	{
-		var canvas = this.drawingCanvas;
 		this.ClearScreen();
+		var canvas = this.drawingCanvas;
+		var COntext = canvas.getContext('2d');
+
+		if( this._isGraduated > 0 )
+		{
+			var countsX = this.ratio[0];
+			var countsY = this.ratio[1];
+			var gridLineWidth = 2;
+
+			// ori
+			if( countsX > 0 )
+			{
+				log(countsX+"-"+this.multFactor);
+				for( var r=1; r < countsX; r++ )
+				{
+					COntext.beginPath();
+					COntext.lineWidth = gridLineWidth;
+					COntext.strokeStyle = getColor(colors.red);
+					// 
+					COntext.moveTo(this.multFactor*r, 0);
+					COntext.lineTo(this.multFactor*r, 10);
+
+
+					COntext.moveTo(this.multFactor*r, this.multFactor*countsY-10);
+					COntext.lineTo(this.multFactor*r, this.multFactor*countsY+10);
+					
+					COntext.stroke();
+				}
+			}
+
+			// vert
+			if( countsY > 0 )
+			{
+				for( var s=1; s < countsY; s++ )
+				{
+					COntext.beginPath();
+					COntext.lineWidth = gridLineWidth;
+					COntext.strokeStyle = getColor(colors.red);
+					
+					COntext.moveTo(0, this.multFactor*s);
+					COntext.lineTo(10, this.multFactor*s);
+
+					COntext.moveTo(this.multFactor*countsX-10, this.multFactor*s);
+					COntext.lineTo(this.multFactor*countsX+10, this.multFactor*s);
+					
+					COntext.stroke();
+				}
+			}
+		}
 
 		this.refreshCount ++;
 

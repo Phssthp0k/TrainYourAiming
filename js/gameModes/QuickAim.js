@@ -26,7 +26,7 @@ class QuickAim_Class extends Game_Class
 		this._targetTimeout = 1000;
 
 		this.CM.Add_OnMouse_Click_Function( this );
-		//this.CM.Add_OnMouse_Move_Function( this );
+		//this.CM.Add_OnMouse_Move_Function( this );Z
 
 		//this.StartGame();
 	}

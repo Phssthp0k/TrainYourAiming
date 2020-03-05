@@ -23,6 +23,11 @@ function name()
   return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
 }
 
+function PadLeft( nr, n, str )
+{
+	return Array(n-String(nr).length+1).join(str||'0')+nr;
+}
+
 function echo(messate) { Log(message); }
 function log(message) { Log(message); }
 function Log(message)
@@ -143,6 +148,11 @@ function getColor(color)
 {
 	return getColorFromArray(color);
 }
+function getHTMLcolor(color)
+{
+	return  getColorFromArray(color);
+}
+
 function getOpacity(color)
 {
 	return color[3];
