@@ -47,10 +47,11 @@ class FourSquares_Class extends Game_Class
 	StartGame()
 	{
 		super.StartGame();
+		//this.CM.StopRefresh();
 
 		this.CM.UpdateObjectList( [ this.quadratoNW, this.quadratoSW, this.quadratoNE, this.quadratoSE ] );
 
-		this.CM.StartRefresh();
+		this.CM.RefreshScreen();
 	}
 
 	OnClick(mouseEvents)
@@ -58,13 +59,16 @@ class FourSquares_Class extends Game_Class
 		var mousePos = GetMousePos(this.CM.Canvas, mouseEvents);
 
 		if( this.quadratoNW.IsHit(mousePos) > 0 && !this.quadratoNW.isDestroyed) 
-			{ 
-				log("NW ["+mousePos.x+"]["+mousePos.y+"]");
+		{ 
+			log("NW ["+mousePos.x+"]["+mousePos.y+"]");
 
-				this.CM.overlay_Objects_List.Add(new CrossHair_Class("HitNW", colors.green, mousePos).animations.FadeOut(700)); 
-				this.CM.clickable_Objects_List.RemoveByName("quadratoNW");
-				this.quadratoNW.Destroy();	
-			}
+			var asdf = new CrossHair_Class("HitNW", colors.green, mousePos);
+
+			this.CM.overlay_Objects_List.Add(asdf); 
+			this.CM.clickable_Objects_List.RemoveByName("quadratoNW");
+			asdf.animations.FadeOut(100);
+			this.quadratoNW.Destroy();	
+		}
 		if( this.quadratoSW.IsHit(mousePos) > 0) { log("SW ["+mousePos.x+"]["+mousePos.y+"]"); this.CM.overlay_Objects_List.Add(new CrossHair_Class("HitSW", colors.purple, mousePos)); }
 		if( this.quadratoNE.IsHit(mousePos) > 0) { log("NE ["+mousePos.x+"]["+mousePos.y+"]"); this.CM.overlay_Objects_List.Add(new CrossHair_Class("HitNE", colors.blue, mousePos)); }
 		if( this.quadratoSE.IsHit(mousePos) > 0) { log("SE ["+mousePos.x+"]["+mousePos.y+"]"); this.CM.overlay_Objects_List.Add(new CrossHair_Class("HitSE", colors.white, mousePos)); }
