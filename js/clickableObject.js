@@ -4,12 +4,12 @@ class clickableObject_Class
 	{
 		this.name = (newName || "notDefined");
 		this.position = { x : 0, y : 0 }; // La posizione deve essere sempre centrale
-		this.canClip = false;
-		this.border = { width : 1, color : getRandomColor() };
-		this.hitScore = 1;
 		this.color = getRandomColor(); // array r g b a
-
+		this.border = { draw : false, width : 0, color : getRandomColor() };
 		this._isDestroyed = false;
+		
+		this.canClip = false;
+		this.hitScore = 1;
 		
 		this.timestamp = new Date().getTime();
 
@@ -88,6 +88,7 @@ class clickableObject_Class
 	set Position(value)		{ this.position=value; }
 
 	get isDestroyed()		{ return this._isDestroyed; }
+
 
 	Animate()
 	{

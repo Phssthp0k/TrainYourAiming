@@ -7,7 +7,6 @@ if( window.canRunAds === undefined )
 }
 
 var gameField = new CanvasManagement_Class("GameField_Canvas");
-gameField.Resize( [4,3] );
 
 var div = new DivManagement_Class();
 

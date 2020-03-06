@@ -31,13 +31,10 @@ class Layer_Class
 
 	RemoveByName(remName)
 	{
-		log(remName);
 		for( var i=0; i < this.objectList.length; i++ )
 		{
-			log(this.objectList[i].Name);
 			if( this.objectList[i].Name.localeCompare(remName) == 0 )
 			{
-				log("remove");
 				this.objectList.splice(i,1);
 			}
 		}
@@ -252,6 +249,7 @@ class CanvasManagement_Class
 	RefreshScreen()
 	{
 		this.ClearScreen();
+		
 		var canvas = this.drawingCanvas;
 		var COntext = canvas.getContext('2d');
 
@@ -264,7 +262,6 @@ class CanvasManagement_Class
 			// ori
 			if( countsX > 0 )
 			{
-				log(countsX+"-"+this.multFactor);
 				for( var r=1; r < countsX; r++ )
 				{
 					COntext.beginPath();

@@ -1,3 +1,14 @@
+CSS DIV Forme
+
+https://css-tricks.com/the-shapes-of-css/
+https://css-tricks.com/working-with-shapes-in-web-design/
+
+
+
+
+
+
+
 
 function UpdateAllScore()
 {

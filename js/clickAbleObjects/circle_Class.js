@@ -1,16 +1,20 @@
 // -----------------------------------------------------------------
 class Circle_Class extends clickableObject_Class
 {
-	constructor ( newName )	
+	constructor ( newName, newColor, newPosition, newRadius )	
 	{
 		super(newName);
-		this.radius = 50;
+
+		this.radius = newRadius || 50;
+		this.color = newColor || colors.white;
+		this.position = newPosition || this.position;
 
 		this.Animations = [];
 		this.circleTimer = new GameTimer(500);
+
 	}
 
-	Draw( canvas, newPosition )
+	Draw( canvas, newPosition ) // Position non utilizzato
 	{
 		this.position = newPosition || this.position;
 		var COntext = canvas.getContext('2d');
@@ -27,9 +31,12 @@ class Circle_Class extends clickableObject_Class
 		COntext.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
 		COntext.fillStyle = getColor(this.color);
 		COntext.fill();
-		COntext.lineWidth = this.borderWidth;
-		COntext.strokeStyle = this.borderColor;
-		COntext.stroke();
+		if( this.border.draw )
+		{
+			COntext.lineWidth = this.border.width;
+			COntext.strokeStyle = getColor(this.border.color);
+			COntext.stroke();
+		}
 	
 	};
 
@@ -55,8 +62,8 @@ class Circle_Class extends clickableObject_Class
 		return (( res < this.radius ) ? this.hitScore : 0 );
 	}
 
-	FadeOut()
+	FadeOut(msecs)
 	{
-		this.animations.FadeOut(100);
+		this.animations.FadeOut(msecs||100);
 	}
 }

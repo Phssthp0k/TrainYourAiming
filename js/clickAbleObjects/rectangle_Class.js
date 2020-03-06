@@ -29,9 +29,12 @@ class Rectangle_Class extends clickableObject_Class
 		COntext.beginPath();
 		COntext.fillStyle = getColor(this.color);
 		COntext.fillRect(this.position.x-(this.width)/2, this.position.y-(this.height/2), this.width, this.height);
-		// COntext.lineWidth = this.borderWidth;
-		// COntext.strokeStyle = this.borderColor;
-		COntext.stroke();
+		if( this.border.draw )
+		{
+			COntext.lineWidth = this.border.width;
+			COntext.strokeStyle = getColor(this.border.color);
+			COntext.stroke();	
+		}
 	}
 
 	IsHit( mousePos )
